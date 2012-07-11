@@ -19,25 +19,115 @@ YYY
 
 \maketitle
 
-\begin{abstract}
-This is the abstract.
-\end{abstract}
-
 \section{Introduction}
 
-\section{Problem Settings}
+\section{Cost Model and Settings}
+\newtheorem{definition}{Definition}
+\begin{definition}
+In our settings, there's only one seller selling one item to $n$ i.i.d. bidders
+whose valuation distribution (CDF) is continuous over $[0, 1]$.
+The seller can broadcast a message to all bidders with a 
+cost $b$ (the broadcast cost). A bidder may remain silent after that broadcast with no cost.
+If not, it costs $c_0$ if the bidder's bidding(reply) doesn't
+imply positive valuation. Otherwise, if the bidding implies a positive 
+valuation, a greater bidding cost $c > c_0$ is charged.
+Such bidding cost $c$ main contain two parts, $c_1, c_2~~(c_1+c_2 = c)$. 
+The first part $c_1$ is charged to the seller while the second is charged to
+the corresponding bidder.
+\end{definition}
 
-\section{Efficient and Seller's Cost Only Case}
+\section{Optimal Mechanisms with Efficiency and Only Seller's Cost}
 
 \subsection{Optimality of Multi-round Vickrey Auctions (MVA)}
 
+\newtheorem{theorem}{Theorem}
+\begin{theorem}\label{theorem1}
+Suppose there's one seller selling one item to $n$ i.i.d. bidders
+whose valuation distribution (CDF) is continuous over $[0, 1]$.
+The seller can broadcast a message to all bidders with a 
+cost $b$. A bidder may remain silent after that broadcast with no cost.
+If not, it costs $c_0$ if the bidder's bidding(reply) doesn't
+imply positive valuation. Otherwise, if the bidding implies a positive 
+valuation, a greater bidding cost $c_1 > c_0$ is charged.
+Among all mechanisms that can include multiple rounds of broadcasts
+and are required to be efficient (allocate the item to the bidder with
+highest valuation), Multi-round Vickrey Auctions (MVAs) are of minimum
+cost.
+\end{theorem}
+
+\newtheorem{corollary}{Corollary}
+\begin{corollary}
+If all broadcast costs and bidding costs are charged to sellers,
+MVA gives the maximum utility to sellers if efficiency is required.
+Such optimal MVA is the one that minimizes the overall cost.
+\end{corollary}
+
 \subsection{Cost Minimized $\alpha$-MVA}
 
-\section{General Cases with Bidder's Cost}
+\subsection{Approximation of $\alpha$ and Experiments}
 
-\subsection{Payment Equivalence and Revenue Optimization}
+\section{Optimal Mechanisms with Both Seller's and Bidder's Cost}
 
-\subsection{Optimal MVA with Lowest Type}
+\subsection{Payment Equivalence Theorem and Revenue Optimization Strategy}
+
+\begin{theorem}
+If two mechanisms satisfy:
+\begin{enumerate}
+\item They only allocate the item to bidders whose valuation
+are at least $l$ (the lowest type is $l$)
+\item If they will allocate the item, they
+will always allocate the item to the bidder with highest valuation.
+\end{enumerate}
+They will have the same overall payment from all bidders 
+(including bidders' bidding costs and payments to sellers).
+\end{theorem}
+
+\begin{corollary}
+For mechanisms that have a fixed lowest type $l$ and
+will always allocate the item to the bidder with highest valuation if it's at least $l$, 
+the maximum utility for sellers is achieved
+when the mechanism minize the cost.
+\end{corollary}
+
+\begin{theorem}
+%Suppose there's one seller selling one item to $n$ i.i.d. bidders
+%whose valuation distribution CDF is continuous over $[0, 1]$.
+%The seller can broadcast a message to all bidders with a 
+%cost $b$. A bidder may remain silent after that broadcast with no cost.
+%If not, it costs $c_0$ if the bidder's bidding(reply) doesn't
+%imply positive valuation. Otherwise, if the bidding implies a positive 
+%valuation, two bidding costs $c_1, c_2$ where $c_1+c_2 > c_0$ are charged
+%to the seller and corresponding bidder respectively.
+%Among all mechanisms that can include multiple rounds of broadcasts
+%and are required to allocate the item to the bidder with highest valuation
+%not less than lowest type $l$ (no allocation is no such bidder exists), 
+%Multi-round Vickrey Auctions (MVA) are of minimum overall cost.
+
+Under the same circumstances of theorem \ref{theorem1}, except that
+the efficiency constraint is replaced by lowest type $l$ and the bidding cost is 
+now also charged to corresponding bidder,
+MVAs are of the minimum cost among all those mechanisms that have a fixed 
+lowest type $l$ and will always allocate the item to the bidder 
+with highest valuation if it's at least $l$.
+\end{theorem}
+
+\begin{corollary}
+MVAs are optimal in terms of maximizing seller's utility.
+\end{corollary}
+
+\begin{corollary}
+Shall we increase lowest type $l$ a little above Myerson's
+optimal lowest type to trade payment with cost? Or is it optimal
+to use Myerson's $l$ and then minimize cost according to that?
+\end{corollary}
+
+\subsection{Experiments to Discover Optimal MVA with a Given Lowest Type}
+
+\subsection{Analysis of Optimal MVA with Lowest Type}
+
+\subsection{Using Piecewise Linear MVA to Approximate Optimal MVA}
+
+\subsection{Choosing Lowest Type?}
 
 \section{Conclusion}
 
