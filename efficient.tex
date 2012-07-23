@@ -1,0 +1,133 @@
+\section{Optimal Mechanisms with Efficiency and Only Seller's Cost}
+
+In this section, we consider a simplified optimizing problem with efficiency
+constraint and the cost is only charged to the seller.  Though these two
+constraints simplify our problem a lot, they are very common in real cases such
+as craigslist or moving sales in mailing-lists. (more to explain efficiency
+and no bidder's cost).
+
+First of all, we introduce a mechanism called Multi-round Vickrey Auction (MVA)
+based on what's been using in realworld online second-hand item transactions.
+Then we prove that MVAs are optimal. After that we'll try to find the specific
+MVA that achieves the optimality. Finally, we conduct some experiments to
+compare the optimal MVA with other mechanisms.
+
+\subsection{Multi-round Vickrey Auctions}
+
+A Multi-round Vickrey Auction (MVA) has multiple rounds of Vickrey
+auctions with progressively decreasing reserve prices. This kind of auction
+effectively occurs on eBay. The seller may set up a reserve price and let
+buyers bid for this item. The proxy bidding functionality makes such an auction
+equivalent to a Vickrey auction with a reserve price. If no buyers bid for a
+given reserve price, the seller may lower the reserve price, which makes the
+whole process equivalent to an MVA.
+
+\begin{definition}(Multi-round Vickrey Auction, MVA)
+
+In a Multi-round Vickrey Auction (MVA), there's a sequence of reserve prices
+$r_k, r_{k-1}, \ldots, r_0$ where $r_k > r_{k-1}$. The seller creates a Vickrey
+auction with a reserve price $r_{k-i}$ at time $i$ (or round $k-i$). In each
+Vickrey auction, if only one buyer bids, he/she gets the item and pays reserve
+price. Otherwise, the buyer with the highest bidding gets the item and pays the
+second highest bidding.
+
+\end{definition}
+
+MVAs require Vickrey auctions (or equivalent English auctions) as basic steps.
+In reality, however, such functionality won't always be provided by online
+platforms such as craigslist. Thus a simplified version of MVA occur very often
+in those platforms. People call it first-come first served which means for
+every reserve price $r_i$, the first one who accept that price wins the item
+and pays $r_i$ directly. This mechanism may loose revenue and social efficiency
+as the person with lower valuation $p$ may get the item for $r_i$ while there's
+someone else who is willing to pay a higher amount of $q$ where $r_i \leq p < q
+< r_{i+1}$. We won't focus on this first-come first served mechanism because
+it's harder to analyze analytically and it's inferior than MVAs in terms of
+both sellers' utility and social welfare.
+
+Since there's no cost charged to buyers, it's obvious to see that whenever a
+bidder decides to bid, he/she must bid truthfully. Thus the Bayesian Nash
+Equilibria (BNE) for MVAs can be described as $k$ thresholds $a_k, a_{k-1},
+\ldots, a_0$ where $a_i > a_{i-1}$. Whenever a bidder's valuation for the item
+is greater than $a_i$, he/she is going to bid in round $i$ whose reserve price
+is $r_i$. Because of efficiency constraint we also have $r_0 = a_0 = 0$.
+
+So the equations to determine $a_i$ are: 
+\begin{align}\label{eq:MVA_eq}
+    &r_0 = a_0 = 0 \mbox{ and }
+    \forall i ~(1 \leq i \leq k),\nonumber\\
+    &~~P(a_{i})(a_{i}-r_i) =
+    \int_{a_{i-1}}^{a_{i}}(a_{i}-x)p(x)dx+P(a_{i-1})(a_{i}-r_{i-1})
+\end{align}
+assuming
+\begin{align*}
+    P(x) &:= Pr(v_{1},v_{2},\ldots,v_{n-1}\leq x)\\
+    p(x) &:= Pr(\max_{1 \leq j\leq n-1}v_{j}=x)=P'(x)
+\end{align*}
+and $v_1, v_2, \ldots, v_{n-1}$ are valuations of the remaining $n-1$ bidders.
+The equation \ref{eq:MVA_eq} says that the bidder with valuation $a_i$ should be
+indifferent from bidding in round $i$ (the left hand side) and bidding in round
+$i-1$(the right hand side).  The following theorem describes the equilibrium of
+MVAs determined by equations above.
+
+\begin{theorem}
+In a MVA with reserve prices $r_k, r_{k-1}, \ldots, r_0$, there's a pure
+strategy Bayesian Nash Equibibrium characterized by thresholds $a_k, a_{k-1},
+\ldots, a_0$.  The bidder with valuation greater than $a_i$ (but not greater
+than $a_{i+1}$) will bid in round $i$ with reserve price $r_i$. The relation
+between $a_i$ and $r_i$ is:
+\begin{align}\label{eq:MVA_eq_relation}
+  r_0 &= a_0 = 0 \nonumber \\
+  r_i &= \left( \int_{0}^{a_i} x \, p(x) dx \right) / P(a_i) & (i > 0)
+\end{align}
+\end{theorem}
+
+\begin{proof}
+By equation \ref{eq:MVA_eq_relation}, we have $r_i P(a_i) = \int_{0}^{a_i}
+x\,p(x)dx$ for all $i$ (TOO BAD this won't hold if $a_0 > 0$). Thus the right
+hand side of equation \ref{eq:MVA_eq} is:
+\begin{align*}
+	& \int_{a_{i-1}}^{a_i} a_i p(x) dx - \int_{a_{i-1}}^{a_i} x \, p(x) dx + P(a_{i-1})(a_i-r_{i-1}) \\
+	&= a_i P(a_i) - \cancel{a_i P(a_{i-1})} - r_i P(a_i) + \cancel{r_{i-1} P(a_{i-1})} \\
+		& ~~~ + \cancel{P(a_{i-1}) a_i} - \cancel{P(a_{i-1}) r_{i-1}}\\
+	&= \mbox{left hand side of equation\ref{eq:MVA_eq}}
+\end{align*}
+\end{proof}
+
+This tells us that a bidder will bid in a round of MVA if and only if the
+expected second highest bidding conditional on this bidder's valuation is the
+highest is greater than the reserve price of that round. For example, if the
+distribution is uniform, i.e. $P(x) = x^{n-1}$, $r_i = \frac{n-1}{n} a_i$ for
+$i > 0$.
+
+\subsection{Optimality of MVAs}
+
+\begin{theorem}\label{theorem1}
+
+Among all mechanisms that can include multiple rounds of broadcasts and are
+required to be efficient (allocate the item to the bidder with highest
+valuation), Multi-round Vickrey Auctions (MVAs) are of minimum cost.
+
+\end{theorem}
+
+
+\begin{corollary}
+
+If all broadcast costs and bidding costs are charged to sellers, MVAs are
+optimal if efficiency is required.  Such optimal MVA is the one that minimizes
+the overall cost.
+
+\end{corollary}
+
+\subsection{Cost Minimized $\alpha$-MVA}
+
+\subsection{Approximation of $\alpha$ and Experiments}
+
+It's difficult to get an exact closed formula for optimal $\alpha$. Thus we are
+going to use a closed formula to approximate this $\alpha$. We'll conduct
+experiments to compare our approximation with the optimal $\alpha$ that's
+computed numerically. We are also going to show comparisons between optimal
+MVA, approximate optimal MVA and other conventional mechanisms such as Vickrey
+auctions.
+
+
