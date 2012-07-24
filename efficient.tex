@@ -1,16 +1,37 @@
 \section{Optimal Mechanisms with Efficiency and Only Seller's Cost}
 
 In this section, we consider a simplified optimizing problem with efficiency
-constraint and the cost is only charged to the seller.  Though these two
-constraints simplify our problem a lot, they are very common in real cases such
-as craigslist or moving sales in mailing-lists. (more to explain efficiency
-and no bidder's cost).
+constraint and only seller's cost.  Though these two
+constraints simplify our problem a lot, they are reasonable in real cases such
+as craigslist or moving sales in mailing-lists:
 
-First of all, we introduce a mechanism called Multi-round Vickrey Auction (MVA)
-based on what's been using in realworld online second-hand item transactions.
-Then we prove that MVAs are optimal. After that we'll try to find the specific
-MVA that achieves the optimality. Finally, we conduct some experiments to
-compare the optimal MVA with other mechanisms.
+\begin{enumerate}
+
+\item In many cases, sellers only have $0$ valuation for the item and
+they cannot commit to withhold the item or prevent re-sales between buyers.
+For example, some second-hand items will be tossed if they cannot be sold by a
+particular day, e.g. the day the seller moves out the house. We encounter many
+free items during second-hand sales as well, which is another demonstration of
+zero valuation. Under such circumstances, an efficient mechanism not only
+maximzes the social welfare but also maximizes the seller's revenue [cite The
+optimality of being efficient].
+
+\item The bidding cost for each bidder is sometimes negligible compared to
+bidding cost charged to the seller. For example, if $100$ bidders replied to
+the seller by a $1$-minue call, each bidder only has a tiny $1$ minue cost.
+But for the seller, it's a big $100$ minutes cost which is very annoying. It's
+also necessary to remove bidder's bidding cost to achieve efficiency.
+Otherwise, the item may not be able to allocate to the highest bidder
+when that highest valuation is below the bidder's bidding cost.
+
+\end{enumerate}
+
+The rest of this section is organized as follows. First of all, we introduce a
+mechanism called Multi-round Vickrey Auction (MVA) based on what's been used in
+realworld online second-hand item transactions.  Then we prove that MVAs are
+optimal (so there exists a MVA that's optimal). After that we'll try to find
+the specific MVA that achieves the optimality. Finally, we conduct some
+experiments to compare the optimal MVA with other mechanisms.
 
 \subsection{Multi-round Vickrey Auctions}
 
@@ -55,7 +76,7 @@ is $r_i$. Because of efficiency constraint we also have $r_0 = a_0 = 0$.
 In later analysis, we will think about the equilibrium from another
 perspective.  We firstly decide thresholds $a_i$ since it's more meaningful for
 bidders to make decisions and for us to make analysis. For a set of thresholds,
-we then determine the right reserve prices $r_i$ so bidders are incentive
+we then determine the right reserve prices $r_i$ that make bidders incentive
 compatible to bid according to $a_i$. The following equations connects $a_i$
 and $r_i$:
 \begin{align}\label{eq:MVA_eq}
@@ -94,7 +115,7 @@ hand side of equation \ref{eq:MVA_eq} is:
 	& \int_{a_{i-1}}^{a_i} a_i p(x) dx - \int_{a_{i-1}}^{a_i} x \, p(x) dx + P(a_{i-1})(a_i-r_{i-1}) \\
 	&= a_i P(a_i) - \cancel{a_i P(a_{i-1})} - r_i P(a_i) + \cancel{r_{i-1} P(a_{i-1})} \\
 		& ~~~ + \cancel{P(a_{i-1}) a_i} - \cancel{P(a_{i-1}) r_{i-1}}\\
-	&= \mbox{left hand side of equation\ref{eq:MVA_eq}}
+	&= \mbox{left hand side of equation \ref{eq:MVA_eq}}
 \end{align*}
 \end{proof}
 
@@ -113,6 +134,22 @@ required to be efficient (allocate the item to the bidder with highest
 valuation), Multi-round Vickrey Auctions (MVAs) are of minimum cost.
 
 \end{theorem}
+
+\begin{proof}
+
+The mechanism is required to be efficient so the mechanism should at least find
+out the bidder with highest valuation. The best case is that every reply
+contains the exact and truthful valuation of the corresponding bidder since
+every non-silent reply has a cost $c$. By doing that, we never need someone to
+reply twice. We then prove that if this best case can be achieved, the
+descending query mechanisms are optimal, which gives us a lower bound of
+minimum cost. After that, it's easy to show that MVAs can achieve this lower
+bound so this is the optimal cost and MVAs are optimal mechanisms.
+
+Firstly, let's prove that descending query mechanisms are optimal if all replies
+consists the exact valuation of corresponding bidders.
+
+\end{proof}
 
 
 \begin{corollary}
