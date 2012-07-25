@@ -46,8 +46,8 @@ whole process equivalent to an MVA.
 \begin{definition}(Multi-round Vickrey Auction, MVA)
 
 In a Multi-round Vickrey Auction (MVA), there's a sequence of reserve prices
-$r_k, r_{k-1}, \ldots, r_0$ where $r_k > r_{k-1}$. The seller creates a Vickrey
-auction with a reserve price $r_{k-i}$ at time $i$ (or round $k-i$). In each
+$r_1, r_2, \ldots, r_k$ where $r_k > r_{k+1}$. The seller creates a Vickrey
+auction with a reserve price $r_i$ at time $i$ (or round $i$). In each
 Vickrey auction, if only one buyer bids, he/she gets the item and pays reserve
 price. Otherwise, the buyer with the highest bidding gets the item and pays the
 second highest bidding.
@@ -62,33 +62,33 @@ every reserve price $r_i$, the first one who accept that price wins the item
 and pays $r_i$ directly. This mechanism may loose revenue and social efficiency
 as the person with lower valuation $p$ may get the item for $r_i$ while there's
 someone else who is willing to pay a higher amount of $q$ where $r_i \leq p < q
-< r_{i+1}$. We won't focus on this first-come first served mechanism because
+< r_{i-1}$. We won't focus on this first-come first served mechanism because
 it's harder to analyze analytically and it's inferior than MVAs in terms of
 both sellers' utility and social welfare.
 
 Since there's no cost charged to buyers, it's obvious to see that whenever a
 bidder decides to bid, he/she must bid truthfully. Thus the Bayesian Nash
-Equilibria (BNE) for MVAs can be described as $k$ thresholds $a_k, a_{k-1},
-\ldots, a_0$ where $a_i > a_{i-1}$. Whenever a bidder's valuation for the item
+Equilibria (BNE) for MVAs can be described as $k$ thresholds $a_1, a_2,
+\ldots, a_k$ where $a_i > a_{i+1}$. Whenever a bidder's valuation for the item
 is greater than $a_i$, he/she is going to bid in round $i$ whose reserve price
-is $r_i$. Because of efficiency constraint we also have $r_0 = a_0 = 0$.
+is $r_i$. Because of efficiency constraint we also have $r_k = a_k = 0$.
 
 In later analysis, we will think about the equilibrium from another
-perspective.  We firstly decide thresholds $a_i$ since it's more meaningful for
+perspective.  We firstly decide thresholds $a_i$ since they are more meaningful for
 bidders to make decisions and for us to make analysis. For a set of thresholds,
 we then determine the right reserve prices $r_i$ that make bidders incentive
 compatible to bid according to $a_i$. The following equations connects $a_i$
 and $r_i$:
 \begin{align}\label{eq:MVA_eq}
-    &r_0 = a_0 = 0 \mbox{ and }
-    \forall i ~(1 \leq i \leq k),\nonumber\\
+    &r_k = a_k = 0 \mbox{ and }
+    \forall i ~(1 \leq i < k),\nonumber\\
     &~~P(a_{i})(a_{i}-r_i) =
-    \int_{a_{i-1}}^{a_{i}}(a_{i}-x)p(x)dx+P(a_{i-1})(a_{i}-r_{i-1})
+    \int_{a_{i+1}}^{a_{i}}(a_{i}-x)p(x)dx+P(a_{i+1})(a_{i}-r_{i+1})
 \end{align}
 assuming
 \begin{align*}
     P(x) &:= F(x)^{n-1}\\
-    p(x) &:= P'(x) = (n-1)F(x)^{n-2}
+    p(x) &:= P'(x) = (n-1)F(x)^{n-2} f(x)
 \end{align*}
 The equation \ref{eq:MVA_eq} says that the bidder with valuation $a_i$ should be
 indifferent from bidding in round $i$ (the left hand side) and bidding in round
@@ -96,15 +96,14 @@ $i-1$(the right hand side).  The following theorem describes the equilibrium of
 MVAs determined by equations above.
 
 \begin{theorem}
-In a MVA with a pure strategy Bayesian Nash Equibibrium characterized by
-thresholds $a_k, a_{k-1}, \ldots, a_0$ where the bidder with valuation greater
-than $a_i$ (but not greater than $a_{i+1}$) will bid in round $i$ (recall that
-round $k$ is the first round and round $0$ is the last round), the reserve
-prices $r_i$ shall be:
+If we make reserve prices $r_i$ to be:
 \begin{align}\label{eq:MVA_eq_relation}
-  r_0 &= a_0 = 0 \nonumber \\
-  r_i &= \left( \int_{0}^{a_i} x \, p(x) dx \right) / P(a_i) & (i > 0)
+  r_k &= a_k = 0 \nonumber \\
+  r_i &= \left( \int_{0}^{a_i} x \, p(x) dx \right) / P(a_i) & (i < k)
 \end{align}
+Such MVA will have a pure strategy Bayesian Nash Equibibrium characterized by
+thresholds $a_1, a_2, \ldots, a_k$ where the bidder with valuation greater than
+$a_i$ (but not greater than $a_{i-1}$) will bid in round $i$
 \end{theorem}
 
 \begin{proof}
@@ -112,9 +111,9 @@ By equation \ref{eq:MVA_eq_relation}, we have $r_i P(a_i) = \int_{0}^{a_i}
 x\,p(x)dx$ for all $i$. Thus the right
 hand side of equation \ref{eq:MVA_eq} is:
 \begin{align*}
-	& \int_{a_{i-1}}^{a_i} a_i p(x) dx - \int_{a_{i-1}}^{a_i} x \, p(x) dx + P(a_{i-1})(a_i-r_{i-1}) \\
-	&= a_i P(a_i) - \cancel{a_i P(a_{i-1})} - r_i P(a_i) + \cancel{r_{i-1} P(a_{i-1})} \\
-		& ~~~ + \cancel{P(a_{i-1}) a_i} - \cancel{P(a_{i-1}) r_{i-1}}\\
+	& \int_{a_{i+1}}^{a_i} a_i p(x) dx - \int_{a_{i+1}}^{a_i} x \, p(x) dx + P(a_{i+1})(a_i-r_{i+1}) \\
+	&= a_i P(a_i) - \cancel{a_i P(a_{i+1})} - r_i P(a_i) + \cancel{r_{i+1} P(a_{i+1})} \\
+		& ~~~ + \cancel{P(a_{i+1}) a_i} - \cancel{P(a_{i+1}) r_{i+1}}\\
 	&= \mbox{left hand side of equation \ref{eq:MVA_eq}}
 \end{align*}
 \end{proof}
@@ -127,7 +126,19 @@ $i > 0$.
 
 \subsection{Optimality of MVAs}
 
-\begin{definition}
+Since the mechanism is required to be efficient, by revenue equivalence theorem [cite]
+we known that the seller's gross revenue without substracting costs is fixed. Thus
+to maximize his utility is equivalent to minimize the cost. To satisfy efficiency
+constraint, the mechanism should at least find out the bidder with highest valuation.
+The best case is that every reply
+contains the exact and truthful valuation of the corresponding bidder since
+every non-silent reply has a cost $c$. By doing that, we never need someone to
+reply twice. The optimizing problem in this best case is defined as definition \ref{def:query}.
+The minimum cost of this best case optimizing problem provides us a lower bound
+for minimum cost of our mechanisms. We will then prove that MVAs can achieve this
+lower bound so MVAs are optimal.
+
+\begin{definition}\label{def:query}
 
 Assume there are $n$ values $v_i ~(1 \leq i \leq n)$ independently and
 identically distributed over $[0, 1]$ with PDF $f(x)$ and CDF $F(x)$.  A query
@@ -151,6 +162,9 @@ We will write such minimum expected cost as $C^*(f, n)$, a function
 of PDF $f(x)$ and number of values $n$.
 
 \end{definition}
+
+We are then going to find out the optimal query strategy. Firstly, we need
+a lemma that tells us that the minimum cost is independent of PDF $f(x)$.
 
 \begin{lemma}\label{lemma:uniform}
 
@@ -183,7 +197,27 @@ illustrates those two constructions we used for this proof.
 
 \end{proof}
 
-\begin{lemma}
+\begin{figure}
+\centering
+  \subfigure[Construct $S_{u|f}$ from $S_f$]{
+    \includegraphics[width=.45\linewidth]{figures/S-f-to-u}
+    \label{fig:S-t-to-u}
+  }
+  \subfigure[Construct $S_{f|u}$ from $S_u$]{
+    \includegraphics[width=.45\linewidth]{figures/S-u-to-f}
+    \label{fig:S-u-to-f}
+  }
+  \caption{These two figures illustrates how to construct a strategy for
+  uniform PDF $u$ from another strategy for another arbitrary PDF $f$ and vice
+  versa. Here we depict a strategy as a box which takes four inputs $f, m, V,
+  \mathcal Q$ (PDF, number of unknown values, reported values set, set of asked
+  queries) and make an output $Q$ (the next query)} \label{fig:uniform}
+\end{figure}
+
+After that, we prove that descending queries are optimal for this best
+case optimizing problem.
+
+\begin{lemma}\label{lemma:descending}
 
 There exists an optimal strategy with only descending queries
 $Q_1 = [q_1, 1], ~Q_2 = [q_2, q_1), ~Q_3 = [q_3, q_2)\ldots$
@@ -241,7 +275,9 @@ descending query without increasing the cost.
 
 \end{proof}
 
-\begin{theorem}\label{theorem1}
+Finally, we conclude the optimality of MVAs.
+
+\begin{theorem}\label{theorem:MVA_eq}
 
 Among all mechanisms that can include multiple rounds of broadcasts and are
 required to be efficient (allocate the item to the bidder with highest
@@ -251,20 +287,18 @@ valuation), Multi-round Vickrey Auctions (MVAs) are of minimum cost.
 
 \begin{proof}
 
-The mechanism is required to be efficient so the mechanism should at least find
-out the bidder with highest valuation. The best case is that every reply
-contains the exact and truthful valuation of the corresponding bidder since
-every non-silent reply has a cost $c$. By doing that, we never need someone to
-reply twice. We then prove that if this best case can be achieved, the
-descending query mechanisms are optimal, which gives us a lower bound of
-minimum cost. After that, it's easy to show that MVAs can achieve this lower
-bound so this is the optimal cost and MVAs are optimal mechanisms.
-
-Firstly, let's prove that descending query mechanisms are optimal if all replies
-consists the exact valuation of corresponding bidders.
+The best case optimizing problem defined in definition \ref{def:query} provides
+us a lower bound of minimum cost we can achieve by any mechanisms.  By lemma
+\ref{lemma}, such lower bound minimum cost can be achieved by descending query
+strategy $Q_1 = [q_1, 1], Q_2 = [q_2, q_1), Q_3 = [q_3, q_2) \ldots$.  Making
+$a_1 = q_1, a_2 = q_2, a_3 = q_3, \ldots$, by theorem \ref{theorem:MVA_eq} we
+are able to design such an MVA with reserve prices $r_1, r_2, \ldots$  whose
+Bayesian Nash Equilibrium achieves this best case descending query strategy.
+Thus, MVAs are optimal.
 
 \end{proof}
 
+And by revenue equivalence theorem, MVAs maximize the seller utility.
 
 \begin{corollary}
 
