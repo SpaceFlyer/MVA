@@ -8,16 +8,15 @@ examples like eBay, craigslist and universities' mailing-lists.
 \begin{definition}\label{def:model}
 
 In our settings, there's one seller selling one item to $n$ buyers (bidders)
-whose valuations $v_i~(1 \leq i \leq n)$ are independently and identically distributed
-(i.i.d.) over $[0, 1]$.  The valuation's CDF $F(x)$ is continuous without mass
-points.  The seller can broadcast a message to all bidders which costs $b$ (the
-broadcast cost) for the seller.  A bidder may reply to that broadcast with cost
-$c$ (bidding cost) or remain silent with no cost. Such bidding cost $c$ may
-contain two parts, $\beta_1, \beta_2$ where $\beta_1+\beta_2 = c$.  The first
-part $\beta_1$ is charged to the seller while the second is charged to the
-corresponding bidder. The bidder's reply should be deterministic with respect
-to the seller's broadcast (for simplicity, we only consider pure strategy
-equilibrium).
+whose valuations $v_i~(1 \leq i \leq n)$ are independently and identically
+distributed (i.i.d.) over $[0, 1]$ with PDF $f(x)$ and CDF $F(x)$. The seller
+can broadcast a message to all bidders which costs $b$ (the broadcast cost) for
+the seller.  A bidder may reply to that broadcast with cost $c$ (bidding cost)
+or remain silent with no cost. Such bidding cost $c$ may contain two parts,
+$\beta_1, \beta_2$ where $\beta_1+\beta_2 = c$.  The first part $\beta_1$ is
+charged to the seller while the second is charged to the corresponding bidder.
+The bidder's reply should be deterministic with respect to the seller's
+broadcast (for simplicity, we only consider pure strategy equilibrium).
 
 \end{definition}
 
