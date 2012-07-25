@@ -185,41 +185,46 @@ illustrates those two constructions we used for this proof.
 
 \begin{lemma}
 
-There exists an optimal query strategy that always asks descending queries
-$Q_1 = [q_1, 1], Q_2 = [q2, q1), \ldots$.
+There exists an optimal strategy with only descending queries
+$Q_1 = [q_1, 1], ~Q_2 = [q_2, q_1), ~Q_3 = [q_3, q_2)\ldots$
 
 \end{lemma}
 
 \begin{proof}
 
-If not, there must be a strategy with non-descending queries and non of its
+If not, there must be an optimal strategy where none of its
 non-descending queries can be changed to descending queries without increasing
 the cost. In that strategy $S$, there must be a first non-descending query
 $Q_{i+1} = S\big(F, m, V, \mathcal Q = \{Q_1, Q_2, \ldots, Q_i\}\big)$ where
 $Q_1$ to $Q_i$ are all descending.  We can make another descending query
 $Q'_{i+1} = [q'_{i+1}, q_i)$ (or $Q'_{i+1} = [q'_{i+1}, 1]$ if $i = 0$) such
-that 
-\[ 
-\Pr(v_i \in Q_{i+1}) = \int \limits_{Q'_{i+1}} f(x) \mathrm d x = \int \limits_{Q_{i+1}} f(x) \mathrm d x = \Pr(v_i \in Q'_{i+1})
+that
+\[
+\Pr(v \in Q_{i+1}) = \int \limits_{Q'_{i+1}} f(x) \mathrm d x = \int \limits_{Q_{i+1}} f(x) \mathrm d x = \Pr(v \in Q'_{i+1})
 \]
-After $Q'_{i+1}$ or $Q_{i+1}$, we'll use as optimal query as
+After $Q'_{i+1}$, we'll use as optimal query as
 possible.
 
 Since $Q_1$ to $Q_i$ are all descending, we have $m = n$ and $V = \emptyset$ (otherwise
 the strategy should terminate without asking $Q_{i+1}$).
-Thus the expected cost of using $Q_{i+1}$ and later queries is
+Define $C$ to be the expected cost of using $Q_{i+1}$ and later queries. Similarly we define $C'$ for $Q'_{i+1}$:\\
 $
 C = b + \sum_{j=0}^n p_j ( j \cdot c + C_j)
 $
-where: 1) $p_j$ is the probability that there are $j$ reported values within $Q_{i+1}$;
-2) $C_j$ is the expected cost of later queries given that $j$ values have been
-found in $Q_{i+1}$. Similarly the expected cost of using $Q'_{i+1}$ and later queries is
+and
 $
 C' = b + \sum_{j=0}^n p'_j ( j \cdot c + C'_j)
 $
+where:
+%\begin{enumerate}
+%\item 
+$p_j$ (or $p'_j$) is the probability that there are $j$ reported values within $Q_{i+1}$ (or $Q'_{i+1}$);
+%\item 
+$C_j$ (or $C'_j$) is the expected cost of later queries given that $j$ values have been
+found in $Q_{i+1}$ (or $Q'_{i+1}$).
+%\end{enumerate}
 
-As $ \int_{x \in Q'_{i+1}}
-f(x) dx = \int_{x \in Q_{i+1}} f(x) dx $, we have $p'_j = p_j$. Since $Q'_{i+1}$ is a
+As $\Pr(v \in Q_{i+1}) = \Pr(v \in Q'_{i+1})$, we have $p'_j = p_j$. Since $Q'_{i+1}$ is a
 descending query, $\forall j > 0, ~C'_j = 0 \leq C_j$. And by lemma \ref{lemma:uniform},
 $C'_0 = C_0 = C^*(n)$ because knowing no value is in $Q_1, Q_2, \ldots, Q_{i+1}$ is equivalent
 to revise PDF $f(x)$ to a refined PDF 
