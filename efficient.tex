@@ -74,11 +74,11 @@ is greater than $a_i$, he/she is going to bid in round $i$ whose reserve price
 is $r_i$. Because of efficiency constraint we also have $r_k = a_k = 0$.
 
 In later analysis, we will think about the equilibrium from another
-perspective.  We firstly decide thresholds $a_i$ since they are more meaningful for
-bidders to make decisions and for us to make analysis. For a set of thresholds,
-we then determine the right reserve prices $r_i$ that make bidders incentive
-compatible to bid according to $a_i$. The following equations connects $a_i$
-and $r_i$:
+perspective.  We firstly decide thresholds $a_i$ since they are more meaningful
+for bidders to make decisions and for us to make analysis. For a set of
+thresholds, we then determine the right reserve prices $r_i$ that make bidders
+incentive compatible to bid according to $a_i$. The following equations
+connects $a_i$ and $r_i$:
 \begin{align}\label{eq:MVA_eq}
     &r_k = a_k = 0 \mbox{ and }
     \forall i ~(1 \leq i < k),\nonumber\\
@@ -121,22 +121,27 @@ hand side of equation \ref{eq:MVA_eq} is:
 This tells us that a bidder will bid in a round of MVA if and only if the
 expected second highest bidding conditional on this bidder's valuation is the
 highest is greater than the reserve price of that round. For example, if the
-distribution is uniform, i.e. $F(x) = x$, $r_i = \frac{n-1}{n} a_i$ for
-$i > 0$.
+distribution is uniform, i.e. $F(x) = x$, $r_i = \frac{n-1}{n} a_i$ for $i >
+0$. [cite sequentailly optimal auctions] has given some more discussions and
+proof (e.g. once a bidder choose to bid, bid truthfully is a unique weekly
+dominant strategy) about the equilibrium of this kind of sequential auctions.
+That paper, however, has a different cost model with time discount but without
+broadcast or bidding cost. We will discuss this difference later when we
+introduces bidding cost for bidders.
 
 \subsection{Optimality of MVAs}
 
-Since the mechanism is required to be efficient, by revenue equivalence theorem [cite]
-we know that the seller's gross revenue without substracting costs is fixed. Thus
-to maximize his utility is equivalent to minimize the cost. To satisfy efficiency
-constraint, the mechanism should at least find out the bidder with highest valuation.
-The best case is that every reply
-contains the exact and truthful valuation of the corresponding bidder since
-every non-silent reply has a cost $c$. By doing that, we never need someone to
-reply twice. The optimizing problem in this best case is defined as definition \ref{def:query}.
+Since the mechanism is required to be efficient, by revenue equivalence theorem
+[cite] we know that the seller's gross revenue without substracting costs is
+fixed. Thus to maximize his utility is equivalent to minimize the cost. To
+satisfy efficiency constraint, the mechanism should at least find out the
+bidder with highest valuation.  The best case is that every reply contains the
+exact and truthful valuation of the corresponding bidder since every non-silent
+reply has a cost $c$. By doing that, we never need someone to reply twice. The
+optimizing problem in this best case is defined as definition \ref{def:query}.
 The minimum cost of this best case optimizing problem provides us a lower bound
-for minimum cost of our mechanisms. We will then prove that MVAs can achieve this
-lower bound so MVAs are optimal.
+for minimum cost of our mechanisms. We will then prove that MVAs can achieve
+this lower bound so MVAs are optimal.
 
 \begin{definition}\label{def:query}
 
