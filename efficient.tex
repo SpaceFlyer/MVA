@@ -315,6 +315,49 @@ the overall cost.
 
 \subsection{Cost Minimized $\alpha$-MVA}
 
+Now let's try to calculate the parameters (thresholds $a_i$ or equivalently
+reserve prices $r_i$) of the optimal MVA for a given settings $F, n, b, c$
+(valuation CDF, number of bidders, broadcast cost, bidding cost). By lemma
+\ref{lemma:uniform}, the cost is indifferent with $F$ and we can always derive
+an optimal mechanism for any $F$ from a uniform distribution. Thus we will
+focus on uniform cases below. We will also introduce $\rho = \frac{b}{c}$ to
+simplify our analysis by normalize bidding cost $c$ to $1$ and thus broadcast
+cost $b$ to $\rho$.
+
+An optimal MVA must be an $\alpha$-MVA where each round only $(1-\alpha) n$
+bidders are expected to bid, i.e. $a_1 = \alpha, a_{i+1} = \alpha \cdot a_i$ for uniform cases. Then the expected overall cost $C$ satisfies: $ C
+= \rho + (1-\alpha)n+\alpha^n C$. In the right hand side, the first term $\rho$
+is the broadcast we have to use in the first round, the second term
+$(1-\alpha)n$ is the expected bidding cost for the first round, the third term
+$\alpha^n C$ lis a recursive term, the probability that no one bids $\alpha^n$
+and if that happens the same cost $C$ should be expected in later rounds.  Thus
+$C = \frac{ \rho+(1-a)n }{ 1-\alpha^n }$. To minimize cost $C$, we have:
+
+\begin{align}
+\frac{\partial C}{\partial \alpha} = \frac{{\alpha}^{n-1}\,n\,\left(
+\rho+\left( 1-\alpha\right) \,n\right) }{{\left( 1-{\alpha}^{n}\right)
+}^{2}}-\frac{n}{1-{\alpha}^{n}} = 0
+\end{align}
+
+We can solve this optimal $\alpha$ numerically but however it's difficult to
+get the closed form of such $\alpha$ according to the equation above. To solve
+it approximately, we assume that $(1-a)n \ll \rho$ and $(1-\alpha^n) \approx
+(1-\alpha^{n-1}) $ since intuitively $\alpha$ will be very close to $1$ (more
+than $1-\frac{1}{n}$) when $n$ becomes large. Then we have: $$ n \rho \cdot
+\alpha^n - n(1-\alpha^n) = 0 $$ So we get $\alpha = (1+\rho)^{-\frac{1}{n}}$ and
+\begin{align*}
+&\lim_{n \rightarrow \infty} C(\alpha = (1+\rho)^{-\frac{1}{n}}) =\\
+&~~{{\rho^2+\left(\log \left(\rho+1\right)+1\right)\,\rho+\log \left(
+\rho+1\right)}\over{\rho}} + O(\frac{1}{n})
+\end{align*}
+  
+This is amazing as the cost is bounded to about $\rho$ no matter how large $n$ is.
+
+However, this $\alpha$ doesn't satisfy our assumption that $(1-a)n \ll \rho$
+since $\lim_{n \rightarrow \infty} (1-\alpha)n = \ln (1+\rho)$. Therefore, we
+fix our assumption by $(1-a)n \approx \ln(1+\rho)$. Then we have:
+$$\alpha = \big (1+\rho+\ln(1+\rho) \big )^{-\frac{1}{n}}$$.
+
 \subsection{Approximation of $\alpha$ and Experiments}
 
 It's difficult to get an exact closed formula for optimal $\alpha$. Thus we are
