@@ -325,26 +325,57 @@ simplify our analysis by normalize bidding cost $c$ to $1$ and thus broadcast
 cost $b$ to $\rho$.
 
 An optimal MVA must be an $\alpha$-MVA where each round only $(1-\alpha) n$
-bidders are expected to bid, i.e. $a_1 = \alpha, a_{i+1} = \alpha \cdot a_i$ for uniform cases. Then the expected overall cost $C$ satisfies: $ C
-= \rho + (1-\alpha)n+\alpha^n C$. In the right hand side, the first term $\rho$
-is the broadcast we have to use in the first round, the second term
-$(1-\alpha)n$ is the expected bidding cost for the first round, the third term
-$\alpha^n C$ lis a recursive term, the probability that no one bids $\alpha^n$
-and if that happens the same cost $C$ should be expected in later rounds.  Thus
-$C = \frac{ \rho+(1-a)n }{ 1-\alpha^n }$. To minimize cost $C$, we have:
+bidders are expected to bid, i.e. $a_1 = \alpha, a_{i+1} = \alpha \cdot a_i$
+for uniform cases. Then the expected overall cost $C$ satisfies: $ C = \rho +
+(1-\alpha)n+\alpha^n C$. In the right hand side, the first term $\rho$ is the
+broadcast we have to use in the first round, the second term $(1-\alpha)n$ is
+the expected bidding cost for the first round, the third term $\alpha^n C$ lis
+a recursive term, the probability that no one bids $\alpha^n$ and if that
+happens the same cost $C$ should be expected in later rounds.  Thus $C = \frac{
+\rho+(1-a)n }{ 1-\alpha^n }$. To minimize cost $C$, we have:
 
-\begin{align}
+\begin{align}\label{eq:alpha}
 \frac{\partial C}{\partial \alpha} = \frac{{\alpha}^{n-1}\,n\,\left(
 \rho+\left( 1-\alpha\right) \,n\right) }{{\left( 1-{\alpha}^{n}\right)
 }^{2}}-\frac{n}{1-{\alpha}^{n}} = 0
 \end{align}
 
-We can solve this optimal $\alpha$ numerically but however it's difficult to
-get the closed form of such $\alpha$ according to the equation above. To solve
-it approximately, we assume that $(1-a)n \ll \rho$ and $(1-\alpha^n) \approx
-(1-\alpha^{n-1}) $ since intuitively $\alpha$ will be very close to $1$ (more
-than $1-\frac{1}{n}$) when $n$ becomes large. Then we have: $$ n \rho \cdot
-\alpha^n - n(1-\alpha^n) = 0 $$ So we get $\alpha = (1+\rho)^{-\frac{1}{n}}$ and
+[Increasing Threshold Search for Best-Valued Agents] has a
+proof for why $\alpha$-MVA is optimal among MVAs and how to
+determine $\alpha$. Thus if you find them not intuitive you may reference
+more details there.  Our simplified cost model (with efficiency constraint and
+no buyer's cost) is equivalent to their cost model where learning cost is
+linear to the number of replied agents. That paper makes descending query as a
+contraint (in their model they want to find the minimum value so descending
+query becomes increasing threshold search) and proves that $\alpha$-MVA is
+optimal among descending query mechanisms. Our focus in this section, however,
+is to have a preliminary introduction for MVA and proves optimality of
+descending queries and eventually MVAs. Thus we omit the proof about
+$\alpha$-MVA. Even for the $\alpha$, we will be more interested in its relation
+with larger $n$ so we will give approximations for $\alpha$.
+
+\subsection{Approximation of $\alpha$ and Experiments}
+
+Equation \ref{eq:alpha} can be solved numerically but it's hard to get a closed
+form for $\alpha$. Thus we want to approximate $\alpha$ using some simpler formulas.
+
+Firstly, $\alpha = \frac{n-1}{n}$ is a natural guess which means each round the
+expected number of biddings is equal to $1$. Thus we have
+$C(\alpha = \frac{n-1}{n}) = \frac{\rho+1}{1-(\frac{n-1}{n})^n}$. Because
+$(\frac{n-1}{n})^n \leq e^{-1}$, we have $C(\alpha = \frac{n-1}{n}) \leq \frac{\rho+1}{1-e^{-1}}$.
+It's obvious that at least one broadcast and one
+bidding is required to terminate so $C \geq \rho+1$. 
+Thus $\alpha = \frac{n-1}{n}$ is a $\frac{1}{1-e^{-1}}$ approximation. That means,
+by simply choosing $\alpha = \frac{n-1}{n}$, we would at most get about $1.582$ times
+of optimal cost. Another obersavation of this approximation is that no matter
+how large $n$ is, the cost is at most $\frac{1}{1-e^{-1}} (\rho+1)$. Thus the
+optimal cost is bounded by constant $O(1)$ no matter how large $n$ is.
+
+To solve it approximately, we assume that $(1-a)n \ll \rho$ and $(1-\alpha^n)
+\approx (1-\alpha^{n-1}) $ since intuitively $\alpha$ will be very close to $1$
+(more than $1-\frac{1}{n}$) when $n$ becomes large. Then we have: $$ n \rho
+\cdot \alpha^n - n(1-\alpha^n) = 0 $$ So we get $\alpha =
+(1+\rho)^{-\frac{1}{n}}$ and
 \begin{align*}
 &\lim_{n \rightarrow \infty} C(\alpha = (1+\rho)^{-\frac{1}{n}}) =\\
 &~~{{\rho^2+\left(\log \left(\rho+1\right)+1\right)\,\rho+\log \left(
@@ -358,7 +389,6 @@ since $\lim_{n \rightarrow \infty} (1-\alpha)n = \ln (1+\rho)$. Therefore, we
 fix our assumption by $(1-a)n \approx \ln(1+\rho)$. Then we have:
 $$\alpha = \big (1+\rho+\ln(1+\rho) \big )^{-\frac{1}{n}}$$.
 
-\subsection{Approximation of $\alpha$ and Experiments}
 
 It's difficult to get an exact closed formula for optimal $\alpha$. Thus we are
 going to use a closed formula to approximate this $\alpha$. We'll conduct
