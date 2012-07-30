@@ -340,61 +340,84 @@ happens the same cost $C$ should be expected in later rounds.  Thus $C = \frac{
 }^{2}}-\frac{n}{1-{\alpha}^{n}} = 0
 \end{align}
 
-[Increasing Threshold Search for Best-Valued Agents] has a
-proof for why $\alpha$-MVA is optimal among MVAs and how to
-determine $\alpha$. Thus if you find them not intuitive you may reference
-more details there.  Our simplified cost model (with efficiency constraint and
-no buyer's cost) is equivalent to their cost model where learning cost is
-linear to the number of replied agents. That paper makes descending query as a
-contraint (in their model they want to find the minimum value so descending
-query becomes increasing threshold search) and proves that $\alpha$-MVA is
-optimal among descending query mechanisms. Our focus in this section, however,
-is to have a preliminary introduction for MVA and proves optimality of
-descending queries and eventually MVAs. Thus we omit the proof about
-$\alpha$-MVA. Even for the $\alpha$, we will be more interested in its relation
-with larger $n$ so we will give approximations for $\alpha$.
+[Increasing Threshold Search for Best-Valued Agents] has a proof for why
+$\alpha$-MVA is optimal among MVAs and how to determine $\alpha$. Thus if you
+find them not intuitive you may reference more details there.  Our simplified
+cost model (with efficiency constraint and no buyer's cost) is equivalent to
+their cost model where learning cost is linear to the number of replied agents.
+That paper makes descending query as a contraint \footnote{In their model they
+want to find the minimum value so increasing threshold search is equivalent to
+descending query} and proves that $\alpha$-MVA is optimal among descending
+query mechanisms. Our focus in this section, however, is to have a preliminary
+introduction for MVA and proves optimality of descending queries and eventually
+MVAs. Thus we omit the proof about $\alpha$-MVA. Even for the $\alpha$, we will
+be more interested in its relation with larger $n$ so we will give
+approximations for $\alpha$.
 
 \subsection{Approximation of $\alpha$ and Experiments}
 
-Equation \ref{eq:alpha} can be solved numerically but it's hard to get a closed
-form for $\alpha$. Thus we want to approximate $\alpha$ using some simpler formulas.
-
-Firstly, $\alpha = \frac{n-1}{n}$ is a natural guess which means each round the
-expected number of biddings is equal to $1$. Thus we have
-$C(\alpha = \frac{n-1}{n}) = \frac{\rho+1}{1-(\frac{n-1}{n})^n}$. Because
-$(\frac{n-1}{n})^n \leq e^{-1}$, we have $C(\alpha = \frac{n-1}{n}) \leq \frac{\rho+1}{1-e^{-1}}$.
-It's obvious that at least one broadcast and one
-bidding is required to terminate so $C \geq \rho+1$. 
-Thus $\alpha = \frac{n-1}{n}$ is a $\frac{1}{1-e^{-1}}$ approximation. That means,
-by simply choosing $\alpha = \frac{n-1}{n}$, we would at most get about $1.582$ times
-of optimal cost. Another obersavation of this approximation is that no matter
-how large $n$ is, the cost is at most $\frac{1}{1-e^{-1}} (\rho+1)$. Thus the
-optimal cost is bounded by constant $O(1)$ no matter how large $n$ is.
-
-To solve it approximately, we assume that $(1-a)n \ll \rho$ and $(1-\alpha^n)
-\approx (1-\alpha^{n-1}) $ since intuitively $\alpha$ will be very close to $1$
-(more than $1-\frac{1}{n}$) when $n$ becomes large. Then we have: $$ n \rho
-\cdot \alpha^n - n(1-\alpha^n) = 0 $$ So we get $\alpha =
-(1+\rho)^{-\frac{1}{n}}$ and
-\begin{align*}
-&\lim_{n \rightarrow \infty} C(\alpha = (1+\rho)^{-\frac{1}{n}}) =\\
-&~~{{\rho^2+\left(\log \left(\rho+1\right)+1\right)\,\rho+\log \left(
-\rho+1\right)}\over{\rho}} + O(\frac{1}{n})
-\end{align*}
-  
-This is amazing as the cost is bounded to about $\rho$ no matter how large $n$ is.
-
-However, this $\alpha$ doesn't satisfy our assumption that $(1-a)n \ll \rho$
-since $\lim_{n \rightarrow \infty} (1-\alpha)n = \ln (1+\rho)$. Therefore, we
-fix our assumption by $(1-a)n \approx \ln(1+\rho)$. Then we have:
-$$\alpha = \big (1+\rho+\ln(1+\rho) \big )^{-\frac{1}{n}}$$.
-
-
 It's difficult to get an exact closed formula for optimal $\alpha$. Thus we are
-going to use a closed formula to approximate this $\alpha$. We'll conduct
+going to use some simpler formulas to approximate $\alpha$. We'll conduct
 experiments to compare our approximation with the optimal $\alpha$ that's
 computed numerically. We are also going to show comparisons between optimal
 MVA, approximate optimal MVA and other conventional mechanisms such as Vickrey
 auctions.
 
+Firstly, $\alpha = 1-1/n$ is a natural guess which means each round the
+expected number of biddings is equal to $1$. Thus we have $C(\alpha = 1-1/n) =
+(\rho+1)/(1-(1-1/n)^n)$. Because $(1-1/n)^n \leq e^{-1}$, we have $C(\alpha =
+1-1/n) \leq (\rho+1)(1-e^{-1})$.  It's obvious that at least one broadcast and
+one bidding is required to terminate so $C \geq \rho+1$.  Thus $\alpha = 1-1/n$
+is a $1/(1-e^{-1})$ approximation. That means, by simply choosing $\alpha =
+1-1/n$, we would at most get about $1.582$ times of optimal cost. Another
+obersavation of this approximation is that no matter how large $n$ is, the cost
+is at most $(\rho+1) / (1-e^{-1})$. Thus the optimal cost is bounded by
+constant $O(1)$ no matter how large $n$ is.
+
+A better approximation when $n$ is large is to observe that $\lim_{n \rightarrow \infty} \alpha = 1$.
+Thus we assume that $(1-a)n \approx A$ (for some constant $A$) and $\alpha^n
+\approx \alpha^{n-1}$. Then we have: 
+$$ n (\rho+A) \cdot \alpha^n - n(1-\alpha^n) = 0 $$ 
+which gives us $\alpha = (1+\rho+A)^{-1/n}$. Put this back to
+$\lim_{n \rightarrow \infty} (1-a)n = A$ we
+have $\ln (1+\rho+A) = A$
+which gives us
+\begin{align}
+A = -1-\rho-W(-1-\rho)\nonumber\\
+\alpha = (-W(-1-\rho))^{-1/n} 
+\end{align}
+where $W(x)$ is the Lambert W function [cite wikipedia?] defined by $W(x)
+e^{W(x)} = x$. Actually, $w\,e^w = x$ has two solutions for $w$ when $-1 < x <
+0$. Here our $W(x)$ refers to the lower\footnote{The upper branch is
+$W_0(x) > -1$ when $-1 < x < 0$} branch $W_{-1}(x) < -1$.
+
+Experiments in figure \ref{fig:alpha} compare the optimal $\alpha$, our first approximation
+of $\alpha = 1-1/n$ and our second approximation $\alpha = (-W(-1-\rho))^{-1/n}$
+together with their corresponding cost under settings $\rho = 0.2, 1, 5$.
+Experiments [ref:figures] further compare these cost with two-step, fixed-step
+California-split strategy [cite and see Increasing Threshold Search for these
+strategies].  Recall that under this simpler model, the gross revenue is fixed
+thus the utility is completely determined by this cost.
+
+\begin{figure*}
+\centering
+  \subfigure{\includegraphics[width=.3\linewidth]{figures/alpha_when_rho0.20.eps}}
+  \subfigure{\includegraphics[width=.3\linewidth]{figures/alpha_when_rho1.00.eps}}
+  \subfigure{\includegraphics[width=.3\linewidth]{figures/alpha_when_rho5.00.eps}}
+  \subfigure{\includegraphics[width=.3\linewidth]{figures/C_when_rho0.20.eps}}
+  \subfigure{\includegraphics[width=.3\linewidth]{figures/C_when_rho1.00.eps}}
+  \subfigure{\includegraphics[width=.3\linewidth]{figures/C_when_rho5.00.eps}}
+  \caption{Comparisons for optimal  $\alpha$ and its approximations. The first
+  approximation is $\alpha = 1-1/n$, the second is $\alpha =
+  (-W(-1-\rho))^{-1/n}$. The second row is the corresponding cost for different
+  $\alpha$} 
+  \label{fig:alpha}
+\end{figure*}
+
+As you can see from figure \ref{fig:alpha}, the first approximation $1-1/n$ is bounded
+to be a constant time of optimal cost while the second approximation converges to optimal
+cost when $n$ grows large. When $\rho$ is close to $1$, both two
+approximations are very close to the optimal one. But the second approximation is much better
+when $\rho$ is much smaller or greater than $1$. Anyway, the second approximation isn't always
+better than the first approximation, as the case $\rho = 1, n = 2$ shows.
 
