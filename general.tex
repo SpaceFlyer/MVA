@@ -73,6 +73,34 @@ again. That's vital for seller's utility maximization.
 
 \subsection{Spending Equivalence Theorem and Revenue Optimization Strategy}
 
+\begin{theorem}
+
+The expected overall spendings from all bidders (including their bidding costs
+and payments to the seller) in a feasible mechanism (with our cost model) is
+completely determined by the expected utility of lowest type bidders and
+allocation probability function
+$$p: (v_1, v_2, \ldots, v_n) \rightarrow (p_1, p_2, \ldots, p_n)$$ 
+where $p_i$ is the probability that bidder $i$ will get the item.
+
+\end{theorem}
+
+\begin{proof}
+This theorem is exactly the same as revenue equivalence theorem except
+that we exchange revenue with spending. To prove it,
+let's construct another mechanism $M'$ (from our mechanism $M$) that fits into the original revenue equivalence
+theorem's model. Suppose there's a virtual seller in $M'$, who collects valuations from all
+bidders at no cost (a direct revelation mechanism). Then this virtual seller will
+make $n$ virtual bidders delegating all bidders to communicate with the true seller in our mechanism $M$.
+When our mechanism ends by allocating the item to virtual bidder $i$, the virtual seller also
+allocate the item to the real bidder $i$. The payment from each bidder $i$ to this
+virtual seller will be equal to the payment that virtual bidder $i$ pays to our real seller
+plus all the bidding costs charged to virtual bidder $i$. Thus, from the real bidders'
+aspects, this mechanism $M'$ is just a direct revelation mechanism which will satisfy
+revenue equivalence theorem. The only difference is that the payment from real bidder $i$ to the virtual seller
+actually has two parts, one is payed to the real seller, another is payed to bidding costs, which sum
+up to the total spending.
+\end{proof}
+
 \begin{definition}
 
 We say mechanisms satisfy relaxed efficiency constraint with lowest type $l$
@@ -92,14 +120,6 @@ When we say a mechanism with a lowest type $l$, we imply that this mechanism
 satisfy relatex efficiency constraint with lowest $l$.
 
 \end{definition}
-
-\begin{theorem}
-
-For all mechanisms with the same lowest type $l$, they will have the same
-overall spending from all bidders (including bidders' bidding costs and
-payments to sellers).
-
-\end{theorem}
 
 \begin{corollary}
 
