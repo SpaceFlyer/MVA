@@ -367,12 +367,16 @@ Firstly, $\alpha = 1-1/n$ is a natural guess which means each round the
 expected number of biddings is equal to $1$. Thus we have $C(\alpha = 1-1/n) =
 (\rho+1)/(1-(1-1/n)^n)$. Because $(1-1/n)^n \leq e^{-1}$, we have $C(\alpha =
 1-1/n) \leq (\rho+1)(1-e^{-1})$.  It's obvious that at least one broadcast and
-one bidding is required to terminate so $C \geq \rho+1$.  Thus $\alpha = 1-1/n$
-is a $1/(1-e^{-1})$ approximation. That means, by simply choosing $\alpha =
-1-1/n$, we would at most get about $1.582$ times of optimal cost. Another
-obersavation of this approximation is that no matter how large $n$ is, the cost
-is at most $(\rho+1) / (1-e^{-1})$. Thus the optimal cost is bounded by
+one bidding is required to terminate so $C \geq \rho+1$.  Thus we have
+
+\begin{theorem}
+$\alpha = 1-1/n$ is a $1/(1-e^{-1})$ approximation of optimal $\alpha$-MVA.
+That means, by simply choosing $\alpha = 1-1/n$, we would at most get about
+$1.582$ times of optimal cost. Another obersavation of this approximation is
+that no matter how large $n$ is, the cost of this simple approximation is at
+most $(\rho+1) / (1-e^{-1}) = O(1)$. Thus the optimal cost is bounded by
 constant $O(1)$ no matter how large $n$ is.
+\end{theorem}
 
 A better approximation when $n$ is large is to observe that $\lim_{n \rightarrow \infty} \alpha = 1$.
 Thus we assume that $(1-a)n \approx A$ (for some constant $A$) and $\alpha^n
