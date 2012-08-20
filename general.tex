@@ -73,7 +73,7 @@ again. That's vital for seller's utility maximization.
 
 \subsection{Spending Equivalence Theorem and Revenue Optimization Strategy}
 
-\begin{theorem}
+\begin{theorem}\label{theorem:equivalence}
 
 The expected overall spendings from all bidders (including their bidding costs
 and payments to the seller) in a feasible mechanism (with our cost model) is
@@ -101,6 +101,84 @@ actually has two parts, one is payed to the real seller, another is payed to bid
 up to the total spending.
 \end{proof}
 
+Thanks to theorem \ref{theorem:equivalence}, our revenue maximization problem
+is now greatly simplified: we only need to determine optimal allocation rule
+$p: (v_1, v_2, \ldots, v_n) \rightarrow (p_1, p_2, \ldots, p_n)$ and the minimum
+cost given that allocation rule. However, the optimal allocation rule here
+isn't as simple as the one that's discovered by Myerson [ref:Optimal Auction]:
+allocate the item to the bidder with highest virtural value if it's positive.
+This rule, though optimal in Myerson's setting, may not be optimal here. Theorem
+\ref{theorem:equivalence} tells us that this rule will maximize the total spending.
+But we must substract the cost from the spending to get the revenue. Therefore,
+can there be another weird allocation rule that has less total spending but even
+much less minimum cost, so a greater revenue is achieved by that allocation rule.
+
+It's not hard to find one example to support our suspicion. We know that for bidders
+with uniform valuation over $[0, 1]$, the spending maximizing allocation rule
+is allocate the item to the bidder with highest valuation that's greater than $1/2$.
+However, if the broadcast is too large, for example $1$ (which is equal to the
+highest possible valuation), the cost to find out whether there's any bidder with valuation
+greater than $1/2$ is at least $1$. Thus if we use this allocation rule, the
+final revenue would be negative since the total spending must be less than the
+minimum cost. However, the allocation rule that never allocate the item will have
+$0$ cost and $0$ spending, which achieves $0$ revenue, better than previous allocation
+rule.
+
+Thus, the revenue optimal mechianism will depend on how minimum cost is defined. 
+We previously defined how cost is charged and proved that a specific mechanism (MVA)
+has minimum cost when allocation rule is allocate efficiently. But unfortunately,
+that's not enough to give us a well defined minimum cost for any allocation rule.
+For example, one allocation rule might be always allocate the item to each bidder
+with the same probability $1/n$, i.e. $p(v_1, v_2, \ldots) = (1/n, 1/n, \ldots)$.
+You might think that the minimum cost for this is $0$ since we don't have to know
+anyone's valuation. But that cost isn't realistic: how can you ever allocate the
+item to someone that you have never communicated with? Thus the minimum cost seems
+to be at least $b$, the cost for one round of broadcast, if we ever allocate the item
+to some bidder. In order to make a realistic constraint and get a well defined minimum
+cost for any allocation rule, we define
+
+\begin{definition}\label{def:allocation_cost}
+For an allocation rule $$p: (v_1, v_2, \ldots, v_n) \rightarrow (p_1, p_2,
+\ldots, p_n)$$ if $p_i > 0$ for some valuation profile $(v_1, v_2, \ldots,
+v_n)$, there must be a broadcast query that the $i$-th bidder with valuation
+$v_i$ reply to the seller under that profile setting.
+\end{definition}
+
+With this definition, we have
+
+\begin{theorem}
+The optimal mechanism should always allocate the item to the bidder with
+highest virtual valuation $v_i - \frac{1-F(v_i)}{f(v_i)}$ if it decides to
+allocate the item. In regular cases when the virtual valuation is monotone
+strictly increasing, the optimal mechanism should always allocate the item to
+the bidder with highest valuation if it decides to allocate the item.
+\end{theorem}
+
+To see why this theorem holds, firstly notice that in our cost model, the
+minimum cost to let any bidder reply is equal to the minimum cost to let the
+max-valuation bidder (or max-virtual-valuation bidder, we won't mention virtual
+valuation below because they are indifferent in our cost context so you can
+always substitude one by another, adding or removing regularity constraint)
+reply.  This is because that the mechanism is only allowed to ask broadcast
+queries and it's equivalent to specify a range $Q \subseteq [0, 1]$ and ask all
+bidders whose valuations are within that range to reply. That means, by
+properly mappings of valuations and query ranges, we can always adapt a
+strategy that lets any bidder reply to another strategy that lets the
+max-valuation bidder reply and vise versa (just like what we did to prove lemma
+\ref{lemma:descending}). This means that finding the max-valuation bidder won't
+cost more than any other cases except doing nothing (which costs $0$). Thus the
+optimal mechanism either do nothing (no one replies and thus $p_i = 0$ by
+definition \ref{def:allocation_cost}) which has minimum cost or ask queries to
+find the max-valuation bidder and allocate the item to that bidder which has
+maximum total spending.  The flexibility of an optimal mechanism is that it can
+choose the cases in which it won't allocate the item (in any other cases it
+will allocate the item to the max-valuation bidder). It's also intuitive
+to see that the no allocation cases can be described by a single parameter $l$:
+no allocation if every bidder's valuation is below $l$. For limit of space,
+we won't list the detailed proof for the above theorem and arguments.
+
+Now we can narrow our optimal mechanisms with relaxed efficiency constraint:
+
 \begin{definition}
 
 We say mechanisms satisfy relaxed efficiency constraint with lowest type $l$
@@ -121,6 +199,12 @@ satisfy relatex efficiency constraint with lowest $l$.
 
 \end{definition}
 
+\subsection{Cost Minimization with Lowest Type and MVAs' Optimality in General}
+
+We have already narrowed down optimal mechanism to
+relatex efficient mechanisms and by theorem \ref{theorem:equivalence},
+it's straightforward to see
+
 \begin{corollary}
 
 For mechanisms with a fixed lowest type $l$, the maximum utility for sellers is
@@ -128,19 +212,41 @@ achieved when the mechanism minizes the cost.
 
 \end{corollary}
 
+Our next question is naturally: what's the cost minimized mechanism
+given a lowest type $l$. As expected:
+
 \begin{theorem}
 
 MVAs have the minimum cost among all mechanisms with a lowest type $l$
 
 \end{theorem}
 
-\begin{theorem}
+\begin{proof}
+A special case of this theorem when $l = 0$ is theorem \ref{theorem:MVA_eq}.
+We proved that special case by introducing lemma \ref{lemma:uniform} and
+\ref{lemma:descending}. To prove the general cases with arbitrary $l$, we just
+need to revise lemma \ref{lemma:uniform} a little as following lemma
+\ref{lemma:lowest_type}. All other part of the proof remains similar. For space
+limit, the detailed proof is omitted.
+\end{proof}
 
-MVAs are optimal. (watch out for relaxed efficiency constraint)
+\begin{lemma}\label{lemma:lowest_type}
+Suppose that there are two cases $n, F_1, f_1, l_1$ and $n, F_2, f_2, l_2$
+where $n$ is the number of values for both cases, $F_i, f_i$ are CDF and PDF
+of the $n$ i.i.d. values in case $i$, $l_i$ is the lowest type for case $i$.
+If $F_1(l_1) = F_2(l_2)$, then these two cases have the same minimum cost
+to find the maximum value above the lowest type $l_i$.
+\end{lemma}
 
-\end{theorem}
+The proof of this revised lemma is almost identical to the one for original
+lemma. Thus for space limit, we won't elaborate it again. Finally, we conclude
+that MVAs are optimal in general.
 
 \begin{corollary}
+
+MVAs are optimal. The only parameters we are going to determine for the
+specific optimal MVA are 1) the lowest type $l$; 2) the descending query
+thresholds $q_1, q_2, q_3, \ldots$.
 
 Shall we increase lowest type $l$ a little above Myerson's optimal lowest type
 to trade payment with cost? Or is it optimal to use Myerson's $l$ and then
