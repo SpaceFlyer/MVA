@@ -181,25 +181,25 @@ Now we can narrow our optimal mechanisms with relaxed efficiency constraint:
 
 \begin{definition}
 
-We say mechanisms satisfy relaxed efficiency constraint with lowest type $l$
+We say mechanisms satisfy relaxed efficiency constraint with low value $l$
 if:
 
     \begin{enumerate}
 
     \item They only allocate the item to bidders whose valuation are at least
-    $l$ (the lowest type is $l$)
+    $l$ (the low value is $l$)
 
     \item If they will allocate the item, they will always allocate the item to
     the bidder with highest valuation.
 
     \end{enumerate}
 
-When we say a mechanism with a lowest type $l$, we imply that this mechanism
+When we say a mechanism with a low value $l$, we imply that this mechanism
 satisfy relatex efficiency constraint with lowest $l$.
 
 \end{definition}
 
-\subsection{Cost Minimization with Lowest Type and MVAs' Optimality in General}
+\subsection{Cost Minimization with Low Value and MVAs' Optimality in General}
 
 We have already narrowed down optimal mechanism to
 relatex efficient mechanisms and by theorem \ref{theorem:equivalence},
@@ -207,17 +207,17 @@ it's straightforward to see
 
 \begin{corollary}
 
-For mechanisms with a fixed lowest type $l$, the maximum utility for sellers is
+For mechanisms with a fixed low value $l$, the maximum utility for sellers is
 achieved when the mechanism minizes the cost.
 
 \end{corollary}
 
 Our next question is naturally: what's the cost minimized mechanism
-given a lowest type $l$. As expected:
+given a low value $l$. As expected:
 
 \begin{theorem}
 
-MVAs have the minimum cost among all mechanisms with a lowest type $l$
+MVAs have the minimum cost among all mechanisms with a low value $l$
 
 \end{theorem}
 
@@ -233,9 +233,9 @@ limit, the detailed proof is omitted.
 \begin{lemma}\label{lemma:lowest_type}
 Suppose that there are two cases $n, F_1, f_1, l_1$ and $n, F_2, f_2, l_2$
 where $n$ is the number of values for both cases, $F_i, f_i$ are CDF and PDF
-of the $n$ i.i.d. values in case $i$, $l_i$ is the lowest type for case $i$.
+of the $n$ i.i.d. values in case $i$, $l_i$ is the low value for case $i$.
 If $F_1(l_1) = F_2(l_2)$, then these two cases have the same minimum cost
-to find the maximum value above the lowest type $l_i$.
+to find the maximum value above the low value $l_i$.
 \end{lemma}
 
 The proof of this revised lemma is almost identical to the one for original
@@ -245,19 +245,19 @@ that MVAs are optimal in general.
 \begin{corollary}
 
 MVAs are optimal. The only parameters we are going to determine for the
-specific optimal MVA are 1) the lowest type $l$; 2) the descending query
+specific optimal MVA are 1) the low value $l$; 2) the descending query
 thresholds $q_1, q_2, q_3, \ldots$.
 
-Shall we increase lowest type $l$ a little above Myerson's optimal lowest type
+Shall we increase low value $l$ a little above Myerson's optimal low value
 to trade payment with cost? Or is it optimal to use Myerson's $l$ and then
 minimize cost according to that?
 
 \end{corollary}
 
-\subsection{Experiments to Discover Optimal MVA with a Given Lowest Type}
+\subsection{Experiments to Discover Optimal MVA with a Given Low Value}
 
 To discover the specific MVA that's optimal, we first try to identify the
-optimal thresholds $a_i$ given a lowest type $l$  (recall that in $i$-th round,
+optimal thresholds $a_i$ given a low value $l$  (recall that in $i$-th round,
 MVA will ask all bidders whose valuation is within $[a_i, a_{i-1})$ to bid).
 If we can write the minimum cost $C^*$ as a function of $n, \rho, l$ (recall
 that $rho = b/c$ is the ratio between broadcast and bidding cost), we may then
@@ -285,7 +285,7 @@ already queried $[\hat r, D)$ and no one replies.
 \begin{algorithm}
     \caption{Calculate discretized best query lengths}\label{algo:discrete}
     \begin{algorithmic}[1]
-        \Require{$\hat l$ is the discretized lowest type, $\rho$ is the ratio between broadcast and bidding cost,
+        \Require{$\hat l$ is the discretized low value, $\rho$ is the ratio between broadcast and bidding cost,
         $n$ is the number of bidders, $D$ is the maximum discretized valuation}
         
         \Function{BestQueryLengths}{$\hat l$, $\rho$, $n$, $D$}
@@ -318,21 +318,21 @@ the best strategy is using multiple queries to explore the valuation range.
 \centering
     \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/1000-500-2-1-10}
     \caption{The best query lengths over $r$ (the upper bound of
-        undiscovered value) when discretized lowest type $\hat l = 500$,
+        undiscovered value) when discretized low value $\hat l = 500$,
         ratio between broadcast and bidding cost $\rho = 2$,
         number of bidders $n = 10$ and maximum discretized valuation
         $D = 1000$}\label{fig:x-r}
 \end{figure}
 
-\subsection{Analysis of Optimal MVA with a Given Lowest Type}
+\subsection{Analysis of Optimal MVA with a Given Low Value}
 
-Figure \ref{fig:x-r} shows that the optimal MVA with a lowest type $l$ is
+Figure \ref{fig:x-r} shows that the optimal MVA with a low value $l$ is
 much more complicated but there might still be hope to get a nice analytical
 result: piecewise linear function. That is, we can't use a single $\alpha$ to
 describe such optimal MVA, but perhaps we can use a sequence of $\alpha$ to
 describe it. Now let's take an analytical treatment.
 
-The first key point to analyze the optimal MVA with lowest type is to utilize
+The first key point to analyze the optimal MVA with low value is to utilize
 the fact that there's a fixed maximal number of rounds to exploit the whole
 reportable valuation range $[l, r)$ ($r$ is the upper bound of undiscovered
 value as defined in last subsection and $r = 1$ initially). Let's call that
@@ -410,7 +410,7 @@ Now we use the properties of expectation to finish our calculation:
     \right)
        = n a_{i}^{n-1} (a_{i}-a_{i+1}) / a_0^n
 \end{align*}
-Combine all those above, finally we get (note that lowest type $l = a_k$):
+Combine all those above, finally we get (note that low value $l = a_k$):
 \begin{align}
 & C(\vec a, k, \rho, n) = k \rho a_k^n / a_0^n + \nonumber\\ 
     &~~~ \frac{1}{a_0^n} \sum_{i=0}^{k-1} \left( (a_{i}^n-a_{i+1}^n) (i+1)
@@ -435,7 +435,7 @@ algorithm.
 
 \subsection{Using Piecewise Linear MVA to Approximate Optimal MVA}
 
-\subsection{Choosing Lowest Type?}
+\subsection{Choosing Low Value?}
 
 \subsection{Experiments}
 
