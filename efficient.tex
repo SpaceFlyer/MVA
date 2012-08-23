@@ -146,9 +146,9 @@ this lower bound so MVAs are optimal.
 \begin{definition}\label{def:query}
 
 Assume there are $n$ values $v_i ~(1 \leq i \leq n)$ independently and
-identically distributed over $[0, 1]$ with PDF $f(x)$ and CDF $F(x)$.  A query
+identically distributed over $[0, 1)$ with PDF $f(x)$ and CDF $F(x)$.  A query
 strategy is to find the maximum value by asking queries $Q_1, Q_2, \ldots$
-sequentially where $Q_i \subset [0, 1]$ and $\forall i \neq j, ~Q_i \cap Q_j =
+sequentially where $Q_i \subset [0, 1)$ and $\forall i \neq j, ~Q_i \cap Q_j =
 \emptyset$.  After a query $Q_i$, all numbers within $Q_i$ will be reported.
 Note that $Q_i$ may depend on results of $Q_1, Q_2, \ldots, Q_{i-1}$. Thus a
 strategy can be denoted as a function:
@@ -225,7 +225,7 @@ case optimizing problem.
 \begin{lemma}\label{lemma:descending}
 
 There exists an optimal strategy with only descending queries
-$Q_1 = [q_1, 1], ~Q_2 = [q_2, q_1), ~Q_3 = [q_3, q_2)\ldots$
+$Q_1 = [a_1, 1], ~Q_2 = [a_2, a_1), ~Q_3 = [a_3, a_2)\ldots$
 
 \end{lemma}
 
@@ -236,7 +236,7 @@ non-descending queries can be changed to descending queries without increasing
 the cost. In that strategy $S$, there must be a first non-descending query
 $Q_{i+1} = S\big(F, m, V, \mathcal Q = \{Q_1, Q_2, \ldots, Q_i\}\big)$ where
 $Q_1$ to $Q_i$ are all descending.  We can make another descending query
-$Q'_{i+1} = [q'_{i+1}, q_i)$ (or $Q'_{i+1} = [q'_{i+1}, 1]$ if $i = 0$) such
+$Q'_{i+1} = [a'_{i+1}, a_i)$ (or $Q'_{i+1} = [a'_{i+1}, 1]$ if $i = 0$) such
 that
 \[
 \Pr(v \in Q_{i+1}) = \int \limits_{Q'_{i+1}} f(x) \mathrm d x = \int \limits_{Q_{i+1}} f(x) \mathrm d x = \Pr(v \in Q'_{i+1})
@@ -294,12 +294,11 @@ valuation), Multi-round Vickrey Auctions (MVAs) are of minimum cost.
 
 The best case optimizing problem defined in definition \ref{def:query} provides
 us a lower bound of minimum cost we can achieve by any mechanisms.  By lemma
-\ref{lemma:descending}, such lower bound minimum cost can be achieved by descending query
-strategy $Q_1 = [q_1, 1], Q_2 = [q_2, q_1), Q_3 = [q_3, q_2) \ldots$.  Making
-$a_1 = q_1, a_2 = q_2, a_3 = q_3, \ldots$, by theorem \ref{theorem:MVA_eq} we
-are able to design such an MVA with reserve prices $r_1, r_2, \ldots$  whose
-Bayesian Nash Equilibrium achieves this best case descending query strategy.
-Thus, MVAs are optimal.
+\ref{lemma:descending}, such lower bound minimum cost can be achieved by
+descending query strategy $Q_1 = [a_1, 1], Q_2 = [a_2, a_1), Q_3 = [a_3, a_2)
+\ldots$.  And by theorem \ref{theorem:MVA_eq} we are able to design such an MVA
+with reserve prices $r_1, r_2, \ldots$  whose Bayesian Nash Equilibrium
+achieves this best case descending query strategy.  Thus, MVAs are optimal.
 
 \end{proof}
 

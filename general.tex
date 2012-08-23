@@ -30,7 +30,7 @@ that my bidding will be over taken by someone else's so it's just a waste of
 effort. Our cost model can describe this behaviour very well.
 
 Assume an extreme case where the broadcast cost is $0$, the bidder's bidding
-cost is $0.1$ and there are $n \rightarrow \infty$ many $[0, 1]$-uniform
+cost is $0.1$ and there are $n \rightarrow \infty$ many $[0, 1)$-uniform
 distributed bidders. In a Dutch auction (a Dutch auction has infinite many
 rounds of broadcasts so we have to set braodcast cost to $0$), only one bidder
 is expected to bid (no competition), thus every bidder with a valuation $v_i
@@ -114,7 +114,7 @@ can there be another weird allocation rule that has less total spending but even
 much less minimum cost, so a greater revenue is achieved by that allocation rule.
 
 It's not hard to find one example to support our suspicion. We know that for bidders
-with uniform valuation over $[0, 1]$, the spending maximizing allocation rule
+with uniform valuation over $[0, 1)$, the spending maximizing allocation rule
 is allocate the item to the bidder with highest valuation that's greater than $1/2$.
 However, if the broadcast is too large, for example $1$ (which is equal to the
 highest possible valuation), the cost to find out whether there's any bidder with valuation
@@ -160,7 +160,7 @@ max-valuation bidder (or max-virtual-valuation bidder, we won't mention virtual
 valuation below because they are indifferent in our cost context so you can
 always substitude one by another, adding or removing regularity constraint)
 reply.  This is because that the mechanism is only allowed to ask broadcast
-queries and it's equivalent to specify a range $Q \subseteq [0, 1]$ and ask all
+queries and it's equivalent to specify a range $Q \subseteq [0, 1)$ and ask all
 bidders whose valuations are within that range to reply. That means, by
 properly mappings of valuations and query ranges, we can always adapt a
 strategy that lets any bidder reply to another strategy that lets the
