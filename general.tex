@@ -256,7 +256,161 @@ minimize cost according to that?
 
 \subsection{Experiments to Discover Optimal MVA with a Given Lowest Type}
 
+To discover the specific MVA that's optimal, we first try to identify the
+optimal thresholds $a_i$ given a lowest type $l$  (recall that in $i$-th round,
+MVA will ask all bidders whose valuation is within $[a_i, a_{i-1})$ to bid).
+If we can write the minimum cost $C^*$ as a function of $n, \rho, l$ (recall
+that $rho = b/c$ is the ratio between broadcast and bidding cost), we may then
+determine the optimal $l$ using this function.
+
+In the special case that we studied in previous section where $l = 0$
+(efficiency is enforced), the optimal thresholds can be easily described as a
+single parameter $\alpha$. This strategy won't work when $l > 0$ (more
+precisely, $F(l) > 0$, but because of lemma \ref{lemma:lowest_type}, we only
+focus on uniform distribution in the following). Obviously that $a_i \geq l$,
+thus we can't let $a_i = \alpha a_{i-1}$ since $\lim_{i \rightarrow \infty} a_i
+= 0 < l$.  Additionally, if we revise the equation by letting $a_i-l = \alpha
+(a_{i-1}-l)$, we will get a positive possibility $F(l)$ that we would ask
+infinite many broadcast queries, which is even worse.
+
+As it's not immediately clear what optimal thresholds should be like, we
+present a simple algorithm to calculate such thresholds numerically. We firstly
+discretize the continuous valuation to $D$ discrete values $\{0, 1, \ldots,
+D-1\}$. That means, the original valuation $v$ will be transformed to integer
+value $\hat v = \lfloor v D \rfloor$. Then we use dynamic programming to
+inductively calculate $x_r$, the length of next optimal descending query to ask
+(therefore the query would be $[r-x_r, r)$), conditional on that we have
+already queried $[r, D)$ and no one replies.
+
+\begin{algorithm}
+    \caption{Calculate discretized best query lengths}\label{algo:discrete}
+    \begin{algorithmic}[1]
+        \Require{$\hat l$ is the discretized lowest type, $\rho$ is the ratio between broadcast and bidding cost,
+        $n$ is the number of bidders, $D$ is the maximum discretized valuation}
+        
+        \Function{BestQueryLengths}{$\hat l$, $\rho$, $n$, $D$}
+            \State $x_{\hat l} \gets 0$
+            \State $C_{\hat l} \gets 0$
+            \For{$r={\hat l}+1 \mbox{ to } D$}
+                \State $x_r \gets \displaystyle \operatorname*{arg\,min}_{1 \leq x \leq r-l} \rho + n \frac{x}{r} + (\frac{r-x}{r})^n C_{r-x}$
+                \State $C_r \gets \rho + n \frac{x_r}{r} + (\frac{r-x_r}{r})^n C_{r-x_r}$
+            \EndFor
+            \State \Return $x$
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}
+
+Algorithm \ref{algo:discrete} runs in time $O(D^2)$. Having $x$, we can then
+infer the best strategy for original continuous problem by first discretize it
+and then convert the discretized optimal strategy back to continuous strategy.
+The larger $D$ is the more accurate it will be. But it will also require more
+running time.  Running this for case $\hat l = 500, \rho = 2, n = 10, D = 1000$
+we get $x$ showed in figure \ref{fig:x-r}. It seems that $x$ is a piecewise
+linear function over $r$.  For those $r$ which is close to $\hat l$, obviously
+that the optimal strategy should be $x = r-\hat l$, which means using only one
+query to explore all potential bidders. But it's unclear why $x$ is linear when
+the best strategy is using multiple queries to explore the valuation range.
+
+\begin{figure}
+\centering
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/1000-500-2-1-10}
+    \caption{The best query lengths over $r$ (the upper bound of
+        undiscovered value) when discretized lowest type $\hat l = 500$,
+        ratio between broadcast and bidding cost $\rho = 2$,
+        number of bidders $n = 10$ and maximum discretized valuation
+        $D = 1000$}\label{fig:x-r}
+\end{figure}
+
 \subsection{Analysis of Optimal MVA with Lowest Type}
+
+Figure \ref{fig:x-r} shows that the optimal MVA with a lowest type $l$ is
+much more complicated but there might still be hope to get a nice analytical
+result: piecewise linear function. That is, we can't use a single $\alpha$ to
+describe such optimal MVA, but perhaps we can use a sequence of $\alpha$ to
+describe it. Now let's take an analytical treatment.
+
+The first key point to analyze the optimal MVA with lowest type is to utilize
+the fact that there's a fixed maximal number
+of rounds to exploit the whole reportable valuation range $[l, 1)$. Let's call
+that number $k$. We have argued this before: if not, because the possibility that
+no values lie in $[l, 1)$ is possitive, the cost will be infinte.
+
+For convenience, define $\vec a = (a_0, a_1, a_2, \ldots, a_k)$, the vector of
+$k$ thresholds in such optimal MVA. We make $a_0 = 1, a_k = l$ so in $i$-th round
+the query would be $[a_i, a_{i-1})$. Now define cost $C(\vec a, k, \rho, n)$ to
+be the expected cost for MVA defined by $k, \vec a$ when there are $n$ i.i.d.
+$[0, 1)$-uniform bidders. If we can get a neat form of $C$, we can use
+$\frac{\partial C}{\partial a_i} = 0 $ to characterize optimal MVA, as we did
+in section \ref{sec:alpha-MVA}.
+
+Thus the second key point is to how to represent this $C$. Rather than
+considering one round after another as we did before, now we consider all
+rounds together:
+\begin{align*}
+C(\vec a, k, \rho, n) =
+&\sum_{i=0}^k P\big(H_i = 1\big) C\big(\vec a, k, \rho, n ~\big|~ H_i = 1 \big)
+\end{align*}
+where $H_k$ is the indicate random variable for the event that the highest
+valuation is below $a_k$ and $H_i(0 \leq i < k)$ is for the event that the highest
+valuation is in $[a_{i+1}, a_i)$.
+
+Since bidders are uniformly distributed,
+\begin{align*}
+  &P(H_k = 1) = \frac{a_k^n}{a_0^n} = a_k^n = l^n\\
+    &P(H_i = 1) = \frac{a_{i}^n-a_{i+1}^n}{a_0^n} = a_{i}^n-a_{i+1}^n
+\end{align*}
+
+It's also clear that $C(\vec a, k, \rho, n ~\big|~ H_k = 1) = k\rho$ because
+there will be only $k$ broadcasts and no biddings.
+
+For $C\big(\vec a, k, \rho, n ~\big|~ H_i = 1\big)$ where $i < k$, we partition
+it into two parts $C\big(\vec a, k, \rho, n ~\big|~ H_i = 1\big) = C_b\big(\vec
+a, k, \rho, n ~\big|~ H_i = 1\big) + C_c\big(\vec a, k, \rho, n ~\big|~ H_i =
+1\big)$. The broadcast part $C_b\big(\vec a, k, \rho, n ~\big|~ H_i = 1 \big)$
+is simply $(i+1)\rho$ as the MVA finishes in $(i+1)$-th round. The
+not-so-obvious part is the overall bidding cost $C_c\big(\vec a, k, \rho, n
+~\big|~ H_i = 1 \big)$. It can be expressed as:
+
+\begin{align*}
+P(H_i = 1)C_c\big(\vec a, k, \rho, n ~\big|~ H_i = 1 \big) = E\left( H_i \cdot
+    \sum_{j=1}^n X_{ij}\right) \\
+= E\left( \left( \prod_{j=1}^n B_{ij} \right) \cdot \left(\sum_{j=1}^n X_{ij}
+    \right) \right)
+\end{align*}
+
+Here $X_{ij}, A_{ij}$ are both indicate random variables of bidder $j$'s valuation $v_j$:
+$$
+X_{ij} = \begin{cases}
+    0, &\mbox{if $v_j \notin [a_{i+1}, a_{i})$ } \\\\
+    1, &\mbox{if $v_j \in [a_{i+1}, a_{i})$}
+\end{cases}
+~~
+B_{ij} = \begin{cases}
+    0, &\mbox{if $v_j \geq a_{i}$ } \\\\
+    1, &\mbox{if $v_j < a_{i}$}
+\end{cases}
+$$
+
+You may notice that our original random variable $H_i$ is not exactly the same
+as our substitute $\prod_{j=1}^n B_{ij}$. The only difference between them,
+however, is the case that every $v_j$ is below $a_{i+1}$, which is the case
+that every $X_{ij} = 0$, so the equation still holds.
+
+Now we use the properties of expectation to finish our calculation:
+\begin{align*}
+  &E\left( \left( \prod_{j=1}^n B_{ij} \right) \cdot \left(\sum_{j=1}^n X_{ij}
+  \right) \right) = \sum_{j=1}^n E\left( X_{ij} \prod_{k=1}^nB_{ik} \right)
+  \\
+    &~~ = \sum_{j=1}^n \left( E(X_{ij} B_{ij}) \prod_{k \neq j} E(B_{ik})
+    \right)
+       = n a_{i}^{n-1} (a_{i}-a_{i+1})
+\end{align*}
+Combine all those above, finally we get (note that lowest type $l = a_k$):
+\begin{align}
+& C(\vec a, k, \rho, n) = a_k^n k \rho + \nonumber\\ 
+    &~~~ \sum_{i=0}^{k-1} \left( (a_{i}^n-a_{i+1}^n) (i+1)
+    \rho + n a_{i}^{n-1} (a_{i}-a_{i+1}) \right)
+\end{align}
 
 \subsection{Using Piecewise Linear MVA to Approximate Optimal MVA}
 
