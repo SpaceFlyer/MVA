@@ -275,12 +275,12 @@ infinite many broadcast queries, which is even worse.
 
 As it's not immediately clear what optimal thresholds should be like, we
 present a simple algorithm to calculate such thresholds numerically. We firstly
-discretize the continuous valuation to $D$ discrete values $\{0, 1, \ldots,
+discretize the continuous valuation $[0, 1)$ to $D$ discrete values $\{0, 1, \ldots,
 D-1\}$. That means, the original valuation $v$ will be transformed to integer
 value $\hat v = \lfloor v D \rfloor$. Then we use dynamic programming to
-inductively calculate $x_r$, the length of next optimal descending query to ask
-(therefore the query would be $[r-x_r, r)$), conditional on that we have
-already queried $[r, D)$ and no one replies.
+inductively calculate $x_{\hat r}$, the length of next optimal descending query to ask
+(therefore the query would be $[\hat r-x_{\hat r}, \hat r)$), conditional on that we have
+already queried $[\hat r, D)$ and no one replies.
 
 \begin{algorithm}
     \caption{Calculate discretized best query lengths}\label{algo:discrete}
@@ -291,9 +291,12 @@ already queried $[r, D)$ and no one replies.
         \Function{BestQueryLengths}{$\hat l$, $\rho$, $n$, $D$}
             \State $x_{\hat l} \gets 0$
             \State $C_{\hat l} \gets 0$
-            \For{$r={\hat l}+1 \mbox{ to } D$}
-                \State $x_r \gets \displaystyle \operatorname*{arg\,min}_{1 \leq x \leq r-l} \rho + n \frac{x}{r} + (\frac{r-x}{r})^n C_{r-x}$
-                \State $C_r \gets \rho + n \frac{x_r}{r} + (\frac{r-x_r}{r})^n C_{r-x_r}$
+            \For{$\hat r={\hat l}+1 \mbox{ to } D$}
+                \State $x_{\hat r} \gets \displaystyle
+                  \operatorname*{arg\,min}_{1 \leq x \leq \hat r-l} \rho + n
+                  \frac{x}{\hat r} + (\frac{\hat r-x}{\hat r})^n C_{\hat r-x}$
+                \State $C_{\hat r} \gets \rho + n \frac{x_{\hat r}}{\hat r} +
+                  (\frac{\hat r-x_{\hat r}}{\hat r})^n C_{\hat r-x_{\hat r}}$
             \EndFor
             \State \Return $x$
         \EndFunction
@@ -306,8 +309,8 @@ and then convert the discretized optimal strategy back to continuous strategy.
 The larger $D$ is the more accurate it will be. But it will also require more
 running time.  Running this for case $\hat l = 500, \rho = 2, n = 10, D = 1000$
 we get $x$ showed in figure \ref{fig:x-r}. It seems that $x$ is a piecewise
-linear function over $r$.  For those $r$ which is close to $\hat l$, obviously
-that the optimal strategy should be $x = r-\hat l$, which means using only one
+linear function over $\hat r$.  For those $\hat r$ which is close to $\hat l$, obviously
+that the optimal strategy should be $x = \hat r-\hat l$, which means using only one
 query to explore all potential bidders. But it's unclear why $x$ is linear when
 the best strategy is using multiple queries to explore the valuation range.
 
@@ -321,7 +324,7 @@ the best strategy is using multiple queries to explore the valuation range.
         $D = 1000$}\label{fig:x-r}
 \end{figure}
 
-\subsection{Analysis of Optimal MVA with Lowest Type}
+\subsection{Analysis of Optimal MVA with a Given Lowest Type}
 
 Figure \ref{fig:x-r} shows that the optimal MVA with a lowest type $l$ is
 much more complicated but there might still be hope to get a nice analytical
@@ -330,18 +333,20 @@ describe such optimal MVA, but perhaps we can use a sequence of $\alpha$ to
 describe it. Now let's take an analytical treatment.
 
 The first key point to analyze the optimal MVA with lowest type is to utilize
-the fact that there's a fixed maximal number
-of rounds to exploit the whole reportable valuation range $[l, 1)$. Let's call
-that number $k$. We have argued this before: if not, because the possibility that
-no values lie in $[l, 1)$ is possitive, the cost will be infinte.
+the fact that there's a fixed maximal number of rounds to exploit the whole
+reportable valuation range $[l, r)$ ($r$ is the upper bound of undiscovered
+value as defined in last subsection and $r = 1$ initially). Let's call that
+number $k$. We have argued this before: if not, because the possibility that no
+values lie in $[l, r)$ is possitive, the cost will be infinte.
 
 For convenience, define $\vec a = (a_0, a_1, a_2, \ldots, a_k)$, the vector of
-$k$ thresholds in such optimal MVA. We make $a_0 = 1, a_k = l$ so in $i$-th round
-the query would be $[a_i, a_{i-1})$. Now define cost $C(\vec a, k, \rho, n)$ to
-be the expected cost for MVA defined by $k, \vec a$ when there are $n$ i.i.d.
-$[0, 1)$-uniform bidders. If we can get a neat form of $C$, we can use
-$\frac{\partial C}{\partial a_i} = 0 $ to characterize optimal MVA, as we did
-in section \ref{sec:alpha-MVA}.
+$k$ thresholds in such optimal MVA. We make $a_0 = r, a_k = l$ so in $i$-th
+round the query would be $[a_i, a_{i-1})$. Now define cost $C(\vec a, k, \rho,
+n)$ to be the expected cost for MVA defined by $k, \vec a$ when there are $n$
+i.i.d.  $[0, 1)$-uniform bidders (note that $l, r$ are implicitly defined by
+$a_k, a_0$). If we can get a neat form of $C$, we can use $\frac{\partial
+C}{\partial a_i} = 0 $ to characterize optimal MVA, as we did in section
+\ref{sec:alpha-MVA}.
 
 Thus the second key point is to how to represent this $C$. Rather than
 considering one round after another as we did before, now we consider all
@@ -356,8 +361,8 @@ valuation is in $[a_{i+1}, a_i)$.
 
 Since bidders are uniformly distributed,
 \begin{align*}
-  &P(H_k = 1) = \frac{a_k^n}{a_0^n} = a_k^n = l^n\\
-    &P(H_i = 1) = \frac{a_{i}^n-a_{i+1}^n}{a_0^n} = a_{i}^n-a_{i+1}^n
+  &P(H_k = 1) = a_k^n / a_0^n\\
+    &P(H_i = 1) = (a_{i}^n-a_{i+1}^n) / a_0^n
 \end{align*}
 
 It's also clear that $C(\vec a, k, \rho, n ~\big|~ H_k = 1) = k\rho$ because
@@ -403,14 +408,30 @@ Now we use the properties of expectation to finish our calculation:
   \\
     &~~ = \sum_{j=1}^n \left( E(X_{ij} B_{ij}) \prod_{k \neq j} E(B_{ik})
     \right)
-       = n a_{i}^{n-1} (a_{i}-a_{i+1})
+       = n a_{i}^{n-1} (a_{i}-a_{i+1}) / a_0^n
 \end{align*}
 Combine all those above, finally we get (note that lowest type $l = a_k$):
 \begin{align}
-& C(\vec a, k, \rho, n) = a_k^n k \rho + \nonumber\\ 
-    &~~~ \sum_{i=0}^{k-1} \left( (a_{i}^n-a_{i+1}^n) (i+1)
-    \rho + n a_{i}^{n-1} (a_{i}-a_{i+1}) \right)
+& C(\vec a, k, \rho, n) = k \rho a_k^n / a_0^n + \nonumber\\ 
+    &~~~ \frac{1}{a_0^n} \sum_{i=0}^{k-1} \left( (a_{i}^n-a_{i+1}^n) (i+1)
+    \rho + n a_{i}^{n-1} (a_{i}-a_{i+1}) \right) \label{eq:C_general}
 \end{align}
+
+Unfortunately, this formula isn't neat enough to get a piecewise linear $a_1$.
+Recall that in previous subsection, the experiment seems to show that $x$ is
+piecewise linear over $r$, which means $a_1$ must also be piecewise linear over
+$a_2$.  For example, for the simple case $k = 2, n = 3$, we have: $a_1 =
+\frac{\sqrt{{a_0}^{2}\,\rho+{a_2}^{2}+3\,{a_0}^{2}}+a_2}{\rho+3}$.  Anyway,
+by definition we have $a_1 \geq a_2$. And
+$a_1=\frac{\sqrt{{a_0}^{2}\,\rho+{a_2}^{2}+3\,{a_0}^{2}}+a_2}{\rho+3}$ indeed
+looks very linear when $a_1 \geq a_2$.
+
+Though we failed characterizing the optimal MVA using piecewise linear
+descriptions, those experiments and analysis may still benefit us. Firstly, the
+experiments shows that a piecewise linear MVA might be a nice approximation.
+Secondly, the analysis may help us find a better numerically algorithm to
+calculate the optimal MVA. For example, an iterative algorithm like EM
+algorithm.
 
 \subsection{Using Piecewise Linear MVA to Approximate Optimal MVA}
 
