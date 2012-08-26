@@ -331,7 +331,8 @@ broadcast we have to use in the first round, the second term $(1-\alpha)n$ is
 the expected bidding cost for the first round, the third term $\alpha^n C$ lis
 a recursive term, the probability that no one bids $\alpha^n$ and if that
 happens the same cost $C$ should be expected in later rounds.  Thus $C = \frac{
-\rho+(1-a)n }{ 1-\alpha^n }$. To minimize cost $C$, we have:
+\rho+(1-a)n }{ 1-\alpha^n }$. To minimize cost $C$, we have (it's easy to check
+boundary cases $\alpha = 0, 1$ are not optimal):
 
 \begin{align}\label{eq:alpha}
 \frac{\partial C}{\partial \alpha} = \frac{{\alpha}^{n-1}\,n\,\left(
