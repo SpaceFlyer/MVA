@@ -412,11 +412,16 @@ Now we use the properties of expectation to finish our calculation:
     \right)
        = n a_{i}^{n-1} (a_{i}-a_{i+1}) / a_0^n
 \end{align*}
-Combine all those above, finally we get (note that low value $l = a_k$):
+Combine all those above, finally we get (note that low value $l = a_k$ and
+$\frac{\partial C}{\partial a_i}$ is only for $1 \leq i \leq k-1$ since
+$a_0, a_k$ are constants):
 \begin{align}
 & C(\vec a, k, \rho, n) = k \rho a_k^n / a_0^n + \nonumber\\ 
     &~~~ \frac{1}{a_0^n} \sum_{i=0}^{k-1} \left( (a_{i}^n-a_{i+1}^n) (i+1)
-    \rho + n a_{i}^{n-1} (a_{i}-a_{i+1}) \right) \label{eq:C_general}
+    \rho + n a_{i}^{n-1} (a_{i}-a_{i+1}) \right) \label{eq:C_general}\\
+& \frac{\partial C}{\partial a_i} = \frac{1}{a_0^n} \left[
+	n(n+\rho)a_i^{n-1}-n(n-1)a_{i+1}a_i^{n-2}-n a_{i-1}^{n-1} \right]
+	\label{eq:diff_C_general}
 \end{align}
 
 Unfortunately, this formula isn't neat enough to get a piecewise linear $a_1$.
@@ -434,6 +439,15 @@ experiments shows that a piecewise linear MVA might be a nice approximation.
 Secondly, the analysis may help us find a better numerically algorithm to
 calculate the optimal MVA. For example, an iterative algorithm like EM
 algorithm.
+
+Introduce $a_{i, t}$ to be the $a_i$ in $t$-th iteration ($a_{i,0}$ is the
+initial guess). We modify $\frac{\partial C}{\partial a_i} = 0$ with equation
+\ref{eq:diff_C_general} to
+\begin{align}
+  & n(n+\rho)a_{i,t}^{n-2} a_{i,t+1} - n(n-1)a_{i+1,t}a_{i,t}^{n-2}-n a_{i-1,t}^{n-1} = 0 \nonumber\\
+  & \Updownarrow \nonumber \\
+  & a_{i,t+1} = \frac{(n-1)a_{i+1,t}a_{i,t}^{n-2} + a_{i-1,t}^{n-1}}{(n+\rho)a_{i,t}^{n-1}}
+\end{align}
 
 \subsection{Using Piecewise Linear MVA to Approximate Optimal MVA}
 
