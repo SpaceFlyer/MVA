@@ -418,7 +418,9 @@ $a_0, a_k$ are constants):
 \begin{align}
 & C(\vec a, k, \rho, n) = k \rho a_k^n / a_0^n + \nonumber\\ 
     &~~~ \frac{1}{a_0^n} \sum_{i=0}^{k-1} \left( (a_{i}^n-a_{i+1}^n) (i+1)
-    \rho + n a_{i}^{n-1} (a_{i}-a_{i+1}) \right) \label{eq:C_general}\\
+    \rho + n a_{i}^{n-1} (a_{i}-a_{i+1}) \right) \nonumber \\
+    &~= \sum_{i=1}^{k-1} \frac{a_i^n}{a_0^n} \left( \rho + \frac{a_i-a_{i+1}}{a_{i-1}} n \right)
+    \label{eq:C_general}\\
 & \frac{\partial C}{\partial a_i} = \frac{1}{a_0^n} \left[
 	n(n+\rho)a_i^{n-1}-n(n-1)a_{i+1}a_i^{n-2}-n a_{i-1}^{n-1} \right]
 	\label{eq:diff_C_general}
@@ -440,14 +442,14 @@ Secondly, the analysis may help us find a better numerically algorithm to
 calculate the optimal MVA. For example, an iterative algorithm like EM
 algorithm.
 
-Introduce $a_{i, t}$ to be the $a_i$ in $t$-th iteration ($a_{i,0}$ is the
-initial guess). We modify $\frac{\partial C}{\partial a_i} = 0$ with equation
-\ref{eq:diff_C_general} to
-\begin{align}
-  & n(n+\rho)a_{i,t}^{n-2} a_{i,t+1} - n(n-1)a_{i+1,t}a_{i,t}^{n-2}-n a_{i-1,t}^{n-1} = 0 \nonumber\\
-  & \Updownarrow \nonumber \\
-  & a_{i,t+1} = \frac{(n-1)a_{i+1,t}a_{i,t}^{n-2} + a_{i-1,t}^{n-1}}{(n+\rho)a_{i,t}^{n-1}}
-\end{align}
+%Introduce $a_{i, t}$ to be the $a_i$ in $t$-th iteration ($a_{i,0}$ is the
+%initial guess). We modify $\frac{\partial C}{\partial a_i} = 0$ with equation
+%\ref{eq:diff_C_general} to
+%\begin{align}
+%  & n(n+\rho)a_{i,t}^{n-2} a_{i,t+1} - n(n-1)a_{i+1,t}a_{i,t}^{n-2}-n a_{i-1,t}^{n-1} = 0 \nonumber\\
+%  & \Updownarrow \nonumber \\
+%  & a_{i,t+1} = \frac{(n-1)a_{i+1,t}a_{i,t}^{n-2} + a_{i-1,t}^{n-1}}{(n+\rho)a_{i,t}^{n-1}}
+%\end{align}
 
 \subsection{Using Piecewise Linear MVA to Approximate Optimal MVA}
 
