@@ -331,8 +331,8 @@ broadcast we have to use in the first round, the second term $(1-\alpha)n$ is
 the expected bidding cost for the first round, the third term $\alpha^n C$ lis
 a recursive term, the probability that no one bids $\alpha^n$ and if that
 happens the same cost $C$ should be expected in later rounds.  Thus $C = \frac{
-\rho+(1-a)n }{ 1-\alpha^n }$. To minimize cost $C$, we have (it's easy to check
-boundary cases $\alpha = 0, 1$ are not optimal):
+\rho+(1-a)n }{ 1-\alpha^n }$. To minimize cost $C$, we either choose boundary
+cases $\alpha = 0, 1$ or we have: 
 
 \begin{align}\label{eq:alpha}
 \frac{\partial C}{\partial \alpha} = \frac{{\alpha}^{n-1}\,n\,\left(
@@ -342,13 +342,18 @@ boundary cases $\alpha = 0, 1$ are not optimal):
 \alpha^{n-1} (\rho + (1-\alpha)n) - (1-\alpha^n) &= 0
 \end{align}
 
-[Increasing Threshold Search for Best-Valued Agents] has a proof for why
-$\alpha$-MVA is optimal among MVAs and how to determine $\alpha$. Thus if you
-find them not intuitive you may reference more details there.  Our simplified
-cost model (with efficiency constraint and no buyer's cost) is equivalent to
-their cost model where learning cost is linear to the number of replied agents.
-That paper makes descending query as a contraint \footnote{In their model they
-want to find the minimum value so increasing threshold search is equivalent to
+The boundary case $\alpha = 0$ can be ruled out because $\frac{\partial
+C}{\partial \alpha} |_{\alpha = 0} < 0$.  When $\alpha = 1$, $\alpha$-MVA
+becomes Dutch Auction thus $\rho$ must be $0$. And this is indeed a solution of
+equation \ref{eq:alpha} when $\rho = 0$. Thus equation $\ref{eq:alpha}$
+characterize the optimal $\alpha$ if $\alpha$-MVA is optimal.  [Increasing
+Threshold Search for Best-Valued Agents] has a proof for why $\alpha$-MVA is
+optimal among MVAs and how to determine $\alpha$ as well. Thus if you find them
+not intuitive you may reference more details there.  Our simplified cost model
+(with efficiency constraint and no buyer's cost) is equivalent to their cost
+model where learning cost is linear to the number of replied agents.  That
+paper makes descending query as a contraint \footnote{In their model they want
+to find the minimum value so increasing threshold search is equivalent to
 descending query} and proves that $\alpha$-MVA is optimal among descending
 query mechanisms. Our focus in this section, however, is to have a preliminary
 introduction for MVA and proves optimality of descending queries and eventually
