@@ -480,10 +480,44 @@ This might be a direct consequence of $a_i = \alpha^i$'s good performance.
 
 \subsection{Choosing Low Value}
 
+Having $k$ and $a_i$, we are still one step from optimal MVA, choosing the low
+value $l$. It's obvious to see that optimal cost $C$ is non-increasing as $l$
+increases. By Myerson's optimal auction theory and theorem
+\ref{theorem:equivalence}, setting virtual value of $l$ to be $0$ will yield
+the maximum total spending. Name such $l$ as $l_0$. We then conclude that
+optimal $l$ must satisfy $l \geq l_0$ as the optimal is non-increasing. The
+question is, how to search or determine optimal $l$? Let's first check the simple
+case when the value distribution is uniform.
+
 \subsection{Experiments}
 
 Now we are going to compare revenue in general cases. We not only compare our
 approximate optimal MVAs to optimal MVAs computed numerically, but also compare
 MVAs to other conventional mechanisms.
 
+Figure \ref{fig:CSP-l-2-1} and \ref{fig:CSP-l-5-1} plot cost, spending and profit
+over $l$. It's clear in figure \ref{fig:CSP-l-5-1} that increasing $l$ from $0.5$ to about $0.8$
+will get a significant profit increase. However, it's not so clear in these two plots
+whether profit is unimodal. To see it more clear, we plot figure \ref{fig:suboptimality},
+which transforms the cost, spending and profit to their corresponding suboptimality, i.e.
+the distance between the specific value and the optimal value (to make the log-scale work
+for distance $0$, we add some small constant to that suboptimality). Thus, the new plot will
+preserve the peaks and global optimal point as the lowest point.
 
+\begin{figure}
+\centering
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/10-0.200000-0.100000.eps}
+    \caption{Cost, Spending and Profit over $l$ when $n = 10, b = 0.2, c = 0.1$}\label{fig:CSP-l-2-1}
+\end{figure}
+
+\begin{figure}
+\centering
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/10-0.500000-0.100000.eps}
+    \caption{Cost, Spending and Profit over $l$ when $n = 10, b = 0.5, c = 0.1$}\label{fig:CSP-l-5-1}
+\end{figure}
+
+\begin{figure}
+\centering
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/suboptimality.eps}
+    \caption{Suboptimality of Cost, Spending and Profit over $l$ when $n = 10, b = 0.2, c = 0.1$}\label{fig:suboptimality}
+\end{figure}
