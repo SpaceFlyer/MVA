@@ -325,24 +325,6 @@ explore the valuation range.
         $D = 1000$}\label{fig:x-h}
 \end{figure}
 
-Another way to plot the graph is to normalize $x$ and $l$ so that $h$ becomes
-$1$ since our model is $v_i \in [0, 1)$. It's showed in figure \ref{fig:x-l}.
-This again looks like a piecewise linear function.  A more interesting
-observation is that the left-most piece is quite a long straight line $x =
-1-\alpha$. Thus we know that $x = 1-\alpha$ for quite a lot $l$ which is not
-close to $1$. Here the $\alpha$ is the the optimal $\alpha$ of $\alpha-MVA$ is
-we set $l = 0$.
-
-\begin{figure}
-\centering
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/10000-500-2-1-10}
-    \caption{The normalized best query length $x = \hat x_{\hat h} / \hat h$
-    over normalized $l = \hat l / \hat h$ when discretized low value $\hat l =
-    500$, ratio between broadcast and bidding cost $\rho = 2$, number of
-    bidders $n = 10$ and maximum discretized valuation $D =
-    10000$}\label{fig:x-l}
-\end{figure}
-
 \subsection{Analysis of Optimal MVA with a Given Low Value}
 
 Figure \ref{fig:x-h} shows that the optimal MVA with a low value $l$ is
@@ -467,18 +449,34 @@ $\alpha$ for $\alpha$-MVA when $l = 0$.  (This upper bound seems to be
 $\Theta(n)$). We believe that $C$ has a single peak over $k$ (proof?), thus we
 can search $k$ efficiently.
 
-The initial $a_i$ is very important for solving optimal $a_i$. A bad choice may
-lead to much more computation and even non-convergence. For example, the
-trivial uniform $a_i = a_0 - \frac{i}{k}(a_0-a_k)$ is a bad initial guess. We
-find the intial $a_i = \alpha^i$ provided by $\alpha$-MVA to be very efficient.
-It's suggested by experiments showed in figure \ref{fig:x-l} where $x$ seems to
-be $1-\alpha$ for a lot of $l$.  A similar result is also occurs when we
-compare the cost of different MVA: uniform $a_i$ MVA performs much worse than
-$\alpha$-MVA with cutoff. In experiments, the actual optimal $k$ is very close
-to our upper bound $k_\alpha$: it's mostly either $k_\alpha$ or $k_\alpha-1$.
-This might be a direct consequence of $a_i = \alpha^i$'s good performance.
+The initial $a_i$ is very important for solving
+optimal $a_i$. A bad choice may lead to much more computation and even
+non-convergence. For example, uniform $a_i = a_0 - \frac{i}{k}(a_0-a_k)$ is a
+bad initial guess. We find the intial $a_i = \alpha^i$ provided by $\alpha$-MVA
+to be very efficient.  A similar result is achieved when we compare the cost of
+different MVA: uniform $a_i$ MVA performs much worse than $\alpha$-MVA with
+cutoff. In experiments, the actual optimal $k$ is very close to our upper bound
+$k_\alpha$: it's mostly either $k_\alpha$ or $k_\alpha-1$.  This might be a
+direct subsequence of $a_i = \alpha^i$'s good performance.
 
-\subsection{Choosing Low Value}
+those experiments and analysis may still benefit us. Firstly, the
+experiments shows that a piecewise linear MVA might be a nice approximation.
+Secondly, the analysis may help us find a better numerically algorithm to
+calculate the optimal MVA. For example, an iterative algorithm like EM
+algorithm.
+
+%Introduce $a_{i, t}$ to be the $a_i$ in $t$-th iteration ($a_{i,0}$ is the
+%initial guess). We modify $\frac{\partial C}{\partial a_i} = 0$ with equation
+%\ref{eq:diff_C_general} to
+%\begin{align}
+%  & n(n+\rho)a_{i,t}^{n-2} a_{i,t+1} - n(n-1)a_{i+1,t}a_{i,t}^{n-2}-n a_{i-1,t}^{n-1} = 0 \nonumber\\
+%  & \Updownarrow \nonumber \\
+%  & a_{i,t+1} = \frac{(n-1)a_{i+1,t}a_{i,t}^{n-2} + a_{i-1,t}^{n-1}}{(n+\rho)a_{i,t}^{n-1}}
+%\end{align}
+
+\subsection{Using Piecewise Linear MVA to Approximate Optimal MVA}
+
+\subsection{Choosing Low Value?}
 
 \subsection{Experiments}
 
