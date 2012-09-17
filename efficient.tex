@@ -361,7 +361,7 @@ MVAs. Thus we omit the proof about $\alpha$-MVA. Even for the $\alpha$, we will
 be more interested in its relation with larger $n$ so we will give
 approximations for $\alpha$.
 
-\subsection{Approximation of $\alpha$ and Experiments}
+\subsection{Approximation of $\alpha$}
 
 It's difficult to get an exact closed formula for optimal $\alpha$. Thus we are
 going to use some simpler formulas to approximate $\alpha$. We'll conduct
@@ -443,10 +443,6 @@ Then using the fact that $C^*_n$ is strictly increasing and bounded completes th
 Experiments in figure \ref{fig:alpha} compare the optimal $\alpha$, our first approximation
 of $\alpha = 1-1/n$ and our second approximation $\alpha = (-W(-1-\rho))^{-1/n}$
 together with their corresponding cost under settings $\rho = 0.2, 1, 5$.
-Experiments [ref:figures] further compare these cost with two-step, fixed-step
-California-split strategy [cite and see Increasing Threshold Search for these
-strategies].  Recall that under this simpler model, the gross revenue is fixed
-thus the utility is completely determined by this cost.
 
 \begin{figure*}
 \centering
@@ -470,3 +466,73 @@ approximations are very close to the optimal one. But the second approximation i
 when $\rho$ is much smaller or greater than $1$. Anyway, the second approximation isn't always
 better than the first approximation, as the case $\rho = 1, n = 2$ shows.
 
+\subsection{Experiments}
+Now let's compare optimal $\alpha$-MVA with other kinds of MVA. In all
+following experiments, the valuation distribution is always uniform over $[0,
+1]$. According to lemma \ref{lemma:uniform}, other distributions can always be
+adapted to uniform distribution so this won't be a problem.  Also recall that
+under this simpler model, the revenue is fixed thus the profit is
+completely determined by cost. Thus we'll only compare cost in the following.
+
+$\alpha$-MVA can potentially have infinite many rounds. But in reality, it's
+more naturaly to come up with an MVA that has finite many, say $k$ rounds at
+most. Let's call them $k$-MVA where $k$ is some positive integers. One
+particualr $k$- MVA is uniform $k$-MVA where the $k$ thresholds is uniformly
+distributed over $[0, 1]$.  It's also known as fixed-step search strategy in
+[cite:increasing search and its reference]. An optimal uniform MVA is the uniform
+$k$-MVA that minimize the cost by choosing the best $k$.
+
+In practice, such $k$ might also be very limited. For example, if someone need
+to selll something in $3$ days before moving out, the $k$ might be limited to
+$3$ since it's too annoying to send out two broadcast messages per day (e.g. it
+might be labeled as spam by selling platform).  With this limitation, one can
+still use uniform thresholds as a baseline. Or we may formulate this as another
+optimzing problem and solve the best $k$ thresholds under this constraint (this
+problem is defined and solved in section \ref{sec:general_analysis} and
+equation \ref{eq:diff_C_general}).  Between the baseline $k$ uniform thresholds
+and the optimal $k$ thresholds, another heurestic way to get $k$ thresholds is
+to use $\alpha, \alpha^2, \ldots, \alpha^{k-1}$ as thresholds. That means, in
+first $k-1$ rounds, we query as if we have infinite many rounds, and we query
+all the left in last round. We call this mechanism as $\alpha$-cutoff-$k$-MVA.
+
+The comparison results achieved from simulation experiments are shown in figure
+\ref{fig:cost_comparisons}. Here are some observations:
+
+\begin{figure}
+\centering
+    \subfigure[$\rho = 0.5$]{
+        \includegraphics[trim=0 5mm 5mm 15mm, clip, width=1\linewidth]{figures/analyze_cost_.5_5_15.eps}
+        \label{fig:cost_comparison_.5}
+    }
+    \subfigure[$\rho = 2$]{
+        \includegraphics[trim=0 5mm 5mm 15mm, clip, width=1\linewidth]{figures/analyze_cost_2_5_15.eps}
+        \label{fig:cost_comparison_2}
+    }
+    \caption{Cost comparison for different MVAs over $n$, number of bidders, and $\rho$, broadcast/bidding cost ratio.}
+    \label{fig:cost_comparisons}
+\end{figure}
+
+\begin{itemize}
+\item The optimal uniform-MVA's cost is very close optimal $\alpha$-MVA's,
+especially when $n$ is large. That could be explained by 
+    \begin{enumerate}
+        \item $\alpha$ approaching $1$ when $n$ grows large, which makes the
+        first $k$ thresholds $\alpha, \alpha^2, \alpha^3, \ldots, \alpha^k$
+        close to uniform thresholds $1-(1-\alpha), 1-2(1-\alpha), \ldots,
+        1-k(1-\alpha)$; 
+
+        \item the probability that the highest value falls out of first $k$
+        thresholds, $\alpha^{nk}$, becomes negligible when $n$ grows large.
+    \end{enumerate}
+
+\item The optimal $k$-MVA's cost decreases and approaches to optimal cost quickly
+when $k$ grows (check optimal $2$-MVA and $3$-MVA).
+
+\item When $k$ is small, uniform thresholds has significant higher cost than optimal
+$k$-MVA, and the heuristic $\alpha$-cutoff-$k$-MVA.
+
+\item The heuristic $\alpha$-cutoff-$k$-MVA works pretty well when $\rho$ is large as
+shown in figure \ref{fig:cost_comparison_.5}. But it won't be very efficient when $\rho$ is small and $n$ is
+large as shown in figure \ref{fig:cost_comparison_2}.
+
+\end{itemize}

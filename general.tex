@@ -343,7 +343,7 @@ we set $l = 0$.
     10000$}\label{fig:x-l}
 \end{figure}
 
-\subsection{Analysis of Optimal MVA with a Given Low Value}
+\subsection{Analysis of Optimal MVA with a Given Low Value}\label{sec:general_analysis}
 
 Figure \ref{fig:x-h} shows that the optimal MVA with a low value $l$ is
 much more complicated but there might still be hope to get a nice analytical
@@ -489,12 +489,6 @@ optimal $l$ must satisfy $l \geq l_0$ as the optimal is non-increasing. The
 question is, how to search or determine optimal $l$? Let's first check the simple
 case when the value distribution is uniform.
 
-\subsection{Experiments}
-
-Now we are going to compare revenue in general cases. We not only compare our
-approximate optimal MVAs to optimal MVAs computed numerically, but also compare
-MVAs to other conventional mechanisms.
-
 Figure \ref{fig:CSP-l-2-1} and \ref{fig:CSP-l-5-1} plot cost, spending and profit
 over $l$. It's clear in figure \ref{fig:CSP-l-5-1} that increasing $l$ from $0.5$ to about $0.8$
 will get a significant profit increase. However, it's not so clear in these two plots
@@ -521,3 +515,14 @@ preserve the peaks and global optimal point as the lowest point.
     \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/suboptimality.eps}
     \caption{Suboptimality of Cost, Spending and Profit over $l$ when $n = 10, b = 0.2, c = 0.1$}\label{fig:suboptimality}
 \end{figure}
+
+As you can see from figure \ref{fig:suboptimality}, the cost isn't unimodal over $l$ and it's quite wierd.
+Thus in later experiments, we are just going to brute forcely search over all possible $l$ from $0.5$ to $1$,
+with a search increment of $0.01$.
+
+\subsection{Experiments}
+
+Now we are going to compare revenue in general cases. We not only compare our
+approximate optimal MVAs to optimal MVAs computed numerically, but also compare
+MVAs to other conventional mechanisms.
+
