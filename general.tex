@@ -471,12 +471,27 @@ The initial $a_i$ is very important for solving optimal $a_i$. A bad choice may
 lead to much more computation and even non-convergence. For example, the
 trivial uniform $a_i = a_0 - \frac{i}{k}(a_0-a_k)$ is a bad initial guess. We
 find the intial $a_i = \alpha^i$ provided by $\alpha$-MVA to be very efficient.
-It's suggested by experiments showed in figure \ref{fig:x-l} where $x$ seems to
-be $1-\alpha$ for a lot of $l$.  A similar result is also occurs when we
-compare the cost of different MVA: uniform $a_i$ MVA performs much worse than
-$\alpha$-MVA with cutoff. In experiments, the actual optimal $k$ is very close
-to our upper bound $k_\alpha$: it's mostly either $k_\alpha$ or $k_\alpha-1$.
-This might be a direct consequence of $a_i = \alpha^i$'s good performance.
+Let's call this $MVA$ with thresholds $\alpha, \alpha^1, \ldots, \alpha^{k-1}$
+where $\alpha^{k-1} \geq l, \alpha^k < l$ an $\alpha$-cutoff-MVA, as we did in
+previous section \ref{sec:eff_experiment}.  It's suggested by experiments
+showed in figure \ref{fig:x-l} where $x$ seems to be $1-\alpha$ for a lot of
+$l$. In experiments, the actual optimal $k$ is very close to our upper bound
+$k_\alpha$: it's mostly either $k_\alpha$ or $k_\alpha-1$.  This might be a
+direct consequence of $\alpha$-cutoff-MVA's good performance shown in figure
+\ref{fig:cutoff}. As you can see, in most cases their profit are very close.
+The significant difference only occur when low value $l$ is a little below
+$\alpha$ and this isn't likely to occur when $n$ is large where $\alpha$ is
+much closer to $1$ than $l$.
+
+\begin{figure}
+\centering
+    \includegraphics[width=\linewidth]{figures/cutoff_.2_.1_15.eps}
+    \caption{The profit of optimal MVA and $\alpha$-cutoff-MVA are plotted in
+    solid line.  The low value $l$ is chosen to maximze optimal MVA's profit.
+    We also plot $l$ and $\alpha$ in dashed lines to see how they affect the
+    relative profit difference.  Note that $\alpha$ does not depend on
+    $l$.}\label{fig:cutoff}
+\end{figure}
 
 \subsection{Choosing Low Value}
 
@@ -522,7 +537,54 @@ with a search increment of $0.01$.
 
 \subsection{Experiments}
 
-Now we are going to compare revenue in general cases. We not only compare our
-approximate optimal MVAs to optimal MVAs computed numerically, but also compare
-MVAs to other conventional mechanisms.
+Now we are going to compare profit of different mechanisms in general settings.
+To keep it simple, we still use a uniform valuation distribution for all
+experiments.  As theorem \ref{theorem:equivalence} shows, the profit is simply
+spending minus cost where spending is solely determined by $l$. In fact, the
+total spending won't be very sensitive to this $l$ when $n$ is large (except
+that $l$ is very close to $1$) and we will see this in later comparisons. Thus
+most experimental comparisons that we have done for cost in section
+\ref{sec:eff_experiment} would also give us a lot information for profit
+comparison. As a result, we will compare mechanisms very different from those
+in section \ref{sec:eff_experiment}. Specifically, we won't be interested in
+$k$-MVA where $k$ is very limited. Instead, we are going to compare how $l$
+is going to affect the profit and how much profit we lose if we ignore the cost.
 
+If we ignore the cost, Myerson has already proved that a singleshot Vickrey
+auction with reserve price $0.5$ would be optimal for uniform i.i.d. bidders.
+Thus we will compare this singleshot mechanism, as well as its variants, the
+singleshot Vickrey auction with $0$ reserve price. But be aware of that reserve
+price isn't equivalent with low value $l$  when cost exists. To make it more fair,
+we add one more singleshot Vickrey auction whose reserve is set to be optimal
+among all singleshot Vickrey auctions (i.e. we optimize $l$ for this particular
+singleshot mechanism).
+
+\begin{figure}
+\centering
+  \subfigure[profit]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/profit_.1.eps}
+    \label{fig:general_profit}
+  }
+  \subfigure[low value]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/l_.1.eps}
+    \label{fig:general_l}
+  }
+  \caption{Compare profit and corresponding low value $l$ over $n$. The
+  broadcast cost $b = 0.1$. Bidding cost for seller and buyer are $\beta_1 =
+  \beta_2 = 0.05$ (thus $c = \beta_1+\beta_2 = 0.1$)}\label{fig:general}
+\end{figure}
+
+The experimental result is shown in figure \ref{fig:general}. As shown in
+profit comparison figure \ref{fig:general_profit}, the profit of optimal $l$,
+$l = 0$ and $l = 0.5$ become close very quickly when $n$ grows and they are
+almost identical for $n \geq 8$ in this experiment setting. Thus choosing $l$
+won't be a critical issue for large $n$. However, if we use singleshot
+mechanism (which is optimal if cost doesn't exist), the gap is significant.
+This is because the bidding cost will equivalently increase low value $l$ very
+close to $1$ thus lower the total spending significantly. For example, even if
+we set reserve price to $0$, when $n = 10$, $l$ will be between $0.6$ to $0.8$.
+The optimal reserve price $0.5$ becomes the worst as its $l$ is too high. Even
+if we allow to adapt our reserve price to optimal, the singleshot mechanism is
+still not so good becomes it can't balance the total spending and bidding cost,
+i.e. it either makes $l$ close to $1$ to lose a lot total spending, or makes
+$l$ close to $0.5$ to cause a big bidding cost.
