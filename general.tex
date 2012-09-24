@@ -580,11 +580,15 @@ $l = 0$ and $l = 0.5$ become close very quickly when $n$ grows and they are
 almost identical for $n \geq 8$ in this experiment setting. Thus choosing $l$
 won't be a critical issue for large $n$. However, if we use singleshot
 mechanism (which is optimal if cost doesn't exist), the gap is significant.
-This is because the bidding cost will equivalently increase low value $l$ very
+This is because the bidding cost will drive low value $l$ very
 close to $1$ thus lower the total spending significantly. For example, even if
 we set reserve price to $0$, when $n = 10$, $l$ will be between $0.6$ to $0.8$.
-The optimal reserve price $0.5$ becomes the worst as its $l$ is too high. Even
-if we allow to adapt our reserve price to optimal, the singleshot mechanism is
-still not so good becomes it can't balance the total spending and bidding cost,
+The optimal reserve price $0.5$ becomes the worst as its $l$ is too high. One may
+suspect whether it's better to set low value $l$ to be $0.5$ in a reserve price
+Vickrey auction, since it will bring us maximal total spending. The answer is no,
+because its bidding cost is $0.5 n \times c$, which grows way too large when $n$
+is large.
+Even if we allow to adapt our reserve price to optimal, the singleshot mechanism is
+still not so good because it can't balance the total spending and bidding cost,
 i.e. it either makes $l$ close to $1$ to lose a lot total spending, or makes
 $l$ close to $0.5$ to cause a big bidding cost.
