@@ -12,7 +12,7 @@ enterring credit card nubmers, depositing money and clicking buttons are all
 costly for bidders, though sometimes very tiny.  Bidders may not bid when this
 cost is greater than their expected utility. Note that even if the valuation is
 very high, the expected utility can be very small because of tense competition,
-which is very common in online cases as $n$, the number of potential bidders,
+which is very common on the Internet as $n$, the number of potential bidders,
 is very large. 
 
 This behaviour (bidders won't bid because of competitions) is very different
@@ -35,16 +35,16 @@ distributed bidders. In a Dutch auction (a Dutch auction has infinite many
 rounds of broadcasts so we have to set braodcast cost to $0$), only one bidder
 is expected to bid (no competition), thus every bidder with a valuation $v_i
 > 0.1$ should be benifitable to bid when the reserve price drops to a little
-> bit below
-$v_i-0.1$ (recall that $n \rightarrow \infty$).  In a Vickrey auction, however,
-the competition is very tense. Only bidders with valuation greater than $t$ can
-accept such intense competition where $t$ satisfies $t^{n-1}t - 0.1 = 0$ (the
-expected utility for a bidder with valuation $t$ is $0$).  Thus $t =
-\sqrt[n]{0.1}$ which is arbitrary close to $1$ as $n$ grows to infinity.  Thus
-almost all bidders can't bare this competition when $n$ is really large.
+bit below $v_i-0.1$ (recall that $n \rightarrow \infty$).  In a Vickrey
+auction, however, the competition is very tense. Only bidders with valuation
+greater than $t$ can accept such intense competition where $t$ satisfies
+$t^{n-1}t - 0.1 = 0$ (the expected utility for a bidder with valuation $t$ is
+$0$).  Thus $t = \sqrt[n]{0.1}$ which is arbitrary close to $1$ as $n$ grows to
+infinity.  Thus almost all bidders can't bare this competition when $n$ is
+really large.
 
 So a bad mechanism (e.g. a Vickrey auction) with too much cost will have less
-participations and therefore decreases seller's utility significantly.  To see
+participations and therefore may decreases seller's profit significantly.  To see
 this, look at previous extrame case again.  The revenue of Dutch auction will
 converge to $0.9$ (someone with valuation very close to $1$ will bid for price
 very close to $0.9$) when $n$ becomes infinity.  The revenue of a Vickrey
@@ -57,19 +57,16 @@ theorem assumes that the utility of a bidder is equal to the valuation minus
 the payment. This assumption is no longer true as now the utility is also
 influenced by the cost charged to this bidder.
 
-Finally, the byproduct of removing the first constraint (or equivalently allowing
-bidder's bidding cost) is that we have to remove our second constraint, the
-efficiency of the mechanism, as you may have already observed. Since there's cost
-for bidders to bid, we could no longer enforce the mechanism to always allocate
-the item to the bidder with highest valuation. If we do so, it will become
-infeasible when that highest valuation is less than the bidding cost, i.e. the
-expected utility will be negative for some bidders to participate this
-mechanism.
+Finally, because of allowing bidding costs, it seems that we also have to remove
+efficiency constraint. Let's consider the case where the highest valuation is
+below the bidding cost. Without compensation to bidders, enforcing efficiency means
+bidders with highest valuation have to bid (so we can allocate the item to
+them) which would make their expected utility negative.
 
 In summary, we now introduce bidder's bidding cost and drops efficiency
 constraint for our mechanisms. The first issue we are going to solve is to make
 revenue equivalence theorem, or a very similar theorem, applicable to our model
-again. That's vital for seller's utility maximization.
+again. 
 
 \subsection{Spending Equivalence Theorem and Revenue Optimization Strategy}
 
@@ -85,43 +82,67 @@ where $p_i$ is the probability that bidder $i$ will get the item.
 \end{theorem}
 
 \begin{proof}
-This theorem is exactly the same as revenue equivalence theorem except
-that we exchange revenue with spending. To prove it,
-let's construct another mechanism $M'$ (from our mechanism $M$) that fits into the original revenue equivalence
-theorem's model. Suppose there's a virtual seller in $M'$, who collects valuations from all
-bidders at no cost (a direct revelation mechanism). Then this virtual seller will
-make $n$ virtual bidders delegating all bidders to communicate with the true seller in our mechanism $M$.
-When our mechanism ends by allocating the item to virtual bidder $i$, the virtual seller also
-allocate the item to the real bidder $i$. The payment from each bidder $i$ to this
-virtual seller will be equal to the payment that virtual bidder $i$ pays to our real seller
-plus all the bidding costs charged to virtual bidder $i$. Thus, from the real bidders'
-aspects, this mechanism $M'$ is just a direct revelation mechanism which will satisfy
-revenue equivalence theorem. The only difference is that the payment from real bidder $i$ to the virtual seller
-actually has two parts, one is payed to the real seller, another is payed to bidding costs, which sum
-up to the total spending.
+This theorem is exactly the same as revenue equivalence theorem except that we
+exchange revenue with spending. To prove it, let's construct another mechanism
+$M'$ without bidding cost from our mechanism $M$ with bidding cost so $M'$ fits
+into the original revenue equivalence theorem's model. Suppose there's a
+virtual seller in $M'$, who collects valuations from all bidders at no cost (a
+direct revelation mechanism). Then this virtual seller will make $n$ virtual
+bidders delegating bidders to communicate with the true seller in our mechanism
+$M$.  When our mechanism ends by allocating the item to virtual bidder $i$, the
+virtual seller also allocate the item to the real bidder $i$. The payment from
+each bidder $i$ to this virtual seller will be equal to the payment that
+virtual bidder $i$ pays to our real seller plus all the bidding costs charged
+to virtual bidder $i$. Thus, from the real bidders' aspects, this mechanism
+$M'$ is just a direct revelation mechanism which will satisfy revenue
+equivalence theorem. The only difference is that the payment from real bidder
+$i$ to the virtual seller actually has two parts, one is payed to the real
+seller, another is payed to bidding costs, which sum up to the total spending.
 \end{proof}
 
-Thanks to theorem \ref{theorem:equivalence}, our revenue maximization problem
-is now greatly simplified: we only need to determine optimal allocation rule
-$p: (v_1, v_2, \ldots, v_n) \rightarrow (p_1, p_2, \ldots, p_n)$ and the minimum
-cost given that allocation rule. However, the optimal allocation rule here
+Thanks to theorem \ref{theorem:equivalence}, our profit maximization problem
+is now greatly simplified: 
+
+\begin{corollary}
+To maximize profit for a given allocation rule $p: (v_1, v_2, \ldots, v_n)
+\rightarrow (p_1, p_2, \ldots, p_n)$, we only need find the minimum total cost
+(including both seller's cost and bidders' cost).
+\end{corollary}
+
+\begin{proof}
+The total spending, substracts cost charged to bidders, will be the revenue
+that the seller receives.  This revenue, substracts cost charged to the seller,
+will be profit. Thus profit is total spending minus total cost. As total
+spending is fixed by allocation rule, we only need to find the minimum cost to
+maximze profit.
+\end{proof}
+
+The highlight here is that we won't have to differentiate cost charged to
+bidders and cost charged to sellers if we just want to maximize seller's profit.
+The difference of them may make revenue different, but as long as their sum
+doesn't change, the profit won't change. This not only helps us simplify our
+analysis, but also helps us simplify the optimal mechanism: the seller could
+just design a mechanism with compensations to help bidders pay all the bidding
+cost. Thus the bidders won't bother the cost.
+
+There's one more challenge, however: the optimal allocation rule here
 isn't as simple as the one that's discovered by Myerson [ref:Optimal Auction]:
 allocate the item to the bidder with highest virtural value if it's positive.
 This rule, though optimal in Myerson's setting, may not be optimal here. Theorem
 \ref{theorem:equivalence} tells us that this rule will maximize the total spending.
-But we must substract the cost from the spending to get the revenue. Therefore,
-can there be another weird allocation rule that has less total spending but even
-much less minimum cost, so a greater revenue is achieved by that allocation rule.
+But we must substract the cost from the spending to get the profit. Therefore,
+there might be another weird allocation rule that has less total spending but even
+much less minimum cost.
 
-It's not hard to find one example to support our suspicion. We know that for bidders
+It's not hard to find one example of this. We know that for bidders
 with uniform valuation over $[0, 1)$, the spending maximizing allocation rule
 is allocate the item to the bidder with highest valuation that's greater than $1/2$.
-However, if the broadcast is too large, for example $1$ (which is equal to the
+However, if the broadcast cost is too large, for example $1$ (which is equal to the
 highest possible valuation), the cost to find out whether there's any bidder with valuation
 greater than $1/2$ is at least $1$. Thus if we use this allocation rule, the
-final revenue would be negative since the total spending must be less than the
+final profit would be negative since the total spending must be less than the
 minimum cost. However, the allocation rule that never allocate the item will have
-$0$ cost and $0$ spending, which achieves $0$ revenue, better than previous allocation
+$0$ cost and $0$ spending, which achieves $0$ profit, better than previous allocation
 rule.
 
 Thus, the revenue optimal mechianism will depend on how minimum cost is defined. 
@@ -156,26 +177,30 @@ the bidder with highest valuation if it decides to allocate the item.
 
 To see why this theorem holds, firstly notice that in our cost model, the
 minimum cost to let any bidder reply is equal to the minimum cost to let the
-max-valuation bidder (or max-virtual-valuation bidder, we won't mention virtual
-valuation below because they are indifferent in our cost context so you can
-always substitude one by another, adding or removing regularity constraint)
-reply.  This is because that the mechanism is only allowed to ask broadcast
+max-valuation bidder or max-virtual-valuation bidder to reply.
+This is because that the mechanism is only allowed to ask broadcast
 queries and it's equivalent to specify a range $Q \subseteq [0, 1)$ and ask all
 bidders whose valuations are within that range to reply. That means, by
 properly mappings of valuations and query ranges, we can always adapt a
 strategy that lets any bidder reply to another strategy that lets the
-max-valuation bidder reply and vise versa (just like what we did to prove lemma
+max-virtual-valuation bidder reply and vise versa (just like what we did to prove lemma
 \ref{lemma:descending}). This means that finding the max-valuation bidder won't
 cost more than any other cases except doing nothing (which costs $0$). Thus the
 optimal mechanism either do nothing (no one replies and thus $p_i = 0$ by
 definition \ref{def:allocation_cost}) which has minimum cost or ask queries to
-find the max-valuation bidder and allocate the item to that bidder which has
+find the max-virtual-valuation bidder and allocate the item to that bidder which has
 maximum total spending.  The flexibility of an optimal mechanism is that it can
 choose the cases in which it won't allocate the item (in any other cases it
-will allocate the item to the max-valuation bidder). It's also intuitive
+will allocate the item to the max-virtual-valuation bidder). It's also intuitive
 to see that the no allocation cases can be described by a single parameter $l$:
 no allocation if every bidder's valuation is below $l$. For limit of space,
 we won't list the detailed proof for the above theorem and arguments.
+
+For simplicity, we won't mention virtual valuation below because they are 
+indifferent in terms of minimizing cost.  For convenience, we will use
+valuation instead of virtual valuation even if we are later talking about
+profit because our mechanism are just going to find the maximum value and it's
+equivalent to finding the maximum virtual value in regular cases.
 
 Now we can narrow our optimal mechanisms with relaxed efficiency constraint:
 
@@ -194,20 +219,20 @@ if:
 
     \end{enumerate}
 
-When we say a mechanism with a low value $l$, we imply that this mechanism
+When we say a mechanism has a low value $l$, we imply that this mechanism
 satisfy relatex efficiency constraint with low value $l$.
 
 \end{definition}
 
-\subsection{Cost Minimization with Low Value and MVAs' Optimality in General}
+\subsection{MVAs' Optimality in General}
 
 We have already narrowed down optimal mechanism to
-relatex efficient mechanisms and by theorem \ref{theorem:equivalence},
+relaxed efficient mechanisms and by theorem \ref{theorem:equivalence},
 it's straightforward to see
 
 \begin{corollary}
 
-For mechanisms with a fixed low value $l$, the maximum utility for sellers is
+For mechanisms with a fixed low value $l$, the maximum profit is
 achieved when the mechanism minizes the cost.
 
 \end{corollary}
@@ -246,13 +271,14 @@ that MVAs are optimal in general.
 
 MVAs are optimal. The only parameters we are going to determine for the
 specific optimal MVA are 1) the low value $l$; 2) the descending query
-thresholds $q_1, q_2, q_3, \ldots$.
-
-Shall we increase low value $l$ a little above Myerson's optimal low value
-to trade payment with cost? Or is it optimal to use Myerson's $l$ and then
-minimize cost according to that?
+thresholds $a_1, a_2, a_3, \ldots$.
 
 \end{corollary}
+
+When we later investigate such parameters that minimizes the cost, we will
+also assume uniform distribution $F(x) = x$ in default because distribution won't
+change this minimum cost and we can always adapt an optimal MVA for uniform distribution
+to an optimal MVA for any distribution easily.
 
 \subsection{Experiments to Discover Optimal MVA with a Given Low Value}
 
@@ -260,14 +286,13 @@ To discover the specific MVA that's optimal, we first try to identify the
 optimal thresholds $a_i$ given a low value $l$  (recall that in $i$-th round,
 MVA will ask all bidders whose valuation is within $[a_i, a_{i-1})$ to bid).
 If we can write the minimum cost $C^*$ as a function of $n, \rho, l$ (recall
-that $rho = b/c$ is the ratio between broadcast and bidding cost), we may then
+that $\rho = b/c$ is the ratio between broadcast and bidding cost), we may then
 determine the optimal $l$ using this function.
 
 In the special case that we studied in previous section where $l = 0$
 (efficiency is enforced), the optimal thresholds can be easily described as a
-single parameter $\alpha$. This strategy won't work when $l > 0$ (more
-precisely, $F(l) > 0$, but because of lemma \ref{lemma:lowest_type}, we only
-focus on uniform distribution in the following). Obviously that $a_i \geq l$,
+single parameter $\alpha$. This strategy won't work when $l > 0$ (we assume uniform
+distribution in default). Obviously that $a_i \geq l$,
 thus we can't let $a_i = \alpha a_{i-1}$ since $\lim_{i \rightarrow \infty} a_i
 = 0 < l$.  Additionally, if we revise the equation by letting $a_i-l = \alpha
 (a_{i-1}-l)$, we will get a positive possibility $F(l)$ that we would ask
@@ -278,8 +303,8 @@ present a simple algorithm to calculate such thresholds numerically. We firstly
 discretize the continuous valuation $[0, 1)$ to $D$ discrete values $\{0, 1, \ldots,
 D-1\}$. That means, the original valuation $v$ will be transformed to integer
 value $\hat v = \lfloor v D \rfloor$. Then we use dynamic programming to
-inductively calculate $\hat x_{\hat h}$, the length of next optimal descending query to ask
-(therefore the query would be $[\hat h-\hat x_{\hat h}, \hat h)$), conditional on that we have
+inductively calculate $\hat x_{\hat h}$, the length of next optimal descending
+query $[\hat h-\hat x_{\hat h}, \hat h)$ to ask, conditional on that we have
 already queried $[\hat h, D)$ and no one replies.
 
 \begin{algorithm}
@@ -305,7 +330,7 @@ already queried $[\hat h, D)$ and no one replies.
 
 Algorithm \ref{algo:discrete} runs in time $O(D^2)$. Having $\hat x$, we can
 then infer the best strategy $x$ for original continuous problem by converting
-$\hat r, \hat x$ back to $r, x$ and using them to interpolate continuous
+$\hat h, \hat x$ back to $h, x$ and using them to interpolate continuous
 strategy.  The larger $D$ is the more accurate it will be. But it will also
 require more running time.  Running this for case $l = .5, \rho = 2, n = 10, D
 = 1000$ we get $x$ showed in figure \ref{fig:x-h}. It seems that $x$ is a
@@ -329,8 +354,8 @@ Another way to plot the graph is to normalize $x$ and $l$ so that $h$ becomes
 $1$ since our model is $v_i \in [0, 1)$. It's showed in figure \ref{fig:x-l}.
 This again looks like a piecewise linear function.  A more interesting
 observation is that the left-most piece is quite a long straight line $x =
-1-\alpha$. Thus we know that $x = 1-\alpha$ for quite a lot $l$ which is not
-close to $1$. Here the $\alpha$ is the the optimal $\alpha$ of $\alpha-MVA$ is
+1-\alpha$. Thus it seems that $x = 1-\alpha$ is optimal for quite a lot $l$ which is not
+far from $0$. Here the $\alpha$ is the the optimal $\alpha$ of $\alpha$-MVA if
 we set $l = 0$.
 
 \begin{figure}
@@ -351,25 +376,26 @@ result: piecewise linear function. That is, we can't use a single $\alpha$ to
 describe such optimal MVA, but perhaps we can use a sequence of $\alpha$ to
 describe it. Now let's take an analytical treatment.
 
-The first key point to analyze the optimal MVA with low value is to utilize
+The first key to analyze the optimal MVA with low value is to utilize
 the fact that there's a fixed maximal number of rounds to exploit the whole
 reportable valuation range $[l, h)$ ($h$ is the highest undiscovered
 value as defined in last subsection and $h = 1$ initially). Let's call that
-number $k$. We have argued this before: if not, because the possibility that no
-values lie in $[l, h)$ is possitive, the cost will be infinte.
+number $k$.\footnote{We have argued this before: if such $k$ doesn't exist, or equivalently
+the maximum number of rounds is unbounded, the cost will be infinite as the possibility that no
+values lie in $[l, h)$ is positive.}
 
 For convenience, define $\vec a = (a_0, a_1, a_2, \ldots, a_k)$, the vector of
-$k$ thresholds in such optimal MVA. We make $a_0 = r, a_k = l$ so in $i$-th
+$k$ thresholds in such optimal MVA. We make $a_0 = h, a_k = l$ so in $i$-th
 round the query would be $[a_i, a_{i-1})$. Now define cost $C(\vec a, k, \rho,
 n)$ to be the expected cost for MVA defined by $k, \vec a$ when there are $n$
 i.i.d.  $[0, 1)$-uniform bidders (note that $l, h$ are implicitly defined by
 $a_k, a_0$). If we can get a neat form of $C$, we can use $\frac{\partial
 C}{\partial a_i} = 0 $ to characterize optimal MVA, as we did in section
-\ref{sec:alpha-MVA} (it's easy to see that boundary cases $a_i = a_{i-1},
-a_{i+1}$ are not optimal too).
+\ref{sec:alpha-MVA}.\footnote{It's easy to see that boundary cases $a_i = a_{i-1},
+a_{i+1}$ are not optimal too.}
 
-Thus the second key point is to how to represent this $C$. Rather than
-considering one round after another as we did before, now we consider all
+Thus the second key is to represent this $C$. Rather than
+considering one round after another recursively as we did before, we now consider all
 rounds together:
 \begin{align*}
 C(\vec a, k, \rho, n) =
@@ -558,6 +584,10 @@ price isn't equivalent with low value $l$  when cost exists. To make it more fai
 we add one more singleshot Vickrey auction whose reserve is set to be optimal
 among all singleshot Vickrey auctions (i.e. we optimize $l$ for this particular
 singleshot mechanism).
+One may also suspect whether it's good enough to set low value $l$ to be $0.5$
+in such singleshot Vickrey auction, since it will bring us maximal total
+spending. The answer is no, because its bidding cost is $0.5 n \times c$, which
+grows way too large when $n$ is large.
 
 \begin{figure}
 \centering
@@ -583,12 +613,8 @@ mechanism (which is optimal if cost doesn't exist), the gap is significant.
 This is because the bidding cost will drive low value $l$ very
 close to $1$ thus lower the total spending significantly. For example, even if
 we set reserve price to $0$, when $n = 10$, $l$ will be between $0.6$ to $0.8$.
-The optimal reserve price $0.5$ becomes the worst as its $l$ is too high. One may
-suspect whether it's better to set low value $l$ to be $0.5$ in a reserve price
-Vickrey auction, since it will bring us maximal total spending. The answer is no,
-because its bidding cost is $0.5 n \times c$, which grows way too large when $n$
-is large.
-Even if we allow to adapt our reserve price to optimal, the singleshot mechanism is
+The optimal reserve price $0.5$ becomes the worst as its $l$ is too high. 
+Even if we adapt our reserve price to optimal one, the singleshot mechanism is
 still not so good because it can't balance the total spending and bidding cost,
 i.e. it either makes $l$ close to $1$ to lose a lot total spending, or makes
 $l$ close to $0.5$ to cause a big bidding cost.
