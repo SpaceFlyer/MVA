@@ -1,0 +1,57 @@
+\begin{thebibliography}{10}
+
+\bibitem{Ausubel99:EfficientOptimality}
+L.~M. Ausubel and P.~Cramton.
+\newblock The optimality of being efficient.
+\newblock 1999.
+
+\bibitem{DBLP:conf/iwdc/HassanJ04}
+J.~Hassan and S.~Jha.
+\newblock On the optimization trade-offs of expanding ring search.
+\newblock In N.~Das, A.~Sen, S.~K. Das, and B.~P. Sinha, editors, {\em IWDC},
+  volume 3326 of {\em Lecture Notes in Computer Science}, pages 489--494.
+  Springer, 2004.
+
+\bibitem{Herings2009:BisectionAuction}
+P.~J.-J. Herings, R.~M\"{u}ller, and D.~Vermeulen.
+\newblock Bisection auctions.
+\newblock {\em SIGecom Exch.}, 8(1):6:1--6:5, July 2009.
+
+\bibitem{McAfee97:SequentialAuctions}
+R.~McAfee and D.~Vincent.
+\newblock Sequentially optimal auctions.
+\newblock {\em Games and Economic Behavior}, 18(2):246 -- 276, 1997.
+
+\bibitem{McAfee88:SearchMechanisms}
+R.~P. McAfee and J.~McMillan.
+\newblock Search mechanisms.
+\newblock {\em Journal of Economic Theory}, 44(1):99 -- 123, 1988.
+
+\bibitem{Myerson:1981}
+R.~B. Myerson.
+\newblock {Optimal Auction Design}.
+\newblock {\em Mathematics of Operations Research}, 6:58--73, 1981.
+
+\bibitem{SarneSR2010:IncreasingSearch}
+D.~Sarne, S.~Shamoun, and E.~Rata.
+\newblock Increasing threshold search for best-valued agents.
+\newblock In {\em Proceedings of the National Conference on Artificial
+  Intelligence (AAAI)}, Atlanta, GA, USA, 2010.
+
+\bibitem{Stegeman95:ParticipationCost}
+M.~Stegeman.
+\newblock Participation costs and efficient auctions.
+\newblock {\em Journal of Economic Theory}, 71(1):228--259, October 1996.
+
+\bibitem{Tan2006:EquilibriaParticipationCost}
+G.~Tan and O.~Yilankaya.
+\newblock Equilibria in second price auctions with participation costs.
+\newblock {\em Journal of Economic Theory}, 130(1):205 -- 219, 2006.
+
+\bibitem{Varadhan2009:BB}
+R.~Varadhan and P.~Gilbert.
+\newblock Bb: An r package for solving a large system of nonlinear equations
+  and for optimizing a high-dimensional nonlinear objective function.
+\newblock {\em Journal of Statistical Software}, 32(4):1--26, 10 2009.
+
+\end{thebibliography}

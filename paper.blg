@@ -1,0 +1,47 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: paper.aux
+The style file: abbrv.bst
+Database file #1: references.bib
+Warning--empty note in Ausubel99:EfficientOptimality
+You've used 10 entries,
+            2118 wiz_defined-function locations,
+            1098 strings with 18082 characters,
+and the built_in function-call counts, 3333 in all, are:
+= -- 329
+> -- 142
+< -- 2
++ -- 55
+- -- 44
+* -- 252
+:= -- 561
+add.period$ -- 31
+call.type$ -- 10
+change.case$ -- 50
+chr.to.int$ -- 0
+cite$ -- 11
+duplicate$ -- 121
+empty$ -- 269
+format.name$ -- 44
+if$ -- 696
+int.to.chr$ -- 0
+int.to.str$ -- 10
+missing$ -- 9
+newline$ -- 53
+num.names$ -- 22
+pop$ -- 39
+preamble$ -- 1
+purify$ -- 40
+quote$ -- 0
+skip$ -- 83
+stack$ -- 0
+substring$ -- 238
+swap$ -- 21
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 40
+warning$ -- 1
+while$ -- 33
+width$ -- 12
+write$ -- 112
+(There was 1 warning)

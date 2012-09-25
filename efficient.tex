@@ -13,8 +13,7 @@ particular day, e.g. the day the seller moves out the house. We encounter many
 free items during second-hand sales as well, which is another demonstration of
 zero valuation. Additionally, sellers cannot commit to withhold the item or 
 prevent re-sales between buyers. Under such circumstances, an efficient mechanism not only
-maximzes the social welfare but also maximizes the seller's revenue [cite The
-optimality of being efficient].
+maximzes the social welfare but also maximizes the seller's revenue \cite{Ausubel99:EfficientOptimality}.
 
 \item The bidding cost for each bidder sometimes seems \footnote{But actually
 it's not that negligible as our example seems to claim. In later section,
@@ -124,7 +123,7 @@ This tells us that a bidder will bid in a round of MVA if and only if the
 expected second highest bidding conditional on this bidder's valuation is the
 highest is greater than the reserve price of that round. For example, if the
 distribution is uniform, i.e. $F(x) = x$, $r_i = \frac{n-1}{n} a_i$ for $i >
-0$. [cite sequentailly optimal auctions] has given some more discussions and
+0$. \cite{McAfee97:SequentialAuctions} has given some more discussions and
 proof (e.g. once a bidder choose to bid, bid truthfully is a unique weekly
 dominant strategy) about the equilibrium of this kind of sequential auctions.
 That paper, however, aims on the optimal auctions for a different cost model
@@ -134,7 +133,7 @@ difference later when we introduces bidding cost for bidders.
 \subsection{Optimality of MVAs}
 
 Since the mechanism is required to be efficient, revenue equivalence theorem
-[cite] told us that the seller's gross revenue without substracting costs is
+\cite{Myerson:1981} told us that the seller's gross revenue without substracting costs is
 fixed. Thus to maximize the profit is equivalent to minimize the cost. 
 
 By efficiency constraint, the mechanism should at least find out the bidder
@@ -356,10 +355,10 @@ C}{\partial \alpha} |_{\alpha = 0} < 0$.
 When $\alpha = 1$, $\alpha$-MVA becomes Dutch Auction thus $\rho$ must be $0$
 (otherwise total broadcast cost would be infinity). And this is indeed a
 solution of equation \ref{eq:alpha} when $\rho = 0$. Thus equation
-$\ref{eq:alpha}$ characterize the optimal $\alpha$ in all cases.  [Increasing
-Threshold Search for Best-Valued Agents] has a proof for why $\alpha$-MVA is
-optimal among MVAs and how to determine $\alpha$ as well. Thus if you find them
-not intuitive you may reference more details there.  Our simplified cost model
+$\ref{eq:alpha}$ characterize the optimal $\alpha$ in all cases.
+\cite{SarneSR2010:IncreasingSearch} has a proof for why $\alpha$-MVA is optimal
+among MVAs and how to determine $\alpha$ as well. Thus if you find them not
+intuitive you may reference more details there.  Our simplified cost model
 (with efficiency constraint and no buyer's cost) is equivalent to their cost
 model where learning cost is linear to the number of replied agents.  That
 paper makes descending query as a contraint \footnote{In their model they want
@@ -488,7 +487,7 @@ more naturaly to come up with an MVA that has finite many, say $k$ rounds at
 most. Let's call them $k$-MVA where $k$ is some positive integers. One
 particualr $k$- MVA is uniform $k$-MVA where the $k$ thresholds is uniformly
 distributed over $[0, 1]$.  It's also known as fixed-step search strategy in
-[cite:increasing search and its reference]. An optimal uniform MVA is the uniform
+\cite{SarneSR2010:IncreasingSearch, DBLP:conf/iwdc/HassanJ04}. An optimal uniform MVA is the uniform
 $k$-MVA that minimize the cost by choosing the best $k$.
 
 In practice, such $k$ might also be very limited. For example, if someone need
