@@ -7,22 +7,25 @@ as craigslist or moving sales in mailing-lists:
 
 \begin{enumerate}
 
-\item In many cases, sellers only have $0$ valuation for the item and
-they cannot commit to withhold the item or prevent re-sales between buyers.
+\item In many cases, sellers only have $0$ valuation for the item.
 For example, some second-hand items will be tossed if they cannot be sold by a
 particular day, e.g. the day the seller moves out the house. We encounter many
 free items during second-hand sales as well, which is another demonstration of
-zero valuation. Under such circumstances, an efficient mechanism not only
+zero valuation. Additionally, sellers cannot commit to withhold the item or 
+prevent re-sales between buyers. Under such circumstances, an efficient mechanism not only
 maximzes the social welfare but also maximizes the seller's revenue [cite The
 optimality of being efficient].
 
-\item The bidding cost for each bidder is sometimes negligible compared to
-bidding cost charged to the seller. For example, if $100$ bidders replied to
-the seller by a $1$-minue call, each bidder only has a tiny $1$ minue cost.
-But for the seller, it's a big $100$ minutes cost which is very annoying. It's
-also necessary to remove bidder's bidding cost to achieve efficiency.
-Otherwise, the item may not be able to allocate to the highest bidder
-when that highest valuation is below the bidder's bidding cost.
+\item The bidding cost for each bidder sometimes seems \footnote{But actually
+it's not that negligible as our example seems to claim. In later section,
+theorem \ref{theorem:equivalence} will show exactly how important it is.} to be
+negligible compared to bidding cost charged to the seller. For example, if
+$100$ bidders replied to the seller by a $1$-minue call, each bidder only has a
+tiny $1$ minue cost.  But for the seller, it's a big $100$ minutes cost which
+is very annoying. It's also necessary to remove bidder's bidding cost to
+achieve efficiency (without compensation).  Otherwise, the item may not be able
+to allocate to the highest bidder when that highest valuation is below the
+bidder's bidding cost.
 
 \end{enumerate}
 
@@ -46,7 +49,7 @@ whole process equivalent to an MVA.
 \begin{definition}(Multi-round Vickrey Auction, MVA)
 
 In a Multi-round Vickrey Auction (MVA), there's a sequence of reserve prices
-$r_1, r_2, \ldots, r_k$ where $r_k > r_{k+1}$. The seller creates a Vickrey
+$r_1, r_2, \ldots, r_k$ where $r_i > r_{i+1}$. The seller creates a Vickrey
 auction with a reserve price $r_i$ at time $i$ (or round $i$). In each
 Vickrey auction, if only one buyer bids, he/she gets the item and pays reserve
 price. Otherwise, the buyer with the highest bidding gets the item and pays the
@@ -54,17 +57,17 @@ second highest bidding.
 
 \end{definition}
 
-MVAs require Vickrey auctions (or equivalent English auctions) as basic steps.
-In reality, however, such functionality won't always be provided by online
-platforms such as craigslist. Thus a simplified version of MVA occur very often
-in those platforms. People call it first-come first served which means for
-every reserve price $r_i$, the first one who accept that price wins the item
-and pays $r_i$ directly. This mechanism may loose revenue and social efficiency
-as the person with lower valuation $p$ may get the item for $r_i$ while there's
-someone else who is willing to pay a higher amount of $q$ where $r_i \leq p < q
-< r_{i-1}$. We won't focus on this first-come first served mechanism because
-it's harder to analyze analytically and it's inferior than MVAs in terms of
-both sellers' utility and social welfare.
+%MVAs require Vickrey auctions (or equivalent English auctions) as basic steps.
+%In reality, however, such functionality won't always be provided by online
+%platforms such as craigslist. Thus a simplified version of MVA occur very often
+%in those platforms. People call it first-come first served which means for
+%every reserve price $r_i$, the first one who accept that price wins the item
+%and pays $r_i$ directly. This mechanism may loose revenue and social efficiency
+%as the person with lower valuation $p$ may get the item for $r_i$ while there's
+%someone else who is willing to pay a higher amount of $q$ where $r_i \leq p < q
+%< r_{i-1}$. We won't focus on this first-come first served mechanism because
+%it's harder to analyze analytically and it's inferior than MVAs in terms of
+%both sellers' utility and social welfare.
 
 Since there's no cost charged to buyers, it's obvious to see that whenever a
 bidder decides to bid, he/she must bid truthfully. Thus the Bayesian Nash
@@ -73,19 +76,18 @@ Equilibria (BNE) for MVAs can be described as $k$ thresholds $a_1, a_2,
 is greater than $a_i$, he/she is going to bid in round $i$ whose reserve price
 is $r_i$. Because of efficiency constraint we also have $r_k = a_k = 0$.
 
-In later analysis, we will think about the equilibrium from another
-perspective.  We firstly decide thresholds $a_i$ since they are more meaningful
-for bidders to make decisions and for us to make analysis. For a set of
-thresholds, we then determine the right reserve prices $r_i$ that make bidders
-incentive compatible to bid according to $a_i$. The following equations
-connects $a_i$ and $r_i$:
+In later analysis, we firstly decide thresholds $a_i$ since they are more
+meaningful for bidders to make decisions and for us to make analysis. Then we
+determine the right reserve prices $r_i$ that make bidders incentive compatible
+to bid according to thresholds $a_i$. The following equations connects $a_i$
+and $r_i$:
 \begin{align}\label{eq:MVA_eq}
     &r_k = a_k = 0 \mbox{ and }
     \forall i ~(1 \leq i < k),\nonumber\\
     &~~P(a_{i})(a_{i}-r_i) =
     \int_{a_{i+1}}^{a_{i}}(a_{i}-x)p(x)dx+P(a_{i+1})(a_{i}-r_{i+1})
 \end{align}
-assuming
+where for convenience we denote:
 \begin{align*}
     P(x) &:= F(x)^{n-1}\\
     p(x) &:= P'(x) = (n-1)F(x)^{n-2} f(x)
@@ -131,17 +133,18 @@ difference later when we introduces bidding cost for bidders.
 
 \subsection{Optimality of MVAs}
 
-Since the mechanism is required to be efficient, by revenue equivalence theorem
-[cite] we know that the seller's gross revenue without substracting costs is
-fixed. Thus to maximize his utility is equivalent to minimize the cost. To
-satisfy efficiency constraint, the mechanism should at least find out the
-bidder with highest valuation.  The best case is that every reply contains the
-exact and truthful valuation of the corresponding bidder since every non-silent
-reply has a cost $c$. By doing that, we never need someone to reply twice. The
-optimizing problem in this best case is defined as definition \ref{def:query}.
-The minimum cost of this best case optimizing problem provides us a lower bound
-for minimum cost of our mechanisms. We will then prove that MVAs can achieve
-this lower bound so MVAs are optimal.
+Since the mechanism is required to be efficient, revenue equivalence theorem
+[cite] told us that the seller's gross revenue without substracting costs is
+fixed. Thus to maximize the profit is equivalent to minimize the cost. 
+
+By efficiency constraint, the mechanism should at least find out the bidder
+with highest valuation.  The best case is that every reply contains the exact
+and truthful valuation of the corresponding bidder since every reply (or
+bidding) has a cost $c$. By doing that, we never need someone to reply twice.
+The optimizing problem in this best case is defined as definition
+\ref{def:query}.  This best case minimum cost provides us a lower bound for
+minimum cost of our mechanisms. We will then prove that MVAs can achieve this
+lower bound so they are optimal.
 
 \begin{definition}\label{def:query}
 
@@ -155,21 +158,22 @@ strategy can be denoted as a function:
 \begin{displaymath}
 	S\big(f, m, V, \mathcal Q = \{Q_1, Q_2, \ldots, Q_{i-1} \}\big) = Q_i
 \end{displaymath}
-which means, given $m$ i.i.d. unknown values whose PDF is $f(x)$, the reported
-values set $V$ and the set of queries asked $\mathcal Q$, the strategy $S$ will
-make $Q_i$ as the next query.
+which means, suppose there are still $m$ i.i.d. unknown values left whose PDF
+is $f(x)$, the reported values set is $V$ and the set of queries asked is
+$\mathcal Q$, the strategy $S$ will make $Q_i$ as the next query.
 
 The cost of each query is equal to $b+j \cdot c$ where $j$ is the number of
-reported values from that query. The cost of a strategy is equal to the sum of
-all queries' costs it has to ask before identifying the maximum value. The
-optimal query strategy is the one that has minimum expected cost.
-We will write such minimum expected cost as $C^*(f, n)$, a function
-of PDF $f(x)$ and number of values $n$.
+reported values from that query. The cost of a strategy for a given set of
+unknown values $v_i$ is equal to the sum of all queries' costs it has to make
+before identifying the maximum value. The optimal query strategy is the one
+that has minimum expected cost.  We will write such minimum expected cost as
+$C^*(f, n)$, a function of PDF $f(x)$ and number of unknown values in the
+beginning $n$.
 
 \end{definition}
 
-We are then going to find out the optimal query strategy. Firstly, we need
-a lemma that tells us that the minimum cost is independent of PDF $f(x)$.
+To find out the optimal query strategy, we first introduce
+a lemma saying that the minimum cost is independent of PDF $f(x)$.
 
 \begin{lemma}\label{lemma:uniform}
 
@@ -197,7 +201,7 @@ S_{f|u}\big(f, m, V, \mathcal Q \big) = F^{-1}\Big( S_u\big( u, m, F(V), F (\mat
 $
 
 Therefore $C^*(f, n) \leq C^*(u, n)$. Combining with $C^*(u, n) \leq C^*(f, n)$
-we have $C^*(f, n) = C^*(u, n) = C^*(n)$. Figure [make an illustration]
+we have $C^*(f, n) = C^*(u, n) = C^*(n)$. Figure \ref{fig:uniform} 
 illustrates those two constructions we used for this proof.
 
 \end{proof}
@@ -219,9 +223,7 @@ illustrates those two constructions we used for this proof.
   queries) and make an output $Q$ (the next query)} \label{fig:uniform}
 \end{figure}
 
-After that, we prove that descending queries are optimal for this best
-case optimizing problem.
-
+Then we prove that descending query strategies are optimal:
 \begin{lemma}\label{lemma:descending}
 
 There exists an optimal strategy with only descending queries
@@ -239,7 +241,7 @@ $Q_1$ to $Q_i$ are all descending.  We can make another descending query
 $Q'_{i+1} = [a'_{i+1}, a_i)$ (or $Q'_{i+1} = [a'_{i+1}, 1]$ if $i = 0$) such
 that
 \[
-\Pr(v \in Q_{i+1}) = \int \limits_{Q'_{i+1}} f(x) \mathrm d x = \int \limits_{Q_{i+1}} f(x) \mathrm d x = \Pr(v \in Q'_{i+1})
+\Pr(v \in Q_{i+1}) = \int \limits_{Q_{i+1}} f(x) \mathrm d x = \int \limits_{Q'_{i+1}} f(x) \mathrm d x = \Pr(v \in Q'_{i+1})
 \]
 After $Q'_{i+1}$, we'll use as optimal query as
 possible.
@@ -298,11 +300,11 @@ us a lower bound of minimum cost we can achieve by any mechanisms.  By lemma
 descending query strategy $Q_1 = [a_1, 1], Q_2 = [a_2, a_1), Q_3 = [a_3, a_2)
 \ldots$.  And by theorem \ref{theorem:MVA_eq} we are able to design such an MVA
 with reserve prices $r_1, r_2, \ldots$  whose Bayesian Nash Equilibrium
-achieves this best case descending query strategy.  Thus, MVAs are optimal.
+achieves this best case descending query strategy.  Thus, MVAs are of minimum cost.
 
 \end{proof}
 
-And by revenue equivalence theorem, MVAs maximize the seller utility.
+And by revenue equivalence theorem, MVAs are optimal:
 
 \begin{corollary}
 
@@ -328,9 +330,11 @@ bidders are expected to bid, i.e. $a_1 = \alpha, a_{i+1} = \alpha \cdot a_i$
 for uniform cases. Then the expected overall cost $C$ satisfies: $ C = \rho +
 (1-\alpha)n+\alpha^n C$. In the right hand side, the first term $\rho$ is the
 broadcast we have to use in the first round, the second term $(1-\alpha)n$ is
-the expected bidding cost for the first round, the third term $\alpha^n C$ lis
-a recursive term, the probability that no one bids $\alpha^n$ and if that
-happens the same cost $C$ should be expected in later rounds.  Thus $C = \frac{
+the expected bidding cost for the first round, the third term $\alpha^n C$ is
+a recursive term, the probability that no one bids times if that
+happens the same cost $C$ should be expected in later rounds.  
+
+From that equation, we get $C = \frac{
 \rho+(1-a)n }{ 1-\alpha^n }$. To minimize cost $C$, we either choose boundary
 cases $\alpha = 0, 1$ or we have: 
 
@@ -343,10 +347,16 @@ cases $\alpha = 0, 1$ or we have:
 \end{align}
 
 The boundary case $\alpha = 0$ can be ruled out because $\frac{\partial
-C}{\partial \alpha} |_{\alpha = 0} < 0$.  When $\alpha = 1$, $\alpha$-MVA
-becomes Dutch Auction thus $\rho$ must be $0$. And this is indeed a solution of
-equation \ref{eq:alpha} when $\rho = 0$. Thus equation $\ref{eq:alpha}$
-characterize the optimal $\alpha$ if $\alpha$-MVA is optimal.  [Increasing
+C}{\partial \alpha} |_{\alpha = 0} < 0$.
+%\footnote{As a result of $\alpha \neq 0$, optimal $\alpha$-MVA always has
+%infinite many rounds which seems to refine the result in [cite Increasing
+%Threshold Search] which claims it's either one round or infinite many rounds.
+%However, in their work, the total bidding cost isn't necessarily linear with
+%the number of biddings. Thus it's a more general proof than our linear case.}  
+When $\alpha = 1$, $\alpha$-MVA becomes Dutch Auction thus $\rho$ must be $0$
+(otherwise total broadcast cost would be infinity). And this is indeed a
+solution of equation \ref{eq:alpha} when $\rho = 0$. Thus equation
+$\ref{eq:alpha}$ characterize the optimal $\alpha$ in all cases.  [Increasing
 Threshold Search for Best-Valued Agents] has a proof for why $\alpha$-MVA is
 optimal among MVAs and how to determine $\alpha$ as well. Thus if you find them
 not intuitive you may reference more details there.  Our simplified cost model
@@ -363,12 +373,10 @@ approximations for $\alpha$.
 
 \subsection{Approximation of $\alpha$}
 
-It's difficult to get an exact closed formula for optimal $\alpha$. Thus we are
-going to use some simpler formulas to approximate $\alpha$. We'll conduct
-experiments to compare our approximation with the optimal $\alpha$ that's
-computed numerically. We are also going to show comparisons between optimal
-MVA, approximate optimal MVA and other conventional mechanisms such as Vickrey
-auctions.
+It's difficult to get an exact closed formula for optimal $\alpha$ by equation
+\ref{eq:alpha}. Thus we are going to use some simpler formulas to approximate
+$\alpha$. We'll conduct experiments to compare our approximation with the
+optimal $\alpha$ that's computed numerically. 
 
 Firstly, $\alpha = 1-1/n$ is a natural guess which means each round the
 expected number of biddings is equal to $1$. Thus we have $C(\alpha = 1-1/n) =
@@ -385,16 +393,17 @@ most $(\rho+1) / (1-e^{-1}) = O(1)$. Thus the optimal cost is bounded by
 constant $O(1)$ no matter how large $n$ is.
 \end{theorem}
 
-A better approximation when $n$ is large is to observe that $\lim_{n
-\rightarrow \infty} \alpha = 1$.  Thus we guess \footnote{We tried several
-guesses and this is the one that finally turns out to work. Note that
-$(1-\alpha)n$ must be bounded (otherwise optimal cost won't be bounded by
-$O(1)$ as well) thus it's either a constant or a weird perturbation. It's
-natural to try constant first} that $(1-a)n
-\approx A$ (for some constant $A$) and $\alpha^n \approx \alpha^{n-1}$. Then we
-have: $$ n (\rho+A) \cdot \alpha^n - n(1-\alpha^n) = 0 $$ which gives us
-$\alpha = (1+\rho+A)^{-1/n}$. Put this back to $\lim_{n \rightarrow \infty}
-(1-a)n = A$ we have $\ln (1+\rho+A) = A$ which gives us
+A better approximation when $n$ is large is to observe that $\alpha \rightarrow
+1$ when $n$ grows large.  Thus we guess 
+%\footnote{We tried several guesses and
+%this is the one that finally turns out to work. Note that $(1-\alpha)n$ must be
+%bounded (otherwise optimal cost won't be bounded by $O(1)$ as well) thus it's
+%either a constant or a weird perturbation. It's natural to try constant first}
+that $(1-a)n \approx A$ (for some constant $A$) and $\alpha^n \approx
+\alpha^{n-1}$. Then we have: 
+$$ n (\rho+A) \cdot \alpha^n - n(1-\alpha^n) = 0 $$ 
+which gives us $\alpha = (1+\rho+A)^{-1/n}$. Put this back to $\lim_{n
+\rightarrow \infty} (1-a)n = A$ we have $\ln (1+\rho+A) = A$ which gives us
 \begin{align}\label{eq:approx2}
 A = -1-\rho-W(-1-\rho)\nonumber\\
 \alpha = (-W(-1-\rho))^{-1/n} 
@@ -402,8 +411,8 @@ A = -1-\rho-W(-1-\rho)\nonumber\\
 where $W(x)$ is the Lambert W function [cite wikipedia?] defined by $W(x)
 e^{W(x)} = x$. Actually, $w\,e^w = x$ has two solutions for $w$ when $-1 < x <
 0$. Here our $W(x)$ refers to the lower\footnote{The upper branch is
-$W_0(x) > -1$ when $-1 < x < 0$} branch $W_{-1}(x) < -1$. So this is
-our second approximation that converges to the optimal one:
+$W_0(x) > -1$ when $-1 < x < 0$} branch $W_{-1}(x) < -1$. This
+second approximation that converges to the optimal one when $n$ is large:
 
 \begin{theorem}\label{theorem:approx1}
 Suppose that the optimal $\alpha$ is $\alpha^*$ which
@@ -425,15 +434,15 @@ cost of $\alpha_{n-1}$-MVA with $n-1$ bidders should be less than that of
 $\alpha^*_n$-MVA with $n$ bidders. Therefore, $C^*_{n-1} \leq C_{n-1}(\alpha_{n-1}) < C^*_n$.
 Thus sequence $C^*$ is indeed strictly increasing.
 
-Secondly, theorem \ref{theorem:approx1} sais $C^*_n$ is bounded. Therefore
+Secondly, theorem \ref{theorem:approx1} says $C^*_n$ is bounded. Therefore
 $(1-\alpha^*)n$ must also be bounded otherwise $C = \frac{\rho+(1-\alpha)n}{1-\alpha^n}$ cannot be bounded.
 Thus according to Bolzano-Weierstrass theorem [cite wikipedia?], there must be
-a subsequence $\alpha^*_{n_i}$ such that $(1-\alpha^*_{n_i})n$ converges to $A$.
-And since $\alpha^*$ satisfies equation \ref{eq:alpha} and obviously $\lim_{n \rightarrow \infty} \alpha^* = 1$, 
+a subsequence $\alpha^*_{n_i}$ such that $(1-\alpha^*_{n_i})n$ converges to some constant $A$.
+Recall that $\alpha^*$ satisfies equation \ref{eq:alpha} and obviously $\lim_{n \rightarrow \infty} \alpha^* = 1$, 
 we could use calculations similar to what we used for equation \ref{eq:approx2} to derive
 \begin{align*}
-\lim_{n_i \rightarrow \infty} (1-\alpha^*_{n_i})n_i = A &= -1-\rho-W(-1-\rho)\\
-\lim_{n_i \rightarrow \infty} (\alpha^*_{n_i})^{n_i} &= (-W(-1-\rho))^{-1}
+&\lim_{n_i \rightarrow \infty} (1-\alpha^*_{n_i})n_i = A = -1-\rho-W(-1-\rho)\\
+&\lim_{n_i \rightarrow \infty} (\alpha^*_{n_i})^{n_i} = \lim_{n_i \rightarrow \infty} (\alpha^*_{n_i})^{n_i-1} = (-W(-1-\rho))^{-1}
 \end{align*}
 This proves that
 $$\lim_{n_i \rightarrow \infty} C(\alpha^*) = \lim_{n_i \rightarrow \infty} C(\alpha = (-W(-1-\rho))^{-1/n_i})$$
@@ -472,7 +481,7 @@ following experiments, the valuation distribution is always uniform over $[0,
 1]$. According to lemma \ref{lemma:uniform}, other distributions can always be
 adapted to uniform distribution so this won't be a problem.  Also recall that
 under this simpler model, the revenue is fixed thus the profit is
-completely determined by cost. Thus we'll only compare cost in the following.
+completely determined by cost. Thus we'll only compare cost.
 
 $\alpha$-MVA can potentially have infinite many rounds. But in reality, it's
 more naturaly to come up with an MVA that has finite many, say $k$ rounds at
@@ -513,8 +522,8 @@ The comparison results achieved from simulation experiments are shown in figure
 \end{figure*}
 
 \begin{itemize}
-\item The optimal uniform-MVA's cost is very close optimal $\alpha$-MVA's,
-especially when $n$ is large. That could be explained by 
+\item The optimal uniform-MVA's cost is very close to optimal $\alpha$-MVA's,
+especially when $n$ is large. That's probably because
     \begin{enumerate}
         \item $\alpha$ approaching $1$ when $n$ grows large, which makes the
         first $k$ thresholds $\alpha, \alpha^2, \alpha^3, \ldots, \alpha^k$
@@ -522,7 +531,7 @@ especially when $n$ is large. That could be explained by
         1-k(1-\alpha)$; 
 
         \item the probability that the highest value falls out of first $k$
-        thresholds, $\alpha^{nk}$, becomes negligible when $n$ grows large.
+        thresholds, $\alpha^{nk}$, becomes negligible for large $n$.
     \end{enumerate}
 
 \item The optimal $k$-MVA's cost decreases and approaches to optimal cost quickly
@@ -531,8 +540,10 @@ when $k$ grows (check optimal $2$-MVA and $3$-MVA).
 \item When $k$ is small, uniform thresholds has significant higher cost than optimal
 $k$-MVA, and the heuristic $\alpha$-cutoff-$k$-MVA.
 
-\item The heuristic $\alpha$-cutoff-$k$-MVA works pretty well when $\rho$ is large as
-shown in figure \ref{fig:cost_comparison_.5}. But it won't be very efficient when $\rho$ is small and $n$ is
-large as shown in figure \ref{fig:cost_comparison_2}.
+\item The heuristic $\alpha$-cutoff-$k$-MVA works pretty well especially when
+$\rho$ is large as shown in figure \ref{fig:cost_comparison_.5}. But it's not
+as good as optimal $2$-MVA when $\rho$ is small and $n$ is large as shown in
+figure \ref{fig:cost_comparison_2}. Thus find the right thresholds is even more
+important than adding one more round in those cases.
 
 \end{itemize}

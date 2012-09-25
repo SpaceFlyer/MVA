@@ -386,6 +386,12 @@ we set $l = 0$.
 
 \subsection{Analysis of Optimal MVA with a Positive Low Value}\label{sec:general_analysis}
 
+Figure \ref{fig:x-h} shows that the optimal MVA with a low value $l > 0$ is
+much more complicated but there might still be hope to get a nice analytical
+result: piecewise linear function. That is, we can't use a single $\alpha$ to
+describe such optimal MVA, but perhaps we can use a sequence of $\alpha$ to
+describe it. Now let's take an analytical treatment.
+
 \begin{figure*}
 \centering
   \subfigure[profit]{
@@ -400,12 +406,6 @@ we set $l = 0$.
   broadcast cost $b = 0.1$. Bidding cost for seller and buyer are $\beta_1 =
   \beta_2 = 0.05$ (thus $c = \beta_1+\beta_2 = 0.1$)}\label{fig:general}
 \end{figure*}
-
-Figure \ref{fig:x-h} shows that the optimal MVA with a low value $l > 0$ is
-much more complicated but there might still be hope to get a nice analytical
-result: piecewise linear function. That is, we can't use a single $\alpha$ to
-describe such optimal MVA, but perhaps we can use a sequence of $\alpha$ to
-describe it. Now let's take an analytical treatment.
 
 The first key to analyze the optimal MVA with $l > 0$ is to utilize
 the fact that there's a maximal number of rounds to exploit the whole
@@ -430,15 +430,15 @@ rounds together. Let $CR_i$ denote the cost that occur in round $i$ (the broadca
 of that round and the bidding cost charged in that round) and $v^* = \max_i v_i$. Then expected cost
 would be sum of expected cost of each round:
 \begin{align}
-E[C(\vec a, k, \rho, n)] &= \sum_{i=1}^k E[ CR_i ] \nonumber \\
-  &= \sum_{i=1}^{k} \Pr\big( v^* < a_{i-1} \big) E[CR_i | v^* < a_{i-1}] \nonumber \\
+C(\vec a, k, \rho, n) &= \sum_{i=1}^k E[ CR_i ] \nonumber \\
+  &= \sum_{i=1}^{k} \Pr\big( v^* < a_{i-1} \big) E[CR_i ~|~ v^* < a_{i-1}] \nonumber \\
   &= \sum_{i=1}^{k} \frac{a_{i-1}^n}{a_0^n} \left( \rho + \frac{a_{i-1}-a_{i}}{a_{i-1}} n \right)
   \label{eq:C_general_simplified}
 \end{align}
 
 Taking derivative we get
 \begin{align}
- \frac{\partial E[C]}{\partial a_i} = \frac{
+ \frac{\partial C}{\partial a_i} = \frac{
 	n(n+\rho)a_i^{n-1}-n(n-1)a_{i+1}a_i^{n-2}-n a_{i-1}^{n-1} }{a_0^n}
 	\label{eq:diff_C_general}
 \end{align}

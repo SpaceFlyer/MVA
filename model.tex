@@ -1,32 +1,33 @@
 \section{Cost Model and Settings}
 
-In this section, we define our cost model and explain why it makes sense. Our
+In this section, we define our cost model and explain its motivation. Our
 cost model is inspired from online second-hand item transactions, including
 examples like eBay, craigslist and universities' mailing-lists.
 
 
 \begin{definition}\label{def:model}
 
-In our settings, there's one seller selling one item to $n$ buyers (bidders)
+In our settings, one seller is selling one item to $n$ buyers (bidders)
 whose valuations $v_i~(1 \leq i \leq n)$ are independently and identically
 distributed (i.i.d.) over $[0, 1)$ with PDF $f(x)$ and CDF $F(x)$. The seller
-can broadcast a message to all bidders which costs $b$ (the broadcast cost) for
+can broadcast a message to all bidders with cost $b$ (the broadcast cost) for
 the seller.  A bidder may reply to that broadcast with cost $c$ (bidding cost)
 or remain silent with no cost. Such bidding cost $c$ may contain two parts,
 $\beta_1, \beta_2$ where $\beta_1+\beta_2 = c$.  The first part $\beta_1$ is
 charged to the seller while the second is charged to the corresponding bidder.
-The bidder's reply should be deterministic with respect to the seller's
+The bidder's reply is deterministic with respect to the seller's
 broadcast (for simplicity, we only consider pure strategy equilibrium).
 
 \end{definition}
 
-Most settings in definition \ref{def:model} are quite standard except for the
-cost and broadcast capability.
+The major difference of this model are cost and broadcast capability. We'll
+explain bidding cost $c$, broadcast capability and broadcast cost $b$ in
+the following text.
 
 The bidding costs $c$ may be caused by communication and other verification
-actions required to put a bidding. For example, the bidder may have to input
-his credit card number and prepay an amount of money. Without such verification
-for the bidder, a bidder may bid very high and refuse to pay in the end. A
+required to bid. For example, the bidder may have to input
+his credit card number and prepay an amount of money. Without such verification, 
+a bidder may bid very high and refuse to pay in the end. A
 verification for the seller might also be needed. For example, a bidder may
 want to set up an appointment with the seller to check the item.  Setting up
 such an appointment might be costly because they need to dicuss time and place
@@ -35,41 +36,39 @@ fees and time.  Note that our bidding cost is different from conventional
 participation cost studied before [cite Participation Costs and Efficient
 Auctions, Equilibria in second price auctions with participation costs]. In our
 model, it's free for bidders to participate without bidding, which is more
-close to online cases where receiving information is almost free.  In another
+close to most Internet platforms. In another
 word, you don't have to buy a ticket to walk in and observe.
 
 We introduce broadcast capability because it's shared by many auctions.  For
-example, a Vickrey auction or a first-price auction with reserve price can be
+example, a Vickrey auction or a first-price auction with reserve price can both be
 described as a broadcast auction with only one broadcast: telling every bidder
-the reserve price. The bisection auction [cite bisection auctions] is another
-example which has many rounds of broadcasts. In each round , it will broadcast
-a price and ask bidders to reply whether his valuation is beyond or below that
+the reserve price. The bisection auction [cite bisection auctions] is an
+example with many rounds of broadcasts. In each round , it will broadcast
+a price and ask bidders to reply whether their valuation is beyond or below that
 price.  In real world, sellers make such broadcasts via sending emails to a
 bunch of receivers (typically a mailing-list), listing items on a platform such
 as craigslist and eBay, or even showing ads on Internet/TV. Such broadcast
 activities costs either money (e.g. a list or ads fee) or time and effort (e.g.
-writing and sending an email).
+writing and sending emails).
 
 Note that in our model, we only give sellers broadcast capability so they
 cannot find or communicate with each bidder one by one. The first reason to
 have this constraint is there are too many potential bidders on the Internet
-(our model focus on online item transactions) and it's hard to explicitly find
-them one by one. On the other hand, in offline cases where the set of bidders
+where our model is originated so it's hard to explicitly find
+them one by one. By contrast, in offline cases where the set of bidders
 are small and explicit (e.g. the government want to sell a land to one of three
 companies), it might be helpful to let the seller communicate with bidders one
 by one [cite search mechanisms]. The second reason to have this constraint is
-that we want to focus on mechanisms that avoids time consuming bargaining. Such
-feature is very important as one of the most vital advantages of online
-transactions are their convenience and the time consuming bargainning can ruin
-it.
+that we want to focus on mechanisms that avoids time consuming bargaining
+between two individuals. It makes the mechanism simple, fair and convenient.
 
 Finally, we define optimal mechanisms to be the ones that maximze seller's
-utility since when facing many different auction mechanisms, a rational seller
-will choose the one that gives him maximum utility.
+profit since when facing many different auction mechanisms, a rational seller
+will choose the one that gives him maximum profit.
 
 \begin{definition}
 
-We say a mechanism is optimal if it gives the seller maximum utility (profit)
+We say a mechanism is optimal if it gives the seller maximum profit
 which equals to all the value payed to this seller (revenue) minus all the cost charged
 to this seller. A class of mechanisms are optimal if they contain one optimal
 mechanism.
