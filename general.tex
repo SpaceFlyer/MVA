@@ -202,6 +202,24 @@ valuation instead of virtual valuation even if we are later talking about
 profit because our mechanism are just going to find the maximum value and it's
 equivalent to finding the maximum virtual value in regular cases.
 
+\begin{figure*}
+\centering
+  \subfigure[Best query length $x$ over $h$ with fixed $l$]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=.4\linewidth]{figures/1000-500-2-1-10}
+    \label{fig:x-h}
+  }
+  \subfigure[Normalized best query length $x$ over low value $l$]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=.4\linewidth]{figures/10000-500-2-1-10}
+    \label{fig:x-l}
+  }
+  \caption{In the first subfigure, we plot the best query length $x = \hat x / D$ over $h = \hat h / D$ (the highest
+      undiscovered value) with discretized low value $\hat l = 500$,
+      broadcast bidding cost ratio $\rho = 2$,
+      number of bidders $n = 10$ and maximum discretized valuation
+      $D = 1000$. In the second subfigure, we normalize $x$ to be $x = \hat x / \hat h$ and
+      $l$ to be $l = \hat l / \hat h$, as if $h$ is always $1$.}
+\end{figure*}
+
 Now we can narrow our optimal mechanisms with relaxed efficiency constraint:
 
 \begin{definition}
@@ -328,6 +346,24 @@ already queried $[\hat h, D)$ and no one replies.
     \end{algorithmic}
 \end{algorithm}
 
+\begin{figure*}
+\centering
+    \subfigure[$n = 10, b = 0.2, c = 0.1$]{
+      \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=.32\linewidth]{figures/10-0.200000-0.100000.eps}
+      \label{fig:CSP-l-2-1}
+    } 
+    \subfigure[$n = 10, b = 0.5, c = 0.1$]{
+      \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=.32\linewidth]{figures/10-0.500000-0.100000.eps}
+      \label{fig:CSP-l-5-1}
+    }
+    \subfigure[Suboptimality, $n = 10, b = 0.2, c = 0.1$]{
+      \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=.32\linewidth]{figures/suboptimality.eps}
+      \label{fig:suboptimality}
+    }
+    \caption{Optimal MVA's cost, spending, profit over $l$, $n$ i.i.d. uniform distributed bidders,
+      broadcast $b$ and bidding cost $c$}
+\end{figure*}
+
 Algorithm \ref{algo:discrete} runs in time $O(D^2)$. Having $\hat x$, we can
 then infer the best strategy $x$ for original continuous problem by converting
 $\hat h, \hat x$ back to $h, x$ and using them to interpolate continuous
@@ -340,16 +376,6 @@ which means using only one query to explore all potential bidders. But it's
 unclear why $x$ is linear when the best strategy is using multiple queries to
 explore the valuation range.
 
-\begin{figure}
-\centering
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/1000-500-2-1-10}
-    \caption{The best query lengths over $h$ (the highest
-        undiscovered value) when discretized low value $\hat l = 500$,
-        ratio between broadcast and bidding cost $\rho = 2$,
-        number of bidders $n = 10$ and maximum discretized valuation
-        $D = 1000$}\label{fig:x-h}
-\end{figure}
-
 Another way to plot the graph is to normalize $x$ and $l$ so that $h$ becomes
 $1$ since our model is $v_i \in [0, 1)$. It's showed in figure \ref{fig:x-l}.
 This again looks like a piecewise linear function.  A more interesting
@@ -358,17 +384,22 @@ observation is that the left-most piece is quite a long straight line $x =
 far from $0$. Here the $\alpha$ is the the optimal $\alpha$ of $\alpha$-MVA if
 we set $l = 0$.
 
-\begin{figure}
-\centering
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/10000-500-2-1-10}
-    \caption{The normalized best query length $x = \hat x_{\hat h} / \hat h$
-    over normalized $l = \hat l / \hat h$ when discretized low value $\hat l =
-    500$, ratio between broadcast and bidding cost $\rho = 2$, number of
-    bidders $n = 10$ and maximum discretized valuation $D =
-    10000$}\label{fig:x-l}
-\end{figure}
-
 \subsection{Analysis of Optimal MVA with a Positive Low Value}\label{sec:general_analysis}
+
+\begin{figure*}
+\centering
+  \subfigure[profit]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/profit_.1.eps}
+    \label{fig:general_profit}
+  }
+  \subfigure[low value]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/l_.1.eps}
+    \label{fig:general_l}
+  }
+  \caption{Compare profit and corresponding low value $l$ over $n$. The
+  broadcast cost $b = 0.1$. Bidding cost for seller and buyer are $\beta_1 =
+  \beta_2 = 0.05$ (thus $c = \beta_1+\beta_2 = 0.1$)}\label{fig:general}
+\end{figure*}
 
 Figure \ref{fig:x-h} shows that the optimal MVA with a low value $l > 0$ is
 much more complicated but there might still be hope to get a nice analytical
@@ -488,24 +519,6 @@ the distance between the specific value and the optimal value (to make the log-s
 for distance $0$, we add some small constant to that suboptimality). Thus, the new plot will
 preserve the peaks and global optimal point as the lowest point.
 
-\begin{figure}
-\centering
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/10-0.200000-0.100000.eps}
-    \caption{Cost, Spending and Profit over $l$ when $n = 10, b = 0.2, c = 0.1$}\label{fig:CSP-l-2-1}
-\end{figure}
-
-\begin{figure}
-\centering
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/10-0.500000-0.100000.eps}
-    \caption{Cost, Spending and Profit over $l$ when $n = 10, b = 0.5, c = 0.1$}\label{fig:CSP-l-5-1}
-\end{figure}
-
-\begin{figure}
-\centering
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/suboptimality.eps}
-    \caption{Suboptimality of Cost, Spending and Profit over $l$ when $n = 10, b = 0.2, c = 0.1$}\label{fig:suboptimality}
-\end{figure}
-
 As you can see from figure \ref{fig:suboptimality}, the cost isn't unimodal over $l$ and it's quite wierd.
 Thus in later experiments, we are just going to brute forcely search over all possible $l$ from $0.5$ to $1$,
 with a search increment of $0.01$.
@@ -537,21 +550,6 @@ One may also suspect whether it's good enough to set low value $l$ to be $0.5$
 in such singleshot Vickrey auction, since it will bring us maximal total
 spending. The answer is no, because its bidding cost is $0.5 n \times c$, which
 grows way too large when $n$ is large.
-
-\begin{figure}
-\centering
-  \subfigure[profit]{
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/profit_.1.eps}
-    \label{fig:general_profit}
-  }
-  \subfigure[low value]{
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/l_.1.eps}
-    \label{fig:general_l}
-  }
-  \caption{Compare profit and corresponding low value $l$ over $n$. The
-  broadcast cost $b = 0.1$. Bidding cost for seller and buyer are $\beta_1 =
-  \beta_2 = 0.05$ (thus $c = \beta_1+\beta_2 = 0.1$)}\label{fig:general}
-\end{figure}
 
 The experimental result is shown in figure \ref{fig:general}. As shown in
 profit comparison figure \ref{fig:general_profit}, the profit of optimal $l$,
