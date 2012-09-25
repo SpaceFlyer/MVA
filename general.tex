@@ -368,18 +368,17 @@ we set $l = 0$.
     10000$}\label{fig:x-l}
 \end{figure}
 
-\subsection{Analysis of Optimal MVA with a Given Low Value}\label{sec:general_analysis}
+\subsection{Analysis of Optimal MVA with a Positive Low Value}\label{sec:general_analysis}
 
-Figure \ref{fig:x-h} shows that the optimal MVA with a low value $l$ is
+Figure \ref{fig:x-h} shows that the optimal MVA with a low value $l > 0$ is
 much more complicated but there might still be hope to get a nice analytical
 result: piecewise linear function. That is, we can't use a single $\alpha$ to
 describe such optimal MVA, but perhaps we can use a sequence of $\alpha$ to
 describe it. Now let's take an analytical treatment.
 
-The first key to analyze the optimal MVA with low value is to utilize
-the fact that there's a fixed maximal number of rounds to exploit the whole
-reportable valuation range $[l, h)$ ($h$ is the highest undiscovered
-value as defined in last subsection and $h = 1$ initially). Let's call that
+The first key to analyze the optimal MVA with $l > 0$ is to utilize
+the fact that there's a maximal number of rounds to exploit the whole
+reportable valuation range $[l, 1)$. Let's call that
 number $k$.\footnote{We have argued this before: if such $k$ doesn't exist, or equivalently
 the maximum number of rounds is unbounded, the cost will be infinite as the possibility that no
 values lie in $[l, h)$ is positive.}
@@ -396,111 +395,58 @@ a_{i+1}$ are not optimal too.}
 
 Thus the second key is to represent this $C$. Rather than
 considering one round after another recursively as we did before, we now consider all
-rounds together:
-\begin{align*}
-C(\vec a, k, \rho, n) =
-&\sum_{i=0}^k P\big(H_i = 1\big) C\big(\vec a, k, \rho, n ~\big|~ H_i = 1 \big)
-\end{align*}
-where $H_k$ is the indicate random variable for the event that the highest
-valuation is below $a_k$ and $H_i(0 \leq i < k)$ is for the event that the highest
-valuation is in $[a_{i+1}, a_i)$.
-
-Since bidders are uniformly distributed,
-\begin{align*}
-  &P(H_k = 1) = a_k^n / a_0^n\\
-    &P(H_i = 1) = (a_{i}^n-a_{i+1}^n) / a_0^n
-\end{align*}
-
-It's also clear that $C(\vec a, k, \rho, n ~\big|~ H_k = 1) = k\rho$ because
-there will be only $k$ broadcasts and no biddings.
-
-For $C\big(\vec a, k, \rho, n ~\big|~ H_i = 1\big)$ where $i < k$, we partition
-it into two parts $C\big(\vec a, k, \rho, n ~\big|~ H_i = 1\big) = C_b\big(\vec
-a, k, \rho, n ~\big|~ H_i = 1\big) + C_c\big(\vec a, k, \rho, n ~\big|~ H_i =
-1\big)$. The broadcast part $C_b\big(\vec a, k, \rho, n ~\big|~ H_i = 1 \big)$
-is simply $(i+1)\rho$ as the MVA finishes in $(i+1)$-th round. The
-not-so-obvious part is the overall bidding cost $C_c\big(\vec a, k, \rho, n
-~\big|~ H_i = 1 \big)$. It can be expressed as:
-
-\begin{align*}
-P(H_i = 1)C_c\big(\vec a, k, \rho, n ~\big|~ H_i = 1 \big) = E\left( H_i \cdot
-    \sum_{j=1}^n X_{ij}\right) \\
-= E\left( \left( \prod_{j=1}^n B_{ij} \right) \cdot \left(\sum_{j=1}^n X_{ij}
-    \right) \right)
-\end{align*}
-
-Here $X_{ij}, A_{ij}$ are both indicate random variables of bidder $j$'s valuation $v_j$:
-$$
-X_{ij} = \begin{cases}
-    0, &\mbox{if $v_j \notin [a_{i+1}, a_{i})$ } \\\\
-    1, &\mbox{if $v_j \in [a_{i+1}, a_{i})$}
-\end{cases}
-~~
-B_{ij} = \begin{cases}
-    0, &\mbox{if $v_j \geq a_{i}$ } \\\\
-    1, &\mbox{if $v_j < a_{i}$}
-\end{cases}
-$$
-
-You may notice that our original random variable $H_i$ is not exactly the same
-as our substitute $\prod_{j=1}^n B_{ij}$. The only difference between them,
-however, is the case that every $v_j$ is below $a_{i+1}$, which is the case
-that every $X_{ij} = 0$, so the equation still holds.
-
-Now we use the properties of expectation to finish our calculation:
-\begin{align*}
-  &E\left( \left( \prod_{j=1}^n B_{ij} \right) \cdot \left(\sum_{j=1}^n X_{ij}
-  \right) \right) = \sum_{j=1}^n E\left( X_{ij} \prod_{k=1}^nB_{ik} \right)
-  \\
-    &~~ = \sum_{j=1}^n \left( E(X_{ij} B_{ij}) \prod_{k \neq j} E(B_{ik})
-    \right)
-       = n a_{i}^{n-1} (a_{i}-a_{i+1}) / a_0^n
-\end{align*}
-Combine all those above, finally we get (note that low value $l = a_k$ and
-$\frac{\partial C}{\partial a_i}$ is only for $1 \leq i \leq k-1$ since
-$a_0, a_k$ are constants):
+rounds together. Let $CR_i$ denote the cost that occur in round $i$ (the broadcast
+of that round and the bidding cost charged in that round) and $v^* = \max_i v_i$. Then expected cost
+would be sum of expected cost of each round:
 \begin{align}
-& C(\vec a, k, \rho, n) = k \rho a_k^n / a_0^n + \nonumber\\ 
-    &~~~ \frac{1}{a_0^n} \sum_{i=0}^{k-1} \left( (a_{i}^n-a_{i+1}^n) (i+1)
-    \rho + n a_{i}^{n-1} (a_{i}-a_{i+1}) \right) \label{eq:C_general} \\
-    &~= \sum_{i=0}^{k-1} \frac{a_i^n}{a_0^n} \left( \rho + \frac{a_i-a_{i+1}}{a_{i}} n \right)
-    \label{eq:C_general_simplified}\\
-& \frac{\partial C}{\partial a_i} = \frac{1}{a_0^n} \left[
-	n(n+\rho)a_i^{n-1}-n(n-1)a_{i+1}a_i^{n-2}-n a_{i-1}^{n-1} \right]
+E[C(\vec a, k, \rho, n)] &= \sum_{i=1}^k E[ CR_i ] \nonumber \\
+  &= \sum_{i=1}^{k} \Pr\big( v^* < a_{i-1} \big) E[CR_i | v^* < a_{i-1}] \nonumber \\
+  &= \sum_{i=1}^{k} \frac{a_{i-1}^n}{a_0^n} \left( \rho + \frac{a_{i-1}-a_{i}}{a_{i-1}} n \right)
+  \label{eq:C_general_simplified}
+\end{align}
+
+Taking derivative we get
+\begin{align}
+ \frac{\partial E[C]}{\partial a_i} = \frac{
+	n(n+\rho)a_i^{n-1}-n(n-1)a_{i+1}a_i^{n-2}-n a_{i-1}^{n-1} }{a_0^n}
 	\label{eq:diff_C_general}
 \end{align}
 
-Equation \ref{eq:C_general_simplified} gives another explanation about the
-cost: the sum of expected cost of each round. Unfortunately, equation
-\ref{eq:diff_C_general} isn't neat enough to get a piecewise linear $a_1$.
-Recall that in previous subsection, the experiment seems to show that $x$ is
+Unfortunately, equation
+\ref{eq:diff_C_general} isn't neat enough to get a piecewise linear query length.
+Recall that in previous subsection, the experiment seems to show that query length $x$ is
 piecewise linear over $h$, which means $a_1 = a_0-x = h-x$ must also be
-piecewise linear over $a_0 = h$.  For example, for the simple case $k = 2, n =
-3$, we have: $a_1 =
-\frac{\sqrt{{a_0}^{2}\,\rho+{a_2}^{2}+3\,{a_0}^{2}}+a_2}{\rho+3}$.  Anyway, by
+piecewise linear over $a_0 = h$.  One counter example is the simple case $k = 2, n =
+3$. We have: $a_1 =
+(\sqrt{{a_0}^{2}\,\rho+{a_2}^{2}+3\,{a_0}^{2}}+a_2)/(\rho+3)$.  Anyway, by
 definition we have $a_1 \geq a_2$. And
-$a_1=\frac{\sqrt{{a_0}^{2}\,\rho+{a_2}^{2}+3\,{a_0}^{2}}+a_2}{\rho+3}$ indeed
-looks very linear when $a_1 \geq a_2$.
+the former equation indeed looks very linear when $a_1 \geq a_2$.
 
 Though we failed characterizing the optimal MVA using piecewise linear
-descriptions, equation \ref{eq:C_general_simplified} gives us a better way to
-calculate thresholds $a_i$. Here we use an R package called BB [cite BB] to
+functions, equation \ref{eq:C_general_simplified} gives us a better way to
+calculate thresholds $a_i$. We use an R package called BB [cite BB] to
 solve these non-linear equation systems. Before throw those equations to that
-package, we have to first decide $k$ and an initial guess of $a_i$.  One
-obvious upper upbound of optimal $k$ is $k_\alpha = \left\lceil \log_{\alpha}
-\left(\frac{a_k}{a_0}\right) \right\rceil$ where $\alpha$ is the optimal
-$\alpha$ for $\alpha$-MVA when $l = 0$.  (This upper bound seems to be
-$\Theta(n)$). We believe that $C$ has a single peak over $k$ (proof?), thus we
-can search $k$ efficiently.
+package, we have to first decide $k$ and an initial guess of $\vec a$.
 
-The initial $a_i$ is very important for solving optimal $a_i$. A bad choice may
+One obvious upper upbound of optimal $k$ is $k_\alpha = \left\lceil \log_{\alpha}
+\left(a_k/a_0\right) \right\rceil$ where $\alpha$ is the optimal $\alpha$ for
+$\alpha$-MVA when $l = 0$. The intuition of this bound is that the query length
+of any round except the last round couldn't decrease if we increase $l$ from $0$ to
+some positive value. 
+Having this upper bound, we can eigther bruteforcely
+search all $k$ between $1$ and $k_\alpha$, or use ternary search [cite wiki?] to get optimal
+$k$ in $O(\log k_\alpha)$ time if we can prove it's unimodal.\footnote{We
+didn't prove that it's unimodal but experiments seems to support this
+property.}
+
+The initial thresholds $\vec a$ are very important for solving optimal $a_i$. A bad choice may
 lead to much more computation and even non-convergence. For example, the
-trivial uniform $a_i = a_0 - \frac{i}{k}(a_0-a_k)$ is a bad initial guess. We
-find the intial $a_i = \alpha^i$ provided by $\alpha$-MVA to be very efficient.
-Let's call this $MVA$ with thresholds $\alpha, \alpha^1, \ldots, \alpha^{k-1}$
-where $\alpha^{k-1} \geq l, \alpha^k < l$ an $\alpha$-cutoff-MVA, as we did in
+trivial uniform $a_i = (1-i/k)a_0 - (i/k) a_k$ is a bad initial guess. We
+find the initial guess $a_i = \alpha^i$ (the same $\alpha$ of $k_\alpha$) to be very efficient.
+Let's call this MVA with thresholds $\alpha, \alpha^1, \ldots, \alpha^{k-1}$
+where $\alpha^{k-1} \geq l, \alpha^k < l$ an $\alpha$-cutoff-MVA, similar to what we did in
 previous section \ref{sec:eff_experiment}.  It's suggested by experiments
-showed in figure \ref{fig:x-l} where $x$ seems to be $1-\alpha$ for a lot of
+showed in figure \ref{fig:x-l} where query length $x$ seems to be $1-\alpha$ for a lot of
 $l$. In experiments, the actual optimal $k$ is very close to our upper bound
 $k_\alpha$: it's mostly either $k_\alpha$ or $k_\alpha-1$.  This might be a
 direct consequence of $\alpha$-cutoff-MVA's good performance shown in figure
@@ -521,19 +467,22 @@ much closer to $1$ than $l$.
 
 \subsection{Choosing Low Value}
 
-Having $k$ and $a_i$, we are still one step from optimal MVA, choosing the low
+Having $k$ and $a_i$, we are still one step away from optimal MVA: choosing the low
 value $l$. It's obvious to see that optimal cost $C$ is non-increasing as $l$
 increases. By Myerson's optimal auction theory and theorem
 \ref{theorem:equivalence}, setting virtual value of $l$ to be $0$ will yield
 the maximum total spending. Name such $l$ as $l_0$. We then conclude that
-optimal $l$ must satisfy $l \geq l_0$ as the optimal is non-increasing. The
-question is, how to search or determine optimal $l$? Let's first check the simple
+optimal $l$ must satisfy $l \geq l_0$. The
+question is, how to search or determine optimal $l$. Let's first check the simple
 case when the value distribution is uniform.
 
 Figure \ref{fig:CSP-l-2-1} and \ref{fig:CSP-l-5-1} plot cost, spending and profit
 over $l$. It's clear in figure \ref{fig:CSP-l-5-1} that increasing $l$ from $0.5$ to about $0.8$
 will get a significant profit increase. However, it's not so clear in these two plots
-whether profit is unimodal. To see it more clear, we plot figure \ref{fig:suboptimality},
+whether profit is unimodal and whether we can do ternary search.\footnote{Unlike $k$ which is
+an integer with a fairly small upper bound, $l$ is continuous over $[0.5, 1)$, 
+thus a ternary search is more needed.}
+To see it more clear, we plot figure \ref{fig:suboptimality},
 which transforms the cost, spending and profit to their corresponding suboptimality, i.e.
 the distance between the specific value and the optimal value (to make the log-scale work
 for distance $0$, we add some small constant to that suboptimality). Thus, the new plot will
@@ -563,7 +512,7 @@ with a search increment of $0.01$.
 
 \subsection{Experiments}
 
-Now we are going to compare profit of different mechanisms in general settings.
+Finally we are going to compare profit of different mechanisms in general settings.
 To keep it simple, we still use a uniform valuation distribution for all
 experiments.  As theorem \ref{theorem:equivalence} shows, the profit is simply
 spending minus cost where spending is solely determined by $l$. In fact, the
