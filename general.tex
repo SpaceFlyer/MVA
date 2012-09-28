@@ -392,21 +392,6 @@ result: piecewise linear function. That is, we cannot use a single $\alpha$ to
 describe such optimal MVA, but perhaps we can use a sequence of $\alpha$ to
 describe it. Now let us take an analytical treatment.
 
-\begin{figure*}
-\centering
-  \subfigure[profit]{
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/profit_.1.eps}
-    \label{fig:general_profit}
-  }
-  \subfigure[low value]{
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/l_.1.eps}
-    \label{fig:general_l}
-  }
-  \caption{Compare profit and corresponding low value $l$ over $n$. The
-  broadcast cost $b = 0.1$. Bidding cost for seller and buyer are $\beta_1 =
-  \beta_2 = 0.05$ (thus $c = \beta_1+\beta_2 = 0.1$)}\label{fig:general}
-\end{figure*}
-
 The first key to analyze the optimal MVA with $l > 0$ is to utilize
 the fact that there is a maximal number of rounds to exploit the whole
 reportable valuation range $[l, 1)$. Let us call that
@@ -423,6 +408,21 @@ $a_k, a_0$). If we can get a neat form of $C$, we can use $\frac{\partial
 C}{\partial a_i} = 0 $ to characterize optimal MVA, as we did in section
 \ref{sec:alpha-MVA}.\footnote{It is easy to see that boundary cases $a_i = a_{i-1},
 a_{i+1}$ are not optimal too.}
+
+\begin{figure*}
+\centering
+  \subfigure[profit]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/profit_.1.eps}
+    \label{fig:general_profit}
+  }
+  \subfigure[low value]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/l_.1.eps}
+    \label{fig:general_l}
+  }
+  \caption{Compare profit and corresponding low value $l$ over $n$. The
+  broadcast cost $b = 0.1$. Bidding cost for seller and buyer are $\beta_1 =
+  \beta_2 = 0.05$ (thus $c = \beta_1+\beta_2 = 0.1$)}\label{fig:general}
+\end{figure*}
 
 Thus the second key is to represent this $C$. Rather than
 considering one round after another recursively as we did before, we now consider all
