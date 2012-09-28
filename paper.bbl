@@ -50,7 +50,7 @@ G.~Tan and O.~Yilankaya.
 
 \bibitem{Varadhan2009:BB}
 R.~Varadhan and P.~Gilbert.
-\newblock Bb: An r package for solving a large system of nonlinear equations
+\newblock Bb: An {R} package for solving a large system of nonlinear equations
   and for optimizing a high-dimensional nonlinear objective function.
 \newblock {\em Journal of Statistical Software}, 32(4):1--26, 10 2009.
 

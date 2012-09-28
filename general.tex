@@ -151,9 +151,9 @@ has minimum cost when allocation rule is allocate efficiently. But unfortunately
 that's not enough to give us a well defined minimum cost for any allocation rule.
 For example, one allocation rule might be always allocate the item to each bidder
 with the same probability $1/n$, i.e. $p(v_1, v_2, \ldots) = (1/n, 1/n, \ldots)$.
-You might think that the minimum cost for this is $0$ since we don't have to know
-anyone's valuation. But that cost isn't realistic: how can you ever allocate the
-item to someone that you have never communicated with? Thus the minimum cost seems
+One might think that the minimum cost for this is $0$ since we don't have to know
+anyone's valuation. But that cost isn't realistic: how can the mechanism ever allocate the
+item to someone that it has never communicated with? Thus the minimum cost seems
 to be at least $b$, the cost for one round of broadcast, if we ever allocate the item
 to some bidder. In order to make a realistic constraint and get a well defined minimum
 cost for any allocation rule, we define
@@ -481,7 +481,7 @@ showed in figure \ref{fig:x-l} where query length $x$ seems to be $1-\alpha$ for
 $l$. In experiments, the actual optimal $k$ is very close to our upper bound
 $k_\alpha$: it's mostly either $k_\alpha$ or $k_\alpha-1$.  This might be a
 direct consequence of $\alpha$-cutoff-MVA's good performance shown in figure
-\ref{fig:cutoff}. As you can see, in most cases their profit are very close.
+\ref{fig:cutoff}. In most cases their profit are very close.
 The significant difference only occur when low value $l$ is a little below
 $\alpha$ and this isn't likely to occur when $n$ is large where $\alpha$ is
 much closer to $1$ than $l$.
@@ -519,7 +519,7 @@ the distance between the specific value and the optimal value (to make the log-s
 for distance $0$, we add some small constant to that suboptimality). Thus, the new plot will
 preserve the peaks and global optimal point as the lowest point.
 
-As you can see from figure \ref{fig:suboptimality}, the cost isn't unimodal over $l$ and it's quite wierd.
+From figure \ref{fig:suboptimality}, the cost isn't unimodal over $l$ and it's quite wierd.
 Thus in later experiments, we are just going to brute forcely search over all possible $l$ from $0.5$ to $1$,
 with a search increment of $0.01$.
 
