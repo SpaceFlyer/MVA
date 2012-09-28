@@ -16,12 +16,12 @@ prevent re-sales between buyers. Under such circumstances, an efficient mechanis
 maximzes the social welfare but also maximizes the seller's revenue \cite{Ausubel99:EfficientOptimality}.
 
 \item The bidding cost for each bidder sometimes seems \footnote{But actually
-it's not that negligible as our example seems to claim. In later section,
+it is not that negligible as our example seems to claim. In later section,
 theorem \ref{theorem:equivalence} will show exactly how important it is.} to be
 negligible compared to bidding cost charged to the seller. For example, if
 $100$ bidders replied to the seller by a $1$-minue call, each bidder only has a
-tiny $1$ minue cost.  But for the seller, it's a big $100$ minutes cost which
-is very annoying. It's also necessary to remove bidder's bidding cost to
+tiny $1$ minue cost.  But for the seller, it is a big $100$ minutes cost which
+is very annoying. It is also necessary to remove bidder's bidding cost to
 achieve efficiency (without compensation).  Otherwise, the item may not be able
 to allocate to the highest bidder when that highest valuation is below the
 bidder's bidding cost.
@@ -29,9 +29,9 @@ bidder's bidding cost.
 \end{enumerate}
 
 The rest of this section is organized as follows. First of all, we introduce a
-mechanism called Multi-round Vickrey Auction (MVA) based on what's been used in
+mechanism called Multi-round Vickrey Auction (MVA) based on what is been used in
 realworld online second-hand item transactions.  Then we prove that MVAs are
-optimal (so there exists a MVA that's optimal). After that we'll try to find
+optimal (so there exists a MVA that is optimal). After that we will try to find
 the specific MVA that achieves the optimality. Finally, we conduct some
 experiments to compare the optimal MVA with other mechanisms.
 
@@ -47,7 +47,7 @@ whole process equivalent to an MVA.
 
 \begin{definition}(Multi-round Vickrey Auction, MVA)
 
-In a Multi-round Vickrey Auction (MVA), there's a sequence of reserve prices
+In a Multi-round Vickrey Auction (MVA), there is a sequence of reserve prices
 $r_1, r_2, \ldots, r_k$ where $r_i > r_{i+1}$. The seller creates a Vickrey
 auction with a reserve price $r_i$ at time $i$ (or round $i$). In each
 Vickrey auction, if only one buyer bids, he/she gets the item and pays reserve
@@ -68,10 +68,10 @@ second highest bidding.
 %it's harder to analyze analytically and it's inferior than MVAs in terms of
 %both sellers' utility and social welfare.
 
-Since there's no cost charged to buyers, it's obvious to see that whenever a
+Since there is no cost charged to buyers, it is obvious to see that whenever a
 bidder decides to bid, he/she must bid truthfully. Thus the Bayesian Nash
 Equilibria (BNE) for MVAs can be described as $k$ thresholds $a_1, a_2,
-\ldots, a_k$ where $a_i > a_{i+1}$. Whenever a bidder's valuation for the item
+\ldots, a_k$ where $a_i > a_{i+1}$. Whenever a bidder is valuation for the item
 is greater than $a_i$, he/she is going to bid in round $i$ whose reserve price
 is $r_i$. Because of efficiency constraint we also have $r_k = a_k = 0$.
 
@@ -242,7 +242,7 @@ that
 \[
 \Pr(v \in Q_{i+1}) = \int \limits_{Q_{i+1}} f(x) \mathrm d x = \int \limits_{Q'_{i+1}} f(x) \mathrm d x = \Pr(v \in Q'_{i+1})
 \]
-After $Q'_{i+1}$, we'll use as optimal query as
+After $Q'_{i+1}$, we will use as optimal query as
 possible.
 
 Since $Q_1$ to $Q_i$ are all descending, we have $m = n$ and $V = \emptyset$ (otherwise
@@ -315,7 +315,7 @@ the overall cost.
 
 \subsection{Cost Minimized $\alpha$-MVA}\label{sec:alpha-MVA}
 
-Now let's try to calculate the parameters (thresholds $a_i$ or equivalently
+Now let us try to calculate the parameters (thresholds $a_i$ or equivalently
 reserve prices $r_i$) of the optimal MVA for a given settings $F, n, b, c$
 (valuation CDF, number of bidders, broadcast cost, bidding cost). By lemma
 \ref{lemma:uniform}, the cost is indifferent with $F$ and we can always derive
@@ -372,15 +372,15 @@ approximations for $\alpha$.
 
 \subsection{Approximation of $\alpha$}
 
-It's difficult to get an exact closed formula for optimal $\alpha$ by equation
+It is difficult to get an exact closed formula for optimal $\alpha$ by equation
 \ref{eq:alpha}. Thus we are going to use some simpler formulas to approximate
-$\alpha$. We'll conduct experiments to compare our approximation with the
-optimal $\alpha$ that's computed numerically. 
+$\alpha$. We will conduct experiments to compare our approximation with the
+optimal $\alpha$ that is computed numerically. 
 
 Firstly, $\alpha = 1-1/n$ is a natural guess which means each round the
 expected number of biddings is equal to $1$. Thus we have $C(\alpha = 1-1/n) =
 (\rho+1)/(1-(1-1/n)^n)$. Because $(1-1/n)^n \leq e^{-1}$, we have $C(\alpha =
-1-1/n) \leq (\rho+1)(1-e^{-1})$.  It's obvious that at least one broadcast and
+1-1/n) \leq (\rho+1)(1-e^{-1})$.  It is obvious that at least one broadcast and
 one bidding is required to terminate so $C \geq \rho+1$.  Thus we have
 
 \begin{theorem}
@@ -471,28 +471,28 @@ As figure \ref{fig:alpha} shows, the first approximation $1-1/n$ is bounded
 to be a constant time of optimal cost while the second approximation converges to optimal
 cost when $n$ grows large. When $\rho$ is close to $1$, both two
 approximations are very close to the optimal one. But the second approximation is much better
-when $\rho$ is much smaller or greater than $1$. Anyway, the second approximation isn't always
+when $\rho$ is much smaller or greater than $1$. Anyway, the second approximation is not always
 better than the first approximation, as the case $\rho = 1, n = 2$ shows.
 
 \subsection{Experiments}\label{sec:eff_experiment}
-Now let's compare optimal $\alpha$-MVA with other kinds of MVA. In all
+Now let us compare optimal $\alpha$-MVA with other kinds of MVA. In all
 following experiments, the valuation distribution is always uniform over $[0,
 1]$. According to lemma \ref{lemma:uniform}, other distributions can always be
-adapted to uniform distribution so this won't be a problem.  Also recall that
+adapted to uniform distribution so this will not be a problem.  Also recall that
 under this simpler model, the revenue is fixed thus the profit is
-completely determined by cost. Thus we'll only compare cost.
+completely determined by cost. Thus we will only compare cost.
 
-$\alpha$-MVA can potentially have infinite many rounds. But in reality, it's
+$\alpha$-MVA can potentially have infinite many rounds. But in reality, it is
 more naturaly to come up with an MVA that has finite many, say $k$ rounds at
-most. Let's call them $k$-MVA where $k$ is some positive integers. One
+most. Let us call them $k$-MVA where $k$ is some positive integers. One
 particualr $k$- MVA is uniform $k$-MVA where the $k$ thresholds is uniformly
-distributed over $[0, 1]$.  It's also known as fixed-step search strategy in
+distributed over $[0, 1]$.  It is also known as fixed-step search strategy in
 \cite{SarneSR2010:IncreasingSearch, DBLP:conf/iwdc/HassanJ04}. An optimal uniform MVA is the uniform
 $k$-MVA that minimize the cost by choosing the best $k$.
 
 In practice, such $k$ might also be very limited. For example, if someone need
 to selll something in $3$ days before moving out, the $k$ might be limited to
-$3$ since it's too annoying to send out two broadcast messages per day (e.g. it
+$3$ since it is too annoying to send out two broadcast messages per day (e.g. it
 might be labeled as spam by selling platform).  With this limitation, one can
 still use uniform thresholds as a baseline. Or we may formulate this as another
 optimzing problem and solve the best $k$ thresholds under this constraint (this
@@ -522,7 +522,7 @@ The comparison results achieved from simulation experiments are shown in figure
 
 \begin{itemize}
 \item The optimal uniform-MVA's cost is very close to optimal $\alpha$-MVA's,
-especially when $n$ is large. That's probably because
+especially when $n$ is large. That is probably because
     \begin{enumerate}
         \item $\alpha$ approaching $1$ when $n$ grows large, which makes the
         first $k$ thresholds $\alpha, \alpha^2, \alpha^3, \ldots, \alpha^k$
@@ -540,7 +540,7 @@ when $k$ grows (check optimal $2$-MVA and $3$-MVA).
 $k$-MVA, and the heuristic $\alpha$-cutoff-$k$-MVA.
 
 \item The heuristic $\alpha$-cutoff-$k$-MVA works pretty well especially when
-$\rho$ is large as shown in figure \ref{fig:cost_comparison_.5}. But it's not
+$\rho$ is large as shown in figure \ref{fig:cost_comparison_.5}. But it is not
 as good as optimal $2$-MVA when $\rho$ is small and $n$ is large as shown in
 figure \ref{fig:cost_comparison_2}. Thus find the right thresholds is even more
 important than adding one more round in those cases.
