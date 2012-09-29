@@ -27,6 +27,75 @@
 
 \section{Introduction}
 
+Auctions constitute a favored method for allocating scarce resources in
+multiagent systems.  However, communication requirements can pose a
+bottleneck.  Motivated by the revelation principle, much of the theory of
+mechanism design considers {\em direct-revelation} mechanisms, in which
+each agent declares its entire valuation function to the auctioneer.  The
+corresponding overhead, not only in terms of communication per se but also
+in terms of the agent having to completely {\em determine} its valuation
+function, can be prohibitive.  All of this is well understood (for further
+discussion, see~\cite{}), and a significant amount of research has been
+devoted to the design of {\em iterative} auction mechanisms~\cite{} and (roughly
+equivalently) auctions with explicit {\em elicitation} of agents'
+valuations~\cite{}.  Such auctions aim to avoid the communication of
+unnecessary information.  For example, in a Vickrey auction, if it is
+known that bidders 1 and 2 have valuations above \$100 and bidder 3 has one
+below \$100, then there is no need to query bidder 3 any further.
+
+How do we evaluate how effective a particular iterative auction mechanism
+is in reducing communication?  Perhaps the simplest measure is the number
+of bits communicated (see, e.g.,~\cite{}).  Within a particular query
+model, it may also make sense to minimize the total number of queries (see,
+e.g.,~\cite{}). However, in this paper, we argue that such existing models
+fail to capture important aspects of the cost of communication in certain
+types of Internet auctions.  In particular, in such auctions often the most
+costly communication that takes place is the {\em first} time that a bidder
+gives a positive response, indicating having a nonzero value for an item.
+This can be the case for several reasons.  One possibility is that the
+auction website at this point may insist that the bidder provides payment
+(say, credit card) information or places money in escrow.  Otherwise, a
+malicious user may steer the auction in a particular direction and in the
+end refuse to pay.  Alternatively, in other settings (such as an item
+having been posted for sale on craigslist or a similar list), at this point
+the bidder may wish to set up an appointment with the seller to check the
+item.  In both cases, these actions come at costs for both the potential
+buyer and the seller, in terms of effort and time, loss of privacy, and 
+various risks.
+%The bidding costs $c$ may be caused by communication and other verification
+%required to bid. For example, the bidder may have to input his credit card
+%number and prepay an amount of money. Without such verification, a bidder may
+%bid very high and refuse to pay in the end. 
+%A verification for the seller might
+%also be needed. For example, a bidder may want to set up an appointment with
+%the seller to check the item.  Setting up such an appointment might be costly
+%because they need to dicuss time and place via emails or phone calls.
+%Attending that appointment may also cost travel fees and time.  
+While participation costs have been studied before in
+%Note that our
+%bidding cost is different from conventional participation cost studied before
+auctions~\cite{Stegeman95:ParticipationCost,
+  Tan2006:EquilibriaParticipationCost}, a distinguishing feature of our
+model is that a bidder can observe the proceedings of the auction at no
+cost, until the bidder decides to actively participate by at some  indicating a
+nonzero valuation and thereby changing the course of the auction.   This
+appears to us to be a more natural model of Internet (or other highly
+anonymous) auctions of the type discussed above.
+%In
+%our model, it is free for bidders to participate without bidding, which is more
+%close to most Internet platforms. In another word, bidders do not have to buy a
+%ticket to walk in and observe.
+
+briefly summarize what we will do
+
+
+\subsection{Related research}
+
+
+
+
+
+
 \input{model}
 
 \input{efficient}
