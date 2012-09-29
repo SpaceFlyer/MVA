@@ -291,22 +291,9 @@ achieved when the mechanism minizes the cost.
 \end{corollary}
 
 Our next question is naturally: what is the cost minimized mechanism
-given a low value $l$. As expected:
-
-\begin{theorem}
-
-MVAs have the minimum cost among all mechanisms with a low value $l$
-
-\end{theorem}
-
-\begin{proof}
-A special case of this theorem when $l = 0$ is theorem \ref{theorem:MVA_eq}.
-We proved that special case by introducing lemma \ref{lemma:uniform} and
-\ref{lemma:descending}. To prove the general cases with arbitrary $l$, we just
-need to revise lemma \ref{lemma:uniform} a little as following lemma
-\ref{lemma:lowest_type}. All other part of the proof remains similar. For space
-limit, the detailed proof is omitted.
-\end{proof}
+given a low value $l$. 
+A similar lemma can be proved using almost identical technique to lemma \ref{lemma:uniform}.
+Thus for space limit, we will not elaborate it again. 
 
 \begin{lemma}\label{lemma:lowest_type}
 Suppose that there are two cases $n, F_1, f_1, l_1$ and $n, F_2, f_2, l_2$
@@ -316,18 +303,27 @@ If $F_1(l_1) = F_2(l_2)$, then these two cases have the same minimum cost
 to find the maximum value above the low value $l_i$.
 \end{lemma}
 
-The proof of this revised lemma is almost identical to the one for original
-lemma. Thus for space limit, we will not elaborate it again. Finally, we conclude
-that MVAs are optimal in general.
+Finally, we conclude
 
-\begin{corollary}
+\begin{theorem}
 
-MVAs are optimal. The only parameters we are going to determine for the
+MVAs have the minimum cost among all mechanisms with a low value $l$. Thus
+they are optimal.
+
+\end{theorem}
+
+\begin{proof}
+A special case of this theorem when $l = 0$ is theorem \ref{theorem:MVA_eq}.
+We proved that special case by introducing lemma \ref{lemma:uniform} and
+\ref{lemma:descending}. To prove the general cases with arbitrary $l$, we just
+need to revise lemma \ref{lemma:uniform} a little to lemma
+\ref{lemma:lowest_type}. All other part of the proof remains similar. For space
+limit, the detailed proof is omitted.
+\end{proof}
+
+Then the only parameters we are going to determine for the
 specific optimal MVA are 1) the low value $l$; 2) the descending query
 thresholds $a_1, a_2, a_3, \ldots$.
-
-\end{corollary}
-
 When we later investigate such parameters that minimizes the cost, we will
 also assume uniform distribution $F(x) = x$ in default because distribution will not
 change this minimum cost and we can always adapt an optimal MVA for uniform distribution
@@ -444,21 +440,6 @@ C}{\partial a_i} = 0 $ to characterize optimal MVA, as we did in section
 \ref{sec:alpha-MVA}.\footnote{It is easy to see that boundary cases $a_i = a_{i-1},
 a_{i+1}$ are not optimal too.}
 
-\begin{figure*}
-\centering
-  \subfigure[profit]{
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/profit_.1.eps}
-    \label{fig:general_profit}
-  }
-  \subfigure[low value]{
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/l_.1.eps}
-    \label{fig:general_l}
-  }
-  \caption{Compare profit and corresponding low value $l$ over $n$. The
-  broadcast cost $b = 0.1$. Bidding cost for seller and buyer are $\beta_1 =
-  \beta_2 = 0.05$ (thus $c = \beta_1+\beta_2 = 0.1$)}\label{fig:general}
-\end{figure*}
-
 Thus the second key is to represent this $C$. Rather than
 considering one round after another recursively as we did before, we now consider all
 rounds together. Let $CR_i$ denote the cost that occur in round $i$ (the broadcast
@@ -487,6 +468,21 @@ piecewise linear over $a_0 = h$.  One counter example is the simple case $k = 2,
 (\sqrt{{a_0}^{2}\,\rho+{a_2}^{2}+3\,{a_0}^{2}}+a_2)/(\rho+3)$.  Anyway, by
 definition we have $a_1 \geq a_2$. And
 the former equation indeed looks very linear when $a_1 \geq a_2$.
+
+\begin{figure*}
+\centering
+  \subfigure[profit]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/profit_.1.eps}
+    \label{fig:general_profit}
+  }
+  \subfigure[low value]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/l_.1.eps}
+    \label{fig:general_l}
+  }
+  \caption{Compare profit and corresponding low value $l$ over $n$. The
+  broadcast cost $b = 0.1$. Bidding cost for seller and buyer are $\beta_1 =
+  \beta_2 = 0.05$ (thus $c = \beta_1+\beta_2 = 0.1$)}\label{fig:general}
+\end{figure*}
 
 Though we failed characterizing the optimal MVA using piecewise linear
 functions, equation \ref{eq:C_general_simplified} gives us a better way to
