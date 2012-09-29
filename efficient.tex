@@ -152,7 +152,7 @@ identically distributed over $[0, 1)$ with PDF $f(x)$ and CDF $F(x)$.  A query
 strategy is to find the maximum value by asking queries $Q_1, Q_2, \ldots$
 sequentially where $Q_i \subset [0, 1)$ and $\forall i \neq j, ~Q_i \cap Q_j =
 \emptyset$.  After a query $Q_i$, all numbers within $Q_i$ will be reported.
-Note that $Q_i$ may depend on results of $Q_1, Q_2, \ldots, Q_{i-1}$. Thus a
+Note that $Q_i$ may depend on results of $Q_1$ to $Q_{i-1}$. Thus a
 strategy can be denoted as a function:
 \begin{displaymath}
 	S\big(f, m, V, \mathcal Q = \{Q_1, Q_2, \ldots, Q_{i-1} \}\big) = Q_i

@@ -96,8 +96,8 @@ virtual bidder $i$ pays to our real seller plus all the bidding costs charged
 to virtual bidder $i$. Thus, from the real bidders' aspects, this mechanism
 $M'$ is just a direct revelation mechanism which will satisfy revenue
 equivalence theorem. The only difference is that the payment from real bidder
-$i$ to the virtual seller actually has two parts, one is payed to the real
-seller, another is payed to bidding costs, which sum up to the total spending.
+$i$ to the virtual seller has two parts, one payed to the real
+seller, another consumed by bidding costs.%, which sum up to total spending.
 \end{proof}
 
 Thanks to theorem \ref{theorem:equivalence}, our profit maximization problem
@@ -121,18 +121,29 @@ The highlight here is that we will not have to differentiate cost charged to
 bidders and cost charged to sellers if we just want to maximize seller's profit.
 The difference of them may make revenue different, but as long as their sum
 does not change, the profit will not change. This not only helps us simplify our
-analysis, but also helps us simplify the optimal mechanism: the seller could
-just design a mechanism with compensations to help bidders pay all the bidding
-cost. Thus the bidders will not bother the cost.
+analysis, but also helps us simplify the optimal mechanism: 
 
-There is one more challenge, however: the optimal allocation rule here
-is not as simple as the one that is discovered by Myerson [ref:Optimal Auction]:
-allocate the item to the bidder with highest virtural value if it is positive.
-This rule, though optimal in Myerson's setting, may not be optimal here. Theorem
-\ref{theorem:equivalence} tells us that this rule will maximize the total spending.
-But we must substract the cost from the spending to get the profit. Therefore,
-there might be another weird allocation rule that has less total spending but even
-much less minimum cost.
+\begin{proposition}
+In original MVA, to make a set of thresholds $a_i$ works (the
+equilibrium holds), we may have to make $r_i$ negative. That says, we need to
+compensate bidders if only one bids at reserve price $r_i$ rather than charge
+him something, in order to maintain bidders incentive to bid in spite of
+bidding cost. That's not intuitive and sellers/bidders may
+not be able to easily understand it. A better way to achieve $a_i$ might be
+compensating the bidder with the bidding cost immediately after the bidding.
+Equivalently, the seller buys the bidding cost for bidders and make it as a
+part of seller's bidding cost. This won't change his profit but this will make
+everything looks more intuitive ($r_i$ is non-negative again).
+\end{proposition}
+
+Now our optimizing problem is greately related to Myerson's if we were able to
+minimize the overall cost. However, the optimal allocation rule here is not as
+simple as the one that is discovered by Myerson \cite{Myerson:1981}: allocate
+the item to the bidder with highest positive virtural value.  Theorem
+\ref{theorem:equivalence} tells us that this rule will maximize the total
+spending.  But we must substract the cost from the spending to get the profit.
+Therefore, there might be another weird allocation rule that has less total
+spending but even much less minimum cost.
 
 It is not hard to find one example of this. We know that for bidders
 with uniform valuation over $[0, 1)$, the spending maximizing allocation rule
@@ -159,51 +170,94 @@ to some bidder. In order to make a realistic constraint and get a well defined m
 cost for any allocation rule, we define
 
 \begin{definition}\label{def:allocation_cost}
-For an allocation rule $$p: (v_1, v_2, \ldots, v_n) \rightarrow (p_1, p_2,
-\ldots, p_n)$$ if $p_i > 0$ for some valuation profile $(v_1, v_2, \ldots,
-v_n)$, there must be a broadcast query that the $i$-th bidder with valuation
-$v_i$ reply to the seller under that profile setting.
+The allocation rule of a mechanism $$p: (v_1, v_2, \ldots, v_n) \rightarrow
+(p_1, p_2, \ldots, p_n)$$ does not allocate blindly if it satisfies: if $p_i >
+0$ for some valuation profile $(v_1, v_2, \ldots, v_n)$, there must be a
+broadcast query that the $i$-th bidder ($v_i$) reply to the seller
+under that profile setting.
 \end{definition}
 
-With this definition, we have
+\begin{definition}
+
+Mechanisms satisfy relaxed efficiency constraint with low value $l$
+if they always allocate the item to the bidder with highest valuation that's
+at least $l$ (no allocation if everyone is below $l$).
+%
+%    \begin{enumerate}
+%
+%    \item They only allocate the item to bidders whose valuation are at least
+%    $l$ (the low value is $l$)
+%
+%    \item If they will allocate the item, they will always allocate the item to
+%    the bidder with highest valuation.
+%
+%    \end{enumerate}
+%
+When we say a mechanism has a low value $l$, we imply that it
+satisfies relatex efficiency constraint with low value $l$.
+
+\end{definition}
+
+%With this definition, we have
+Then we have
 
 \begin{theorem}
-The optimal mechanism should always allocate the item to the bidder with
-highest virtual valuation $v_i - \frac{1-F(v_i)}{f(v_i)}$ if it decides to
-allocate the item. In regular cases when the virtual valuation is monotone
-strictly increasing, the optimal mechanism should always allocate the item to
-the bidder with highest valuation if it decides to allocate the item.
+In regular cases (the virtual valuation is monotone strictly increasing~\cite{}),
+mechanisms satisfying relaxed efficiency constraint with some low value $l$ are
+optimal among all mechanisms that won't allocate blindly.
+
+%The optimal mechanism should always allocate the item to the bidder with
+%highest virtual valuation $v_i - \frac{1-F(v_i)}{f(v_i)}$ if it decides to
+%allocate the item. In regular cases when the virtual valuation is monotone
+%strictly increasing, the optimal mechanism should always allocate the item to
+%the bidder with highest valuation if it decides to allocate the item.
 \end{theorem}
 
 \begin{proof}
+Suppose that there's an arbitrary optimal mechanism. We can describe it by a
+query strategy $S(f, m, V, \mathcal Q)$ (see definition \ref{def:query}) and an
+allocation function based on $V$, the set of reported values set, since we can
+only allocate item to reported bidders. We then construct another mechanism,
+with query strategy $S'(f, m, V', \mathcal Q')$ where $\mathcal Q'$ are decsending
+and 
+\begin{align*}
+|S'(f, m, \emptyset, \{Q'_1, \ldots, Q'_{i-1}\})| %= |Q'_i| = |Q_i|\\
+  = |S(f, m, \emptyset, \{Q_1, \ldots, Q_{i-1}\})|
+\end{align*}
+This says, if there's no reported bidders yet, we will always ask the
+descending query which has the same length as the query of $S$. And we pretend
+that we asked the same query as $S$ so we can continue to ask $S$ what's the
+next query length. Once we get reply in $S'$, we terminate the mechanism
+immediately and allocate the item to the replied bidder with highest valuation
+with probability 1.  Note that we may have $|Q'_i| = |Q_i| = 0$ which means
+both mechanisms terminate after $i$ queries without any reply and allocation.
+It's clear that our new mechanism won't cause more cost than original
+mechanism.  And our new mechanism's allocation rule will get at least as high
+total spending as original mechanism because it makes allocation probability of
+high value bidders as much as possible. Therefore our new mechanism, which
+satisfies relaxed efficiency constraint with some low value $l$, is also
+optimal.
+%Firstly, note that (at least one) optimal allocation rule $p$ will have at most
+%one possible winner, i.e. there can't be $p_i, p_j > 0$ if $i \neq j$. If not,
+%without loss of generality let's suppose $v_i \geq v_j$ and $p_i, p_j > 0$. We
+%can shift $j$'s probability to $i$, making $p_i' = p_i + p_j$ and $p_j' = 0$.
+%Since it can't allocate blindly, this won't increase the cost and actually it
+%can potentially lower the cost because we don't need bidder $j$ to reply.  The
+%total spending is also non-decreasing by this change in regular cases thus the
+%profit is non-decreasing. Keep on doing this change will eventually give us an
+%optimal allocation rule with only one possible winner.
+%
+%Secondly define active region $A$ as
+%\begin{align*}
+%  A = \{ v_i ~|~ \exists (v_1, \ldots, v_i, \ldots, v_n), p_i > 0 \}
+%\end{align*}
+%
 \end{proof}
 
-To see why this theorem holds, firstly notice that in our cost model, the
-minimum cost to let any bidder reply is equal to the minimum cost to let the
-max-valuation bidder or max-virtual-valuation bidder to reply.
-This is because that the mechanism is only allowed to ask broadcast
-queries and it is equivalent to specify a range $Q \subseteq [0, 1)$ and ask all
-bidders whose valuations are within that range to reply. That means, by
-properly mappings of valuations and query ranges, we can always adapt a
-strategy that lets any bidder reply to another strategy that lets the
-max-virtual-valuation bidder reply and vise versa (just like what we did to prove lemma
-\ref{lemma:descending}). This means that finding the max-valuation bidder will not
-cost more than any other cases except doing nothing (which costs $0$). Thus the
-optimal mechanism either do nothing (no one replies and thus $p_i = 0$ by
-definition \ref{def:allocation_cost}) which has minimum cost or ask queries to
-find the max-virtual-valuation bidder and allocate the item to that bidder which has
-maximum total spending.  The flexibility of an optimal mechanism is that it can
-choose the cases in which it will not allocate the item (in any other cases it
-will allocate the item to the max-virtual-valuation bidder). It is also intuitive
-to see that the no allocation cases can be described by a single parameter $l$:
-no allocation if every bidder's valuation is below $l$. For limit of space,
-we will not list the detailed proof for the above theorem and arguments.
-
-For simplicity, we will not mention virtual valuation below because they are 
-indifferent in terms of minimizing cost.  For convenience, we will use
-valuation instead of virtual valuation even if we are later talking about
-profit because our mechanism are just going to find the maximum value and it is
-equivalent to finding the maximum virtual value in regular cases.
+For simplicity, we will always assume regularily and will not mention virtual
+valuation below.  It's easy to extend our result to general cases by mapping
+all values to virtual values and ask broadcast queries according to virtual
+values.
 
 \begin{figure*}
 \centering
@@ -222,28 +276,6 @@ equivalent to finding the maximum virtual value in regular cases.
       $D = 1000$. In the second subfigure, we normalize $x$ to be $x = \hat x / \hat h$ and
       $l$ to be $l = \hat l / \hat h$, as if $h$ is always $1$.}
 \end{figure*}
-
-Now we can narrow our optimal mechanisms with relaxed efficiency constraint:
-
-\begin{definition}
-
-We say mechanisms satisfy relaxed efficiency constraint with low value $l$
-if:
-
-    \begin{enumerate}
-
-    \item They only allocate the item to bidders whose valuation are at least
-    $l$ (the low value is $l$)
-
-    \item If they will allocate the item, they will always allocate the item to
-    the bidder with highest valuation.
-
-    \end{enumerate}
-
-When we say a mechanism has a low value $l$, we imply that this mechanism
-satisfy relatex efficiency constraint with low value $l$.
-
-\end{definition}
 
 \subsection{MVAs' Optimality in General}
 
