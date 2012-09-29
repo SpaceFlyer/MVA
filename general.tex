@@ -175,6 +175,9 @@ strictly increasing, the optimal mechanism should always allocate the item to
 the bidder with highest valuation if it decides to allocate the item.
 \end{theorem}
 
+\begin{proof}
+\end{proof}
+
 To see why this theorem holds, firstly notice that in our cost model, the
 minimum cost to let any bidder reply is equal to the minimum cost to let the
 max-valuation bidder or max-virtual-valuation bidder to reply.
@@ -459,29 +462,81 @@ calculate thresholds $a_i$. We use an R package called BB \cite{Varadhan2009:BB}
 solve these non-linear equation systems. Before throw those equations to that
 package, we have to first decide $k$ and an initial guess of $\vec a$.
 
-One obvious upper upbound of optimal $k$ is $k_\alpha = \left\lceil \log_{\alpha}
-\left(a_k/a_0\right) \right\rceil$ where $\alpha$ is the optimal $\alpha$ for
-$\alpha$-MVA when $l = 0$. The intuition of this bound is that the query length
-of any round except the last round could not decrease if we increase $l$ from $0$ to
-some positive value. 
-Having this upper bound, we can eigther bruteforcely
-search all $k$ between $1$ and $k_\alpha$, or use ternary search [cite wiki?] to get optimal
-$k$ in $O(\log k_\alpha)$ time if we can prove it is unimodal.\footnote{We
-did not prove that it is unimodal but experiments seems to support this
-property.}
+\begin{lemma}\label{lemma:k_upper}
+$k_\alpha = \left\lceil \log_{\alpha} \left(h/l\right) \right\rceil$ is an
+upper bound for the optimal $k$. Here $\alpha$ is the optimal $\alpha$ for
+$\alpha$-MVA when $l = 0$. 
+\end{lemma}
 
-The initial thresholds $\vec a$ are very important for solving optimal $a_i$. A bad choice may
+\begin{proof}
+We will prove by contradiction. Assume $k > k_\alpha$ for optimal thresholds
+$(b_0, b_1, b_2, \ldots, b_k)$ where $b_0 = h, b_k = l$ as defined.  Points
+$a_0 = \alpha^0, a_1 = \alpha^1, \ldots, a_{k_\alpha} = \alpha^{k_\alpha}$
+split interval $[l, h)$ into $k_\alpha$ subintervals $[a_i, a_{i-1})$, which
+together contain $k$ thresholds $b_1, \ldots, b_k$. Since $k > k_\alpha$, at
+least one subinterval $[a_i, a_{i-1})$ contain two thresholds $b_j, b_{j-1}$.
+Equivalently, there exists $a_i \leq b_j < b_{j-1} < a_{i-1}$.  For
+convenience, define $p_2 = a_i \leq q_2 = b_j < q_1 = b_{j-1} < p_1 = a_{i-1}$.
+
+Denote $C(l)$ to be the optimal cost for finding the maximum value above low
+value $l$ (suppose $h, n, \rho$ and everything else are constants now). Note
+that thresholds $a_0, \ldots, a_i$ must be optimal thresholds for $l = a_i$,
+otherwise $\alpha$-MVA can't be optimal.  Similarly, $b_0, b_1, \ldots, b_j$
+must be optimal thresholds for $l = b_j$.  Then 
+%from optimality of $a_0, \ldots, a_i$ and $b_0, \ldots, b_j$ we have:
+\begin{align*}
+%  C(b_{j-1}) + b_{j-1}^n [\rho+n(b_{j-1}-b_j)] \leq C(a_{i-1}) + a_{i-1}^n [\rho + n(a_{i-1}-b_j)]\\
+%  C(a_{i-1}) + a_{i-1}^n [\rho+n(a_{i-1}-a_i)] \leq C(b_{j-1}) + b_{j-1}^n [\rho + n(b_{j-1}-a_i)]
+  C(q_1) + q_1^n [\rho+n(q_1-q_2)] \leq C(p_1) + p_1^n [\rho + n(p_1-q_2)]\\
+  C(p_1) + p_1^n [\rho+n(p_1-p_2)] \leq C(q_1) + q_1^n [\rho + n(q_1-p_2)]
+\end{align*}
+Adding these two inequations together and do some cancellations we get
+$p_1^n \leq q_1^n$, which contradicts $q_1 < p_1$.
+\end{proof}
+
+The essense of the above proof is the following proposition:
+
+\begin{proposition}\label{prop:thresholds}
+Two sets of optimal thresholds can't have $p_2 \leq q_2 < q_1 < p_1$ where
+$p_2, p_1$ and $q_2, q_1$ are two consecutive thresholds for these two sets of
+thresholds.
+\end{proposition}
+
+Having this upper bound, we can eigther bruteforcely search all $k$ between $1$
+and $k_\alpha$, or use ternary search [cite wiki?] to get optimal $k$ in
+$O(\log k_\alpha)$ time if we can prove it is unimodal.\footnote{We did not
+prove that it is unimodal but experiments seems to support this property.}
+But in light of the proof above, we actually could have something much better:
+
+\begin{theorem}\label{theorem:k_bounds}
+$\left\lceil \log_{\alpha} \left(h/l\right) \right\rceil$ and 
+$\left\lfloor \log_{\alpha} \left(h/l\right) \right\rfloor$ are upper
+and lower bounds for the optimal $k$. 
+\end{theorem}
+
+\begin{proof}
+We have already proved the upper bound in lemma \ref{lemma:k_upper}. The
+essense of that proof is proposition \ref{prop:thresholds}. If the lower bound
+does not hold, we can construct $b_j = p_2 \leq \alpha^i = q_2 < \alpha^{i-1} =
+q_1 < b_{j-1} = p_1$, which violates the proposition. 
+\end{proof}
+
+By these bounds, we only need to try at most two values to get the optimal $k$.
+The next important thing is the initial thresholds $\vec a$. A bad choice may
 lead to much more computation and even non-convergence. For example, the
-trivial uniform $a_i = (1-i/k)a_0 - (i/k) a_k$ is a bad initial guess. We
-find the initial guess $a_i = \alpha^i$ (the same $\alpha$ of $k_\alpha$) to be very efficient.
-Let us call this MVA with thresholds $\alpha, \alpha^1, \ldots, \alpha^{k-1}$
-where $\alpha^{k-1} \geq l, \alpha^k < l$ an $\alpha$-cutoff-MVA, similar to what we did in
-previous section \ref{sec:eff_experiment}.  It is suggested by experiments
-showed in figure \ref{fig:x-l} where query length $x$ seems to be $1-\alpha$ for a lot of
-$l$. In experiments, the actual optimal $k$ is very close to our upper bound
-$k_\alpha$: it is mostly either $k_\alpha$ or $k_\alpha-1$.  This might be a
-direct consequence of $\alpha$-cutoff-MVA's good performance shown in figure
-\ref{fig:cutoff}. In most cases their profit are very close.
+trivial uniform $a_i = (1-i/k)a_0 - (i/k) a_k$ is a bad initial guess. We find
+the initial guess $a_i = \alpha^i$ (the same $\alpha$ of $k_\alpha$) to be very
+efficient.  Let us call this MVA with thresholds $\alpha, \alpha^1, \ldots,
+\alpha^{k-1}$ where $\alpha^{k-1} \geq l, \alpha^k < l$ an $\alpha$-cutoff-MVA,
+similar to what we did in previous section \ref{sec:eff_experiment}.  
+One explanation about its good performance is that these initial thresholds set
+doesn't violate proposition \ref{prop:thresholds}. Thus it's more likely to be
+close to actual optimal thresholds set.
+%It is
+%suggested by experiments showed in figure \ref{fig:x-l} where query length $x$
+%seems to be $1-\alpha$ for a lot of $l$. 
+In experiments, this $\alpha$-cutoff-MVA's profit is pretty good as shown
+in figure \ref{fig:cutoff}. In most cases its profit is very close to optimal.
 The significant difference only occur when low value $l$ is a little below
 $\alpha$ and this is not likely to occur when $n$ is large where $\alpha$ is
 much closer to $1$ than $l$.
