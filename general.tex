@@ -5,85 +5,89 @@ general. We will also try to find the specific MVA to achieve such optimality,
 which turns out to be significantly more complex than previous
 simplified case.
 
-The first constraint we are going to remove is seller's cost only.  It is
-exciting to introduce bidder's bidding cost since it occurs very often in real
-cases and it plays an important role.  Sending emails, making phone calls,
-enterring credit card nubmers, depositing money and clicking buttons are all
-costly for bidders, though sometimes very tiny.  Bidders may not bid when this
-cost is greater than their expected utility. Note that even if the valuation is
-very high, the expected utility can be very small because of tense competition,
-which is very common on the Internet as $n$, the number of potential bidders,
-is very large. 
+Let us first look at bidder's bidding cost.  Sending emails, making phone
+calls, enterring credit card nubmers, depositing money and clicking buttons are
+all costly for bidders, though sometimes very tiny.  Bidders may not bid when
+this cost is greater than their expected utility. Note that even if the
+valuation is very high, the expected utility can be very small because of tense
+competition, which is very common on the Internet as $n$, the number of
+potential bidders, is very large.
+
+%The first constraint we are going to remove is seller's cost only.  It is
+%exciting to introduce bidder's bidding cost since it occurs very often in real
+%cases and it plays an important role.  Sending emails, making phone calls,
+%enterring credit card nubmers, depositing money and clicking buttons are all
+%costly for bidders, though sometimes very tiny.  Bidders may not bid when this
+%cost is greater than their expected utility. Note that even if the valuation is
+%very high, the expected utility can be very small because of tense competition,
+%which is very common on the Internet as $n$, the number of potential bidders,
+%is very large. 
 
 This behaviour (bidders will not bid because of competitions) is very different
 compared to that in previous model \cite{McAfee97:SequentialAuctions} of
 sequential auctions. In that model, there is a time discount which
 makes bidders eager to bid in early rounds with high reserve prices to avoid
-waiting lost. That makes a lot sense in some cases but sometimes it may not.
-For example, if the seller posts an auction with a very low reserve price in
+waiting lost. 
+%That makes a lot sense in some cases but sometimes it may not.
+%For example, 
+Suppose that the seller posts an auction with a very low reserve price in
 the first round, most bidders with high valuation must be happy to bid
-according to that time discount cost model. But this may not be true. For
-example, when I encounter such an auction online \footnote{For example, when I
-see a very good item in the Auction House of Diablo III with a very low current
-bidding}, I might be very reluctant to bid because there is a big probability
-that my bidding will be over taken by someone else's so it is just a waste of
-effort. Our cost model can describe this behaviour very well.
+according to that time discount cost model. But in our model, a lot bidders
+may be reluctant to bid because of competence, which can hurt seller's revenue.
+%But this may not be true. For
+%example, when I encounter such an auction online \footnote{For example, when I
+%see a very good item in the Auction House of Diablo III with a very low current
+%bidding}, I might be very reluctant to bid because there is a big probability
+%that my bidding will be over taken by someone else's so it is just a waste of
+%effort. Our cost model can describe this behaviour very well.
 
-Assume an extreme case where the broadcast cost is $0$, the bidder's bidding
-cost is $0.1$ and there are $n \rightarrow \infty$ many $[0, 1)$-uniform
-distributed bidders. In a Dutch auction (a Dutch auction has infinite many
-rounds of broadcasts so we have to set braodcast cost to $0$), only one bidder
-is expected to bid (no competition), thus every bidder with a valuation $v_i
-> 0.1$ should be benifitable to bid when the reserve price drops to a little
-bit below $v_i-0.1$ (recall that $n \rightarrow \infty$).  In a Vickrey
-auction, however, the competition is very tense. Only bidders with valuation
-greater than $t$ can accept such intense competition where $t$ satisfies
-$t^{n-1}t - 0.1 = 0$ (the expected utility for a bidder with valuation $t$ is
-$0$).  Thus $t = \sqrt[n]{0.1}$ which is arbitrary close to $1$ as $n$ grows to
-infinity.  Thus almost all bidders cannot bare this competition when $n$ is
-really large.
+%Assume an extreme case where the broadcast cost is $0$, the bidder's bidding
+%cost is $0.1$ and there are $n \rightarrow \infty$ many $[0, 1)$-uniform
+%distributed bidders. In a Dutch auction (a Dutch auction has infinite many
+%rounds of broadcasts so we have to set braodcast cost to $0$), only one bidder
+%is expected to bid (no competition), thus every bidder with a valuation $v_i
+%> 0.1$ should be benifitable to bid when the reserve price drops to a little
+%bit below $v_i-0.1$ (recall that $n \rightarrow \infty$).  In a Vickrey
+%auction, however, the competition is very tense. Only bidders with valuation
+%greater than $t$ can accept such intense competition where $t$ satisfies
+%$t^{n-1}t - 0.1 = 0$ (the expected utility for a bidder with valuation $t$ is
+%$0$).  Thus $t = \sqrt[n]{0.1}$ which is arbitrary close to $1$ as $n$ grows to
+%infinity.  Thus almost all bidders cannot bare this competition when $n$ is
+%really large.
+%
+%So a mechanism (e.g. a Vickrey auction) with too much bidders' bidding cost
+%(competence) will have less participations and therefore may decreases seller's
+%profit significantly.  To see this, look at previous extrame case again.  The
+%revenue of Dutch auction will converge to $0.9$ (someone with valuation very
+%close to $1$ will bid for price very close to $0.9$) when $n$ becomes infinity.
+%The revenue of a Vickrey auction, however, is only $\int_t^1 x \, (n-1) \,n\,(
+%1-x) \,{x}^{n-2} dx$ which converges to about $0.67$ when $n$ grows to
+%infinity.  
 
-So a bad mechanism (e.g. a Vickrey auction) with too much cost will have less
-participations and therefore may decreases seller's profit significantly.  To see
-this, look at previous extrame case again.  The revenue of Dutch auction will
-converge to $0.9$ (someone with valuation very close to $1$ will bid for price
-very close to $0.9$) when $n$ becomes infinity.  The revenue of a Vickrey
-auction, however, is only $\int_t^1 x \, (n-1) \,n\,( 1-x) \,{x}^{n-2} dx$
-which converges to about $0.67$ when $n$ grows to infinity.  
-
-Another problem caused by bidder's cost is that revenue equivalence theorem
-seems to be no longer applicable. That is not strange as the revenue equivalence
-theorem assumes that the utility of a bidder is equal to the valuation minus
+The bidder's bidding cost will also make revenue equivalence theorem no longer
+applicable.  That is not strange as the revenue equivalence theorem assumes
+that the utility of a bidder winning the item is equal to the valuation minus
 the payment. This assumption is no longer true as now the utility is also
-influenced by the cost charged to this bidder.
+influenced by the cost charged to this bidder. And even if the bidder doesn't
+win, the cost still exists so we can't simply revise the valuation.
 
-Finally, because of allowing bidding costs, it seems that we also have to remove
-efficiency constraint. Let us consider the case where the highest valuation is
-below the bidding cost. Without compensation to bidders, enforcing efficiency means
-bidders with highest valuation have to bid (so we can allocate the item to
-them) which would make their expected utility negative.
-
-In summary, we now introduce bidder's bidding cost and drops efficiency
-constraint for our mechanisms. The first issue we are going to solve is to make
-revenue equivalence theorem, or a very similar theorem, applicable to our model
-again. 
+Therefore, the first issue we are going to solve is to make a very similar
+theorem applicable to our model again. 
 
 \subsection{Spending Equivalence Theorem and Revenue Optimization Strategy}
 
 \begin{theorem}\label{theorem:equivalence}
 
-The expected overall spendings from all bidders (including their bidding costs
-and payments to the seller) in a feasible mechanism (with our cost model) is
-completely determined by the expected utility of lowest type bidders and
-allocation probability function
+The expected overall spendings from bidders (including their bidding costs and
+payments to the seller) is completely determined by the expected utility of
+lowest type bidders and allocation probability function
 $$p: (v_1, v_2, \ldots, v_n) \rightarrow (p_1, p_2, \ldots, p_n)$$ 
 where $p_i$ is the probability that bidder $i$ will get the item.
 
 \end{theorem}
 
 \begin{proof}
-This theorem is exactly the same as revenue equivalence theorem except that we
-exchange revenue with spending. To prove it, let us construct another mechanism
+To prove it, let us construct another mechanism
 $M'$ without bidding cost from our mechanism $M$ with bidding cost so $M'$ fits
 into the original revenue equivalence theorem's model. Suppose there is a
 virtual seller in $M'$, who collects valuations from all bidders at no cost (a
@@ -93,11 +97,14 @@ $M$.  When our mechanism ends by allocating the item to virtual bidder $i$, the
 virtual seller also allocate the item to the real bidder $i$. The payment from
 each bidder $i$ to this virtual seller will be equal to the payment that
 virtual bidder $i$ pays to our real seller plus all the bidding costs charged
-to virtual bidder $i$. Thus, from the real bidders' aspects, this mechanism
-$M'$ is just a direct revelation mechanism which will satisfy revenue
-equivalence theorem. The only difference is that the payment from real bidder
+to virtual bidder $i$.
+$M'$ will satisfy revenue equivalence theorem and
+%Thus, from the real bidders' aspects, this mechanism
+%$M'$ is just a direct revelation mechanism which will satisfy revenue
+%equivalence theorem. 
+the payment from real bidder
 $i$ to the virtual seller has two parts, one payed to the real
-seller, another consumed by bidding costs.%, which sum up to total spending.
+seller, another consumed by bidding costs, which sum up to total spending.
 \end{proof}
 
 Thanks to theorem \ref{theorem:equivalence}, our profit maximization problem
@@ -123,6 +130,24 @@ The difference of them may make revenue different, but as long as their sum
 does not change, the profit will not change. This not only helps us simplify our
 analysis, but also helps us simplify the optimal mechanism: 
 
+\begin{figure*}
+\centering
+  \subfigure[Best query length $x$ over $h$ with fixed $l$]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=.4\linewidth]{figures/1000-500-2-1-10}
+    \label{fig:x-h}
+  }
+  \subfigure[Normalized best query length $x$ over low value $l$]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=.4\linewidth]{figures/10000-500-2-1-10}
+    \label{fig:x-l}
+  }
+  \caption{In the first subfigure, we plot the best query length $x = \hat x / D$ over $h = \hat h / D$ (the highest
+      undiscovered value) with discretized low value $\hat l = 500$,
+      broadcast bidding cost ratio $\rho = 2$,
+      number of bidders $n = 10$ and maximum discretized valuation
+      $D = 1000$. In the second subfigure, we normalize $x$ to be $x = \hat x / \hat h$ and
+      $l$ to be $l = \hat l / \hat h$, as if $h$ is always $1$.}
+\end{figure*}
+
 \begin{proposition}
 In original MVA, to make a set of thresholds $a_i$ works (the
 equilibrium holds), we may have to make $r_i$ negative. That says, we need to
@@ -136,46 +161,52 @@ part of seller's bidding cost. This won't change his profit but this will make
 everything looks more intuitive ($r_i$ is non-negative again).
 \end{proposition}
 
-Now our optimizing problem is greately related to Myerson's if we were able to
-minimize the overall cost. However, the optimal allocation rule here is not as
-simple as the one that is discovered by Myerson \cite{Myerson:1981}: allocate
-the item to the bidder with highest positive virtural value.  Theorem
-\ref{theorem:equivalence} tells us that this rule will maximize the total
-spending.  But we must substract the cost from the spending to get the profit.
-Therefore, there might be another weird allocation rule that has less total
-spending but even much less minimum cost.
+Since profit is total spending minus overall cost where total spending is
+decided by allocation rule which is studied in Myerson's work, our optimizing
+problem is greately related to Myerson's if we were able to minimize the
+overall cost. However, the optimal allocation rule here is not as simple as the
+one that is discovered by Myerson \cite{Myerson:1981}: allocate the item to the
+bidder with highest positive virtural value.  Theorem \ref{theorem:equivalence}
+tells us that this rule will maximize the total spending.  But we must
+substract the cost from the spending to get the profit.  Therefore, there might
+be another weird allocation rule that has less total spending but even much
+less minimum cost.
 
-It is not hard to find one example of this. We know that for bidders
-with uniform valuation over $[0, 1)$, the spending maximizing allocation rule
-is allocate the item to the bidder with highest valuation that is greater than $1/2$.
-However, if the broadcast cost is too large, for example $1$ (which is equal to the
-highest possible valuation), the cost to find out whether there is any bidder with valuation
-greater than $1/2$ is at least $1$. Thus if we use this allocation rule, the
-final profit would be negative since the total spending must be less than the
-minimum cost. However, the allocation rule that never allocate the item will have
-$0$ cost and $0$ spending, which achieves $0$ profit, better than previous allocation
-rule.
+%It is not hard to find one example of this. We know that for bidders
+%with uniform valuation over $[0, 1)$, the spending maximizing allocation rule
+%is allocate the item to the bidder with highest valuation that is greater than $1/2$.
+%However, if the broadcast cost is too large, for example $1$ (which is equal to the
+%highest possible valuation), the cost to find out whether there is any bidder with valuation
+%greater than $1/2$ is at least $1$. Thus if we use this allocation rule, the
+%final profit would be negative since the total spending must be less than the
+%minimum cost. However, the allocation rule that never allocate the item will have
+%$0$ cost and $0$ spending, which achieves $0$ profit, better than previous allocation
+%rule.
 
-Thus, the revenue optimal mechianism will depend on how minimum cost is defined. 
-We previously defined how cost is charged and proved that a specific mechanism (MVA)
-has minimum cost when allocation rule is allocate efficiently. But unfortunately,
-that is not enough to give us a well defined minimum cost for any allocation rule.
-For example, one allocation rule might be always allocate the item to each bidder
-with the same probability $1/n$, i.e. $p(v_1, v_2, \ldots) = (1/n, 1/n, \ldots)$.
-One might think that the minimum cost for this is $0$ since we do not have to know
-anyone's valuation. But that cost is not realistic: how can the mechanism ever allocate the
-item to someone that it has never communicated with? Thus the minimum cost seems
-to be at least $b$, the cost for one round of broadcast, if we ever allocate the item
-to some bidder. In order to make a realistic constraint and get a well defined minimum
-cost for any allocation rule, we define
+Thus, the profit optimal mechianism will depend on how minimum cost is defined given an allocation rule. 
+
+%We previously defined how cost is charged and proved that a specific mechanism (MVA)
+%has minimum cost when allocation rule is allocate efficiently. But unfortunately,
+%that is not enough to give us a well defined minimum cost for any allocation rule.
+%For example, one allocation rule might be always allocate the item to each bidder
+%with the same probability $1/n$, i.e. $p(v_1, v_2, \ldots) = (1/n, 1/n, \ldots)$.
+%One might think that the minimum cost for this is $0$ since we do not have to know
+%anyone's valuation. But that cost is not realistic: how can the mechanism ever allocate the
+%item to someone that it has never communicated with? Thus the minimum cost seems
+%to be at least $b$, the cost for one round of broadcast, if we ever allocate the item
+%to some bidder. In order to make a realistic constraint and get a well defined minimum
+%cost for any allocation rule, we define
 
 \begin{definition}\label{def:allocation_cost}
-The allocation rule of a mechanism $$p: (v_1, v_2, \ldots, v_n) \rightarrow
+A mechanism with allocation rule $$p: (v_1, v_2, \ldots, v_n) \rightarrow
 (p_1, p_2, \ldots, p_n)$$ does not allocate blindly if it satisfies: if $p_i >
 0$ for some valuation profile $(v_1, v_2, \ldots, v_n)$, there must be a
 broadcast query that the $i$-th bidder ($v_i$) reply to the seller
 under that profile setting.
 \end{definition}
+
+The no-blind-allocation property defined above will ensure the optimality
+(minimum cost) of the following mechanisms.
 
 \begin{definition}
 
@@ -199,7 +230,6 @@ satisfies relatex efficiency constraint with low value $l$.
 \end{definition}
 
 %With this definition, we have
-Then we have
 
 \begin{theorem}
 In regular cases (the virtual valuation is monotone strictly increasing~\cite{}),
@@ -217,14 +247,14 @@ optimal among all mechanisms that won't allocate blindly.
 Suppose that there's an arbitrary optimal mechanism. We can describe it by a
 query strategy $S(f, m, V, \mathcal Q)$ (see definition \ref{def:query}) and an
 allocation function based on $V$, the set of reported values set, since we can
-only allocate item to reported bidders. We then construct another mechanism,
+only allocate item to reported bidders. We then construct another mechanism
 with query strategy $S'(f, m, V', \mathcal Q')$ where $\mathcal Q'$ are decsending
 and 
 \begin{align*}
 |S'(f, m, \emptyset, \{Q'_1, \ldots, Q'_{i-1}\})| %= |Q'_i| = |Q_i|\\
   = |S(f, m, \emptyset, \{Q_1, \ldots, Q_{i-1}\})|
 \end{align*}
-This says, if there's no reported bidders yet, we will always ask the
+That says, if there's no reported bidders yet, we will always ask the
 descending query which has the same length as the query of $S$. And we pretend
 that we asked the same query as $S$ so we can continue to ask $S$ what's the
 next query length. Once we get reply in $S'$, we terminate the mechanism
@@ -258,24 +288,6 @@ For simplicity, we will always assume regularily and will not mention virtual
 valuation below.  It's easy to extend our result to general cases by mapping
 all values to virtual values and ask broadcast queries according to virtual
 values.
-
-\begin{figure*}
-\centering
-  \subfigure[Best query length $x$ over $h$ with fixed $l$]{
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=.4\linewidth]{figures/1000-500-2-1-10}
-    \label{fig:x-h}
-  }
-  \subfigure[Normalized best query length $x$ over low value $l$]{
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=.4\linewidth]{figures/10000-500-2-1-10}
-    \label{fig:x-l}
-  }
-  \caption{In the first subfigure, we plot the best query length $x = \hat x / D$ over $h = \hat h / D$ (the highest
-      undiscovered value) with discretized low value $\hat l = 500$,
-      broadcast bidding cost ratio $\rho = 2$,
-      number of bidders $n = 10$ and maximum discretized valuation
-      $D = 1000$. In the second subfigure, we normalize $x$ to be $x = \hat x / \hat h$ and
-      $l$ to be $l = \hat l / \hat h$, as if $h$ is always $1$.}
-\end{figure*}
 
 \subsection{MVAs' Optimality in General}
 
@@ -336,16 +348,16 @@ optimal thresholds $a_i$ given a low value $l$  (recall that in $i$-th round,
 MVA will ask all bidders whose valuation is within $[a_i, a_{i-1})$ to bid).
 If we can write the minimum cost $C^*$ as a function of $n, \rho, l$ (recall
 that $\rho = b/c$ is the ratio between broadcast and bidding cost), we may then
-determine the optimal $l$ using this function.
+determine the optimal $l$ by that.
 
-In the special case that we studied in previous section where $l = 0$
-(efficiency is enforced), the optimal thresholds can be easily described as a
-single parameter $\alpha$. This strategy will not work when $l > 0$ (we assume uniform
-distribution in default). Obviously that $a_i \geq l$,
-thus we cannot let $a_i = \alpha a_{i-1}$ since $\lim_{i \rightarrow \infty} a_i
-= 0 < l$.  Additionally, if we revise the equation by letting $a_i-l = \alpha
-(a_{i-1}-l)$, we will get a positive possibility $F(l)$ that we would ask
-infinite many broadcast queries, which is even worse.
+%In the special case that we studied in previous section where $l = 0$
+%(efficiency is enforced), the optimal thresholds can be easily described as a
+%single parameter $\alpha$. This strategy will not work when $l > 0$ (we assume uniform
+%distribution in default). Obviously that $a_i \geq l$,
+%thus we cannot let $a_i = \alpha a_{i-1}$ since $\lim_{i \rightarrow \infty} a_i
+%= 0 < l$.  Additionally, if we revise the equation by letting $a_i-l = \alpha
+%(a_{i-1}-l)$, we will get a positive possibility $F(l)$ that we would ask
+%infinite many broadcast queries, which is even worse.
 
 As it is not immediately clear what optimal thresholds should be like, we
 present a simple algorithm to calculate such thresholds numerically. We firstly
@@ -469,21 +481,6 @@ piecewise linear over $a_0 = h$.  One counter example is the simple case $k = 2,
 definition we have $a_1 \geq a_2$. And
 the former equation indeed looks very linear when $a_1 \geq a_2$.
 
-\begin{figure*}
-\centering
-  \subfigure[profit]{
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/profit_.1.eps}
-    \label{fig:general_profit}
-  }
-  \subfigure[low value]{
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/l_.1.eps}
-    \label{fig:general_l}
-  }
-  \caption{Compare profit and corresponding low value $l$ over $n$. The
-  broadcast cost $b = 0.1$. Bidding cost for seller and buyer are $\beta_1 =
-  \beta_2 = 0.05$ (thus $c = \beta_1+\beta_2 = 0.1$)}\label{fig:general}
-\end{figure*}
-
 Though we failed characterizing the optimal MVA using piecewise linear
 functions, equation \ref{eq:C_general_simplified} gives us a better way to
 calculate thresholds $a_i$. We use an R package called BB \cite{Varadhan2009:BB} to
@@ -530,6 +527,31 @@ $p_2, p_1$ and $q_2, q_1$ are two consecutive thresholds for these two sets of
 thresholds.
 \end{proposition}
 
+\begin{figure}
+\centering
+    \includegraphics[width=\linewidth]{figures/cutoff_.2_.1_15.eps}
+    \caption{The profit of optimal MVA and $\alpha$-cutoff-MVA are plotted in
+    solid line.  The low value $l$ is chosen to maximze optimal MVA's profit.
+    We also plot $l$ and $\alpha$ in dashed lines to see how they affect the
+    relative profit difference.  Note that $\alpha$ does not depend on
+    $l$.}\label{fig:cutoff}
+\end{figure}
+
+\begin{figure*}
+\centering
+  \subfigure[profit]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/profit_.1.eps}
+    \label{fig:general_profit}
+  }
+  \subfigure[low value]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/l_.1.eps}
+    \label{fig:general_l}
+  }
+  \caption{Compare profit and corresponding low value $l$ over $n$. The
+  broadcast cost $b = 0.1$. Bidding cost for seller and buyer are $\beta_1 =
+  \beta_2 = 0.05$ (thus $c = \beta_1+\beta_2 = 0.1$)}\label{fig:general}
+\end{figure*}
+
 Having this upper bound, we can eigther bruteforcely search all $k$ between $1$
 and $k_\alpha$, or use ternary search [cite wiki?] to get optimal $k$ in
 $O(\log k_\alpha)$ time if we can prove it is unimodal.\footnote{We did not
@@ -557,9 +579,9 @@ the initial guess $a_i = \alpha^i$ (the same $\alpha$ of $k_\alpha$) to be very
 efficient.  Let us call this MVA with thresholds $\alpha, \alpha^1, \ldots,
 \alpha^{k-1}$ where $\alpha^{k-1} \geq l, \alpha^k < l$ an $\alpha$-cutoff-MVA,
 similar to what we did in previous section \ref{sec:eff_experiment}.  
-One explanation about its good performance is that these initial thresholds set
+One explanation about its good performance is that these initial thresholds
 doesn't violate proposition \ref{prop:thresholds}. Thus it's more likely to be
-close to actual optimal thresholds set.
+close to actual optimal thresholds.
 %It is
 %suggested by experiments showed in figure \ref{fig:x-l} where query length $x$
 %seems to be $1-\alpha$ for a lot of $l$. 
@@ -568,16 +590,6 @@ in figure \ref{fig:cutoff}. In most cases its profit is very close to optimal.
 The significant difference only occur when low value $l$ is a little below
 $\alpha$ and this is not likely to occur when $n$ is large where $\alpha$ is
 much closer to $1$ than $l$.
-
-\begin{figure}
-\centering
-    \includegraphics[width=\linewidth]{figures/cutoff_.2_.1_15.eps}
-    \caption{The profit of optimal MVA and $\alpha$-cutoff-MVA are plotted in
-    solid line.  The low value $l$ is chosen to maximze optimal MVA's profit.
-    We also plot $l$ and $\alpha$ in dashed lines to see how they affect the
-    relative profit difference.  Note that $\alpha$ does not depend on
-    $l$.}\label{fig:cutoff}
-\end{figure}
 
 \subsection{Choosing Low Value}
 

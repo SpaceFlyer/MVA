@@ -1,32 +1,40 @@
 \section{Optimal Mechanisms with Efficiency and Only Seller's Cost}
 
 In this section, we consider a simplified optimizing problem with efficiency
-constraint and only seller's cost.  Though these two
-constraints simplify our problem a lot, they are reasonable in real cases such
-as craigslist or moving sales in mailing-lists:
+constraint and only seller's cost.  Though these two constraints simplify our
+problem a lot, they are reasonable in real cases such as craigslist or moving
+sales in mailing-lists. In those cases, sellers usually have $0$ valuation for
+the item and cannot commit to withould the item or prevent re-sales between
+buyers. Under such circumstances, an efficient mechanism not only maximzes the
+social welfare but also maximizes the seller's revenue
+\cite{Ausubel99:EfficientOptimality}. Besides, every bidder would at most be
+charged for one bidding but the seller will be charged for all
+biddings. Thus it also seems reasonable to ignore bidder's bidding cost
+for simplicity.
 
-\begin{enumerate}
 
-\item In many cases, sellers only have $0$ valuation for the item.
-For example, some second-hand items will be tossed if they cannot be sold by a
-particular day, e.g. the day the seller moves out the house. We encounter many
-free items during second-hand sales as well, which is another demonstration of
-zero valuation. Additionally, sellers cannot commit to withhold the item or 
-prevent re-sales between buyers. Under such circumstances, an efficient mechanism not only
-maximzes the social welfare but also maximizes the seller's revenue \cite{Ausubel99:EfficientOptimality}.
-
-\item The bidding cost for each bidder sometimes seems \footnote{But actually
-it is not that negligible as our example seems to claim. In later section,
-theorem \ref{theorem:equivalence} will show exactly how important it is.} to be
-negligible compared to bidding cost charged to the seller. For example, if
-$100$ bidders replied to the seller by a $1$-minue call, each bidder only has a
-tiny $1$ minue cost.  But for the seller, it is a big $100$ minutes cost which
-is very annoying. It is also necessary to remove bidder's bidding cost to
-achieve efficiency (without compensation).  Otherwise, the item may not be able
-to allocate to the highest bidder when that highest valuation is below the
-bidder's bidding cost.
-
-\end{enumerate}
+%\begin{enumerate}
+%
+%\item In many cases, sellers only have $0$ valuation for the item.
+%For example, some second-hand items will be tossed if they cannot be sold by a
+%particular day, e.g. the day the seller moves out the house. We encounter many
+%free items during second-hand sales as well, which is another demonstration of
+%zero valuation. Additionally, sellers cannot commit to withhold the item or 
+%prevent re-sales between buyers. Under such circumstances, an efficient mechanism not only
+%maximzes the social welfare but also maximizes the seller's revenue \cite{Ausubel99:EfficientOptimality}.
+%
+%\item The bidding cost for each bidder sometimes seems \footnote{But actually
+%it is not that negligible as our example seems to claim. In later section,
+%theorem \ref{theorem:equivalence} will show exactly how important it is.} to be
+%negligible compared to bidding cost charged to the seller. For example, if
+%$100$ bidders replied to the seller by a $1$-minue call, each bidder only has a
+%tiny $1$ minue cost.  But for the seller, it is a big $100$ minutes cost which
+%is very annoying. It is also necessary to remove bidder's bidding cost to
+%achieve efficiency (without compensation).  Otherwise, the item may not be able
+%to allocate to the highest bidder when that highest valuation is below the
+%bidder's bidding cost.
+%
+%\end{enumerate}
 
 The rest of this section is organized as follows. First of all, we introduce a
 mechanism called Multi-round Vickrey Auction (MVA) based on what is been used in
@@ -281,7 +289,7 @@ descending query without increasing the cost.
 
 \end{proof}
 
-Finally, we conclude the optimality of MVAs.
+Finally we have
 
 \begin{theorem}\label{theorem:MVA_eq}
 
@@ -378,10 +386,7 @@ $\alpha$. We will conduct experiments to compare our approximation with the
 optimal $\alpha$ that is computed numerically. 
 
 Firstly, $\alpha = 1-1/n$ is a natural guess which means each round the
-expected number of biddings is equal to $1$. Thus we have $C(\alpha = 1-1/n) =
-(\rho+1)/(1-(1-1/n)^n)$. Because $(1-1/n)^n \leq e^{-1}$, we have $C(\alpha =
-1-1/n) \leq (\rho+1)(1-e^{-1})$.  It is obvious that at least one broadcast and
-one bidding is required to terminate so $C \geq \rho+1$.  Thus we have
+expected number of biddings is equal to $1$. It turns out to be quite good:
 
 \begin{theorem}
 $\alpha = 1-1/n$ is a $1/(1-e^{-1})$ approximation of optimal $\alpha$-MVA.
@@ -391,6 +396,13 @@ that no matter how large $n$ is, the cost of this simple approximation is at
 most $(\rho+1) / (1-e^{-1}) = O(1)$. Thus the optimal cost is bounded by
 constant $O(1)$ no matter how large $n$ is.
 \end{theorem}
+
+\begin{proof}
+$C(\alpha = 1-1/n) = (\rho+1)/(1-(1-1/n)^n)$. Because $(1-1/n)^n \leq e^{-1}$,
+we have $C(\alpha = 1-1/n) \leq (\rho+1)(1-e^{-1})$.  It is obvious that at
+least one broadcast and one bidding is required to terminate so $C \geq
+\rho+1$. This completes the proof.
+\end{proof}
 
 A better approximation when $n$ is large is to observe that $\alpha \rightarrow
 1$ when $n$ grows large.  Thus we guess 
@@ -491,7 +503,7 @@ distributed over $[0, 1]$.  It is also known as fixed-step search strategy in
 $k$-MVA that minimize the cost by choosing the best $k$.
 
 In practice, such $k$ might also be very limited. For example, if someone need
-to selll something in $3$ days before moving out, the $k$ might be limited to
+to sell something in $3$ days before moving out, the $k$ might be limited to
 $3$ since it is too annoying to send out two broadcast messages per day (e.g. it
 might be labeled as spam by selling platform).  With this limitation, one can
 still use uniform thresholds as a baseline. Or we may formulate this as another
