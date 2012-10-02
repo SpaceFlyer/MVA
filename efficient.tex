@@ -1,16 +1,27 @@
 \section{Optimal Mechanisms with Efficiency and Only Seller's Cost}
+\label{sec:efficient}
 
-In this section, we consider a simplified optimizing problem with efficiency
-constraint and only seller's cost.  Though these two constraints simplify our
-problem a lot, they are reasonable in real cases such as craigslist or moving
-sales in mailing-lists. In those cases, sellers usually have $0$ valuation for
-the item and cannot commit to withould the item or prevent re-sales between
-buyers. Under such circumstances, an efficient mechanism not only maximzes the
+In this section, we make two simplifying assumptions: (1) we restrict
+attention to mechanisms that allocate the item efficiently and (2) we
+assume that the bidder cost for replying ($\beta_2$) is zero.\footnote{Note
+that if (2) does not hold, then allocating efficiently may not be possible
+without the seller compensating the bidders for their bidding costs.}
+%we consider a simplified optimizing problem with efficiency
+%constraint and only seller's cost.  Though these two constraints simplify our
+%problem a lot, they are reasonable in real cases such as craigslist or moving
+%sales in mailing-lists. 
+For example, someone who is moving and selling furniture on craigslist is
+likely to have $0$ valuation for the item 
+and cannot commit to withhold the item or prevent re-sale between
+bidders. Under such circumstances,  efficient mechanisms not only maximizes the
 social welfare but also maximizes the seller's revenue
-\cite{Ausubel99:EfficientOptimality}. Besides, every bidder would at most be
-charged for one bidding but the seller will be charged for all
-biddings. Thus it also seems reasonable to ignore bidder's bidding cost
-for simplicity.
+\cite{Ausubel99:EfficientOptimality} (though this does not consider
+elicitation costs).
+% Besides, every bidder would at most be
+%charged for one bidding but the seller will be charged for all
+%biddings. Thus it also seems reasonable to ignore bidder's bidding cost
+%for simplicity.
+In Section~\ref{sec:general} we drop these assumptions.
 
 
 %\begin{enumerate}
@@ -36,32 +47,48 @@ for simplicity.
 %
 %\end{enumerate}
 
-The rest of this section is organized as follows. First of all, we introduce a
-mechanism called Multi-round Vickrey Auction (MVA) based on what is been used in
-realworld online second-hand item transactions.  Then we prove that MVAs are
-optimal (so there exists a MVA that is optimal). After that we will try to find
-the specific MVA that achieves the optimality. Finally, we conduct some
-experiments to compare the optimal MVA with other mechanisms.
+The rest of this section is organized as follows. First, we
+introduce a class of mechanisms called multi-round Vickrey auctions (MVA).
+%based on
+%what has been used in realworld online second-hand item transactions.  
+Then,
+we prove that we can restrict attention to MVAs without loss of optimality.
+%(so there exists a MVA that is
+%optimal). A
+After that, we find the specific MVA that is optimal. Finally, we
+experimentally compare this optimal MVA to some other natural mechanisms.
 
 \subsection{Multi-round Vickrey Auctions}
 
-A Multi-round Vickrey Auction (MVA) has multiple rounds of Vickrey
-auctions with progressively decreasing reserve prices. This kind of auction
-effectively occurs on eBay. The seller may set up a reserve price and let
-buyers bid for this item. The proxy bidding functionality makes such an auction
-equivalent to a Vickrey auction with a reserve price. If no buyers bid for a
-given reserve price, the seller may lower the reserve price, which makes the
-whole process equivalent to an MVA.
 
-\begin{definition}(Multi-round Vickrey Auction, MVA)
+In an MVA, the seller runs a Vickrey auction with a reserve price; if
+nobody bids (above the reserve price), the seller runs another Vickrey
+auction with a lower reserve price, etc., until the item is sold.  (In
+Section~\ref{sec:general}, we will also consider MVAs that can terminate
+without having sold the item.)
+%n MVA has multiple rounds of Vickrey
+%auctions with progressively decreasing reserve prices. 
+For example, consider a sequence of eBay auctions (with proxy bidding) in
+which the seller is repeatedly lowering the reserve price.
 
-In a Multi-round Vickrey Auction (MVA), there is a sequence of reserve prices
-$r_1, r_2, \ldots, r_k$ where $r_i > r_{i+1}$. The seller creates a Vickrey
-auction with a reserve price $r_i$ at time $i$ (or round $i$). In each
-Vickrey auction, if only one buyer bids, he/she gets the item and pays reserve
-price. Otherwise, the buyer with the highest bidding gets the item and pays the
-second highest bidding.
 
+%This kind of auction
+%effectively occurs on eBay. The seller may set up a reserve price and let
+%buyers bid for this item. The proxy bidding functionality makes such an auction
+%equivalent to a Vickrey auction with a reserve price. If no buyers bid for a
+%given reserve price, the seller may lower the reserve price, which makes the
+%whole process equivalent to an MVA.
+
+\begin{definition}[Multi-round Vickrey Auction (MVA)]
+  An MVA is defined by a sequence of reserve prices $r_1, r_2, \ldots$
+  (which may be finite or infinite) where $r_i > r_{i+1}$. In round $i$, a
+  Vickrey auction with reserve price $r_i$ is run (if the item has not been
+  sold yet).
+%The seller creates a Vickrey
+%auction with a reserve price $r_i$ at time $i$ (or round $i$). In each
+%Vickrey auction, if only one buyer bids, he/she gets the item and pays reserve
+%price. Otherwise, the buyer with the highest bidding gets the item and pays the
+%second highest bidding.
 \end{definition}
 
 %MVAs require Vickrey auctions (or equivalent English auctions) as basic steps.
@@ -76,18 +103,38 @@ second highest bidding.
 %it's harder to analyze analytically and it's inferior than MVAs in terms of
 %both sellers' utility and social welfare.
 
-Since there is no cost charged to buyers, it is obvious to see that whenever a
-bidder decides to bid, he/she must bid truthfully. Thus the Bayesian Nash
-Equilibria (BNE) for MVAs can be described as $k$ thresholds $a_1, a_2,
-\ldots, a_k$ where $a_i > a_{i+1}$. Whenever a bidder is valuation for the item
-is greater than $a_i$, he/she is going to bid in round $i$ whose reserve price
-is $r_i$. Because of efficiency constraint we also have $r_k = a_k = 0$.
+%Since there is no cost charged to buyers, 
+In an MVA, {\em if} a bidder decides to bid (above the reserve price), it
+is optimal to bid truthfully since doing so is dominant in a Vickrey auction.
+However, a bidder may choose strategically to stay silent even with a
+valuation above the reserve price, in the belief that nobody else will bid this
+round so that the price will decrease in the next round.
+%it is obvious to see that whenever a
+%bidder decides to bid, he/she must bid truthfully. 
+%vc: could make this a proposition...  not clear it's worth it.  is there a
+%reference? mcafee and vincent?
+Thus, in our (symmetric) setting, Bayes-Nash
+Equilibria (BNE)
+ for MVAs can be described by a sequence of thresholds $a_1, a_2,
+\ldots$ where $a_i > a_{i+1}$; in round $i$, a bidder bids if and only
+if his valuation is at least $a_i$.
+%Whenever a bidder's valuation for the item
+%is greater than $a_i$, he/she is going to bid in round $i$ whose reserve price
+%is $r_i$. 
+By efficiency, we either have $r_k = a_k = 0$ for some $k$, or $\lim_{i
+  \rightarrow \infty} r_i = 0$.
 
-In later analysis, we firstly decide thresholds $a_i$ since they are more
-meaningful for bidders to make decisions and for us to make analysis. Then we
-determine the right reserve prices $r_i$ that make bidders incentive compatible
-to bid according to thresholds $a_i$. The following equations connects $a_i$
-and $r_i$:
+We will be interested in the following question: given desired thresholds
+$a_i$, which reserve prices $r_i$ result in these thresholds?  Then, by the
+revelation principle, we can convert this to a mechanism in which we query
+agents whether their valuations are above $a_i$ and it is optimal for them
+to respond truthfully.
+
+%In later analysis, we firstly decide thresholds $a_i$ since they are more
+%meaningful for bidders to make decisions and for us to make analysis. Then we
+%determine the right reserve prices $r_i$ that make bidders incentive compatible
+%to bid according to thresholds $a_i$. The following equations connects $a_i$
+%and $r_i$:
 \begin{align}\label{eq:MVA_eq}
     &r_k = a_k = 0 \mbox{ and }
     \forall i ~(1 \leq i < k),\nonumber\\

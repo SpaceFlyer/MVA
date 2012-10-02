@@ -5,6 +5,14 @@ L.~M. Ausubel and P.~Cramton.
 \newblock The optimality of being efficient.
 \newblock 1999.
 
+\bibitem{Conitzer04:Computational}
+V.~Conitzer and T.~Sandholm.
+\newblock Computational criticisms of the revelation principle.
+\newblock In {\em The Conference on Logic and the Foundations of Game and
+  Decision Theory (LOFT-04)}, Leipzig, Germany, 2004.
+\newblock Earlier versions appeared as a short paper at ACM-EC-04, and in the
+  workshop on Agent-Mediated Electronic Commerce (AMEC-03).
+
 \bibitem{DBLP:conf/iwdc/HassanJ04}
 J.~Hassan and S.~Jha.
 \newblock On the optimization trade-offs of expanding ring search.
@@ -31,6 +39,26 @@ R.~P. McAfee and J.~McMillan.
 R.~B. Myerson.
 \newblock {Optimal Auction Design}.
 \newblock {\em Mathematics of Operations Research}, 6:58--73, 1981.
+
+\bibitem{Parkes06:Iterative}
+D.~Parkes.
+\newblock Iterative combinatorial auctions.
+\newblock In P.~Cramton, Y.~Shoham, and R.~Steinberg, editors, {\em
+  Combinatorial Auctions}, chapter~2, pages 41--77. MIT Press, 2006.
+
+\bibitem{Sandholm06:Preference}
+T.~Sandholm and C.~Boutilier.
+\newblock Preference elicitation in combinatorial auctions.
+\newblock In P.~Cramton, Y.~Shoham, and R.~Steinberg, editors, {\em
+  Combinatorial Auctions}, chapter~10, pages 233--263. MIT Press, 2006.
+
+\bibitem{Sandholm06:Sequences}
+T.~Sandholm and A.~Gilpin.
+\newblock Sequences of take-it-or-leave-it offers: Near-optimal auctions
+  without full valuation revelation.
+\newblock In {\em Proceedings of the International Conference on Autonomous
+  Agents and Multi-Agent Systems (AAMAS)}, pages 1127--1134, Hakodate, Japan,
+  2006.
 
 \bibitem{SarneSR2010:IncreasingSearch}
 D.~Sarne, S.~Shamoun, and E.~Rata.

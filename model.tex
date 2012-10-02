@@ -1,23 +1,25 @@
 \section{Cost Model and Settings}
+\label{sec:model}
 
-In this section, we define our cost model and explain its motivation. Our
-cost model is inspired from online second-hand item transactions, including
-examples like eBay, craigslist and universities' mailing-lists.
+In this section, we formally define our cost model and explain its motivation. 
+%Our
+%cost model is inspired from online second-hand item transactions, including
+%examples like eBay, craigslist and universities' mailing-lists.
 
 
-\begin{definition}\label{def:model}
-
-In our settings, one seller is selling one item to $n$ buyers (bidders)
+\begin{definition}[Setting]\label{def:model}
+One seller is selling one item to $n$ buyers (bidders)
 whose valuations $v_i~(1 \leq i \leq n)$ are independently and identically
 distributed (i.i.d.) over $[0, 1)$ with PDF $f(x)$ and CDF $F(x)$. The seller
-can broadcast a message to all bidders with cost $b$ (the broadcast cost) for
-the seller.  A bidder may reply to that broadcast with cost $c$ (bidding cost)
-or remain silent with no cost. Such bidding cost $c$ may contain two parts,
-$\beta_1, \beta_2$ where $\beta_1+\beta_2 = c$.  The first part $\beta_1$ is
-charged to the seller while the second is charged to the corresponding bidder.
-The bidder's reply is deterministic with respect to the seller's
-broadcast (for simplicity, we only consider pure strategy equilibrium).
-
+can broadcast a message to all bidders, at cost $b$ to
+the seller.  A bidder can reply to that broadcast, or remain silent.
+If a bidder replies (does not stay silent), this comes at a cost $\beta_1$ to the
+seller and a cost $\beta_2$ to that bidder, for a total cost of $c=\beta_1+\beta_2$.
+%vc: is this necessary?  discuss where it's needed.
+%We restrict our attention to pure strategies, so that bidders reply
+%deterministically to queries.
+%The bidder's reply is deterministic with respect to the seller's
+%broadcast (for simplicity, we only consider pure strategy equilibrium).
 \end{definition}
 
 %The major difference of this model are cost and broadcast capability. We will
@@ -38,38 +40,104 @@ broadcast (for simplicity, we only consider pure strategy equilibrium).
 %close to most Internet platforms. In another word, bidders do not have to buy a
 %ticket to walk in and observe.
 
-We introduce broadcast capability because it is shared by many auctions.  For
-example, a Vickrey auction or a first-price auction with reserve price can both be
-described as a broadcast auction with only one broadcast: telling every bidder
-the reserve price. The bisection auction \cite{Herings2009:BisectionAuction} is an
-example with many rounds of broadcasts. In each round , it will broadcast
-a price and ask bidders to reply whether their valuation is beyond or below that
-price.  In real world, sellers make such broadcasts via sending emails to a
-bunch of receivers (typically a mailing-list), listing items on a platform such
-as craigslist and eBay, or even showing ads on Internet/TV. Such broadcast
-activities costs either money (e.g. a list or ads fee) or time and effort (e.g.
-writing and sending emails).
+Two key aspects of this model are that (1) staying silent comes at no cost
+and (2) replying comes at a positive cost, {\em and this positive cost is
+  the same no matter how complex the query and answer are}.  This is
+motivated by the settings discussed in the introduction, where a bidder can
+observe the process of the auction (or messages posted on a board) silently
+at no cost, but once the bidder acts in the auction, costs occur---e.g., the
+bidder has to submit credit card information, the bidder and the seller
+have to arrange an in-person meeting, etc.).  A key aspect of such costs is
+that they tend to be the same regardless of the level of detail in the
+bidder's answer: for example, if the bidder just reports having a valuation
+greater than \$10 without specifying what it is exactly (rather than
+reporting a valuation of exactly \$14), this is not likely to reduce any of
+the above costs.  In particular, the seller is likely to want to verify the
+bidder's authenticity at any point where the bidder's reply affects the
+course of the auction from then on.  
+%Indeed, in the auction mechanisms that
+%we propose, whenever a bidder replies, that bidder will reveal her valuation exactly.
+This leads to the following easy proposition:
 
-Note that in our model, we only give sellers broadcast capability so they
-cannot find or communicate with each bidder one by one. The first reason to
-have this constraint is there are too many potential bidders on the Internet
-where our model is originated so it is hard to explicitly find
-them one by one. By contrast, in offline cases where the set of bidders
-are small and explicit (e.g. the government want to sell a land to one of three
-companies), it might be helpful to let the seller communicate with bidders one
-by one \cite{McAfee88:SearchMechanisms}. The second reason to have this constraint is
-that we want to focus on mechanisms that avoids time consuming bargaining
-between two individuals. It makes the mechanism simple, fair and convenient.
+\begin{proposition}
+\label{prop:fullrevelation}
+  In the model defined in~\ref{def:model}, without loss of optimality, we
+  can restrict our attention to (broadcast) queries that result in each
+  bidder either staying silent, or immediately revealing his exact
+  valuation to the seller.
+\end{proposition}
 
-Finally, we define optimal mechanisms to be the ones that maximze seller's
-profit since when facing many different auction mechanisms, a rational seller
-will choose the one that gives him maximum profit.
+Another notable point is that we restrict communication from the seller to
+broadcast queries.  This is a common restriction: any sealed-bid auction
+can be considered a broadcast auction with only one broadcast: the reserve
+price.  The bisection auction~\cite{Herings2009:BisectionAuction} is an
+example auction with many rounds of broadcasts. In each round, it
+broadcasts a price and asks bidders to reply whether their valuation is
+above or below that price.  Besides the broadcast model being simple,
+natural, and common in existing auction mechanisms, it is also naturally
+motivated in the Internet domains we consider: the bidders are entirely
+anonymous until their first reply, so before this point querying such
+bidders individually is not feasible and they can only be reached by, say,
+posting on a public website; and after they have replied, we will know
+their valuation exactly (by Proposition~\ref{prop:fullrevelation}) and we no
+longer need to query them.  Of course, there are offline cases where the
+set of bidders is small and explicit (e.g., the government wants to sell
+land or spectrum to one of three known companies); in such settings, it can
+indeed be helpful for the seller to communicate with bidders individually
+\cite{McAfee88:SearchMechanisms,Sandholm06:Sequences}.  Such settings do
+not fit our model; we explicitly focus on highly anonymous settings, and
+the costs that the seller incurs from the broadcast query correspond to the
+time, effort, and third-party charges associated with posting a public
+message.
+
+
+%We introduce broadcast capability because it is shared by many auctions.  For
+%example, a Vickrey auction or a first-price auction with reserve price can both be
+%described as a broadcast auction with only one broadcast: telling every bidder
+%the reserve price. The bisection auction \cite{Herings2009:BisectionAuction} is an
+%example with many rounds of broadcasts. In each round , it will broadcast
+%a price and ask bidders to reply whether their valuation is beyond or below that
+%price.  In real world, sellers make such broadcasts via sending emails to a
+%bunch of receivers (typically a mailing-list), listing items on a platform such
+%as craigslist and eBay, or even showing ads on Internet/TV. Such broadcast
+%activities costs either money (e.g. a list or ads fee) or time and effort (e.g.
+%writing and sending emails).
+
+%Note that in our model, we only give sellers broadcast capability so they
+%cannot find or communicate with each bidder one by one. The first reason to
+%have this constraint is there are too many potential bidders on the Internet
+%where our model is originated so it is hard to explicitly find
+%them one by one. By contrast, in offline cases where the set of bidders
+%are small and explicit (e.g. the government want to sell a land to one of three
+%companies), it might be helpful to let the seller communicate with bidders one
+%by one \cite{McAfee88:SearchMechanisms}. The second reason to have this constraint is
+%that we want to focus on mechanisms that avoids time consuming bargaining
+%between two individuals. It makes the mechanism simple, fair and convenient.
+
+%Finally, we define optimal mechanisms to be the ones that maximze seller's
+%profit since when facing many different auction mechanisms, a rational seller
+%will choose the one that gives him maximum profit.
+
+
 
 \begin{definition}
-
-We say a mechanism is optimal if it gives the seller maximum profit
-which equals to all the value payed to this seller (revenue) minus all the cost charged
-to this seller. A class of mechanisms are optimal if they contain one optimal
-mechanism.
-
+%A {\em (broadcast) query} consists of a subset $Q \subseteq [0,1)$, where
+%agents with a valuation in $Q$  respond with their exact valuation and 
+%agents with a valuation in $[0,1) \ Q$ stay silent.
+%vc: do we need determinism???
+  A {\em mechanism} in our setting consists of (1) a full contingency plan
+  for which query to broadcast at each point, depending on answers given so
+  far, and a termination condition; and (2) an allocation and pricing rule
+  that is defined on each terminal state.  A mechanism is {\em individually
+    rational} if losing bidders never pay and winning bidders never pay
+  more than their valuations.  We say an individually rational mechanism is
+  {\em optimal} if it has a Bayes-Nash equilibrium for the bidders that maximizes the
+  seller's profit (among all Bayes-Nash equilibria of all individually
+  rational auction mechanisms).  Here, seller profit is revenue minus
+  seller elicitation costs.
+%gives the seller maximum profit
+%which equals to all the value payed to this seller (revenue) minus all the cost charged
+%to this seller. 
+  A class of mechanisms is optimal if it contains at least one optimal
+  mechanism.
 \end{definition}

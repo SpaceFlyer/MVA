@@ -35,10 +35,10 @@ each agent declares its entire valuation function to the auctioneer.  The
 corresponding overhead, not only in terms of communication per se but also
 in terms of the agent having to completely {\em determine} its valuation
 function, can be prohibitive.  All of this is well understood (for further
-discussion, see~\cite{}), and a significant amount of research has been
-devoted to the design of {\em iterative} auction mechanisms~\cite{} and (roughly
+discussion, see, e.g.,~\cite{Conitzer04:Computational}), and a significant amount of research has been
+devoted to the design of {\em iterative} auction mechanisms (e.g.,~\cite{Parkes06:Iterative}) and (roughly
 equivalently) auctions with explicit {\em elicitation} of agents'
-valuations~\cite{}.  Such auctions aim to avoid the communication of
+valuations (e.g.,~\cite{Sandholm06:Preference}).  Such auctions aim to avoid the communication of
 unnecessary information.  For example, in a Vickrey auction, if it is
 known that bidders 1 and 2 have valuations above \$100 and bidder 3 has one
 below \$100, then there is no need to query bidder 3 any further.
@@ -86,10 +86,20 @@ anonymous) auctions of the type discussed above.
 %close to most Internet platforms. In another word, bidders do not have to buy a
 %ticket to walk in and observe.
 
-briefly summarize what we will do
+The rest of this paper is organized as follows.  In
+Section~\ref{sec:model}, we provide a formal model of elicitation cost
+motivated by the observations just discussed.  In
+Section~\ref{sec:efficient}, we study the special case in which efficient
+allocation is a constraint and bidders experience no cost from bidding.
+The characterization of the optimal mechanism in this special case turns
+out to be closely related to earlier work on finding an optimal agent by
+iteratively relaxing the parameters of the search~\cite{}.  In
+Section~\ref{sec:general}, we drop the assumptions of efficiency and no
+bidder cost for elicitation.
 
 
-\subsection{Related research}
+
+%\subsection{Related research}
 
 
 
@@ -104,7 +114,7 @@ briefly summarize what we will do
 
 \section{Conclusion}
 
-\section{Acknowledgement
+\section{Acknowledgement}
 
 \bibliographystyle{abbrv}
 \bibliography{references}
