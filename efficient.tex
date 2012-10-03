@@ -122,7 +122,7 @@ if his valuation is at least $a_i$.
 %is greater than $a_i$, he/she is going to bid in round $i$ whose reserve price
 %is $r_i$. 
 By efficiency, we either have $r_k = a_k = 0$ for some $k$, or $\lim_{i
-  \rightarrow \infty} r_i = 0$.
+  \rightarrow \infty} r_i = 0$. WHAT IF $F(0.5) = 0$ WITH INFINITE MANY ROUNDS?
 
 We will be interested in the following question: given desired thresholds
 $a_i$, which reserve prices $r_i$ result in these thresholds?  Then, by the
@@ -133,11 +133,11 @@ to respond truthfully.
 %In later analysis, we firstly decide thresholds $a_i$ since they are more
 %meaningful for bidders to make decisions and for us to make analysis. Then we
 %determine the right reserve prices $r_i$ that make bidders incentive compatible
-%to bid according to thresholds $a_i$. The following equations connects $a_i$
-%and $r_i$:
+%to bid according to thresholds $a_i$. 
+The following equations connects $a_i$ and $r_i$. For all $i, i+1$:
 \begin{align}\label{eq:MVA_eq}
-    &r_k = a_k = 0 \mbox{ and }
-    \forall i ~(1 \leq i < k),\nonumber\\
+%    &r_k = a_k = 0 \mbox{ and }
+    %&\forall i, i+1\nonumber\\% ~(1 \leq i < k),\nonumber\\
     &~~P(a_{i})(a_{i}-r_i) =
     \int_{a_{i+1}}^{a_{i}}(a_{i}-x)p(x)dx+P(a_{i+1})(a_{i}-r_{i+1})
 \end{align}
@@ -147,24 +147,25 @@ where for convenience we denote:
     p(x) &:= P'(x) = (n-1)F(x)^{n-2} f(x)
 \end{align*}
 The equation \ref{eq:MVA_eq} says that the bidder with valuation $a_i$ should be
-indifferent from bidding in round $i$ (the left hand side) and bidding in round
-$i-1$(the right hand side).  The following theorem describes the equilibrium of
+indifferent from bidding in round $i$ (the left hand side) or bidding in round
+$i+1$(the right hand side).  The following theorem describes the equilibrium of
 MVAs determined by equations above.
 
 \begin{theorem}
 If we make reserve prices $r_i$ to be:
 \begin{align}\label{eq:MVA_eq_relation}
-  r_k &= a_k = 0 \nonumber \\
-  r_i &= \left( \int_{0}^{a_i} x \, p(x) dx \right) / P(a_i) & (i < k)
+%  r_k &= a_k = 0 \nonumber \\
+  r_i &= \left( \int_{0}^{a_i} x \, p(x) dx \right) / P(a_i) & (\mbox{if $a_i > 0$})
 \end{align}
 Such MVA will have a pure strategy Bayesian Nash Equibibrium characterized by
-thresholds $a_1, a_2, \ldots, a_k$ where the bidder with valuation greater than
-$a_i$ (but not greater than $a_{i-1}$) will bid in round $i$
+thresholds $a_1, a_2, \ldots$ where the bidder with valuation at least $a_i$
+but less than $a_{i-1}$ (presumably $a_0 = 1$) will bid in round $i$ 
 \end{theorem}
 
 \begin{proof}
 By equation \ref{eq:MVA_eq_relation}, we have $r_i P(a_i) = \int_{0}^{a_i}
-x\,p(x)dx$ for all $i$. Thus the right
+x\,p(x)dx$ for all $i$ (even if
+$a_i = a_k = 0$ by efficiency constraint). Thus the right
 hand side of equation \ref{eq:MVA_eq} is:
 \begin{align*}
 	& \int_{a_{i+1}}^{a_i} a_i p(x) dx - \int_{a_{i+1}}^{a_i} x \, p(x) dx + P(a_{i+1})(a_i-r_{i+1}) \\
@@ -446,7 +447,7 @@ constant $O(1)$ no matter how large $n$ is.
 
 \begin{proof}
 $C(\alpha = 1-1/n) = (\rho+1)/(1-(1-1/n)^n)$. Because $(1-1/n)^n \leq e^{-1}$,
-we have $C(\alpha = 1-1/n) \leq (\rho+1)(1-e^{-1})$.  It is obvious that at
+we have $C(\alpha = 1-1/n) \leq (\rho+1)/(1-e^{-1})$.  It is obvious that at
 least one broadcast and one bidding is required to terminate so $C \geq
 \rho+1$. This completes the proof.
 \end{proof}
