@@ -10,7 +10,9 @@ In this section, we formally define our cost model and explain its motivation.
 \begin{definition}[Setting]\label{def:model}
 One seller is selling one item to $n$ buyers (bidders)
 whose valuations $v_i~(1 \leq i \leq n)$ are independently and identically
-distributed (i.i.d.) over $[0, 1)$ with PDF $f(x)$ and CDF $F(x)$. The seller
+distributed (i.i.d.) over $[0, 1)$ with PDF $f(x)$ and CDF $F(x)$. (We
+assume that for all $\epsilon>0$, we have $F(\epsilon)>0$.)
+The seller
 can broadcast a message to all bidders, at cost $b$ to
 the seller.  A bidder can reply to that broadcast, or remain silent.
 If a bidder replies (does not stay silent), this comes at a cost $\beta_1$ to the
