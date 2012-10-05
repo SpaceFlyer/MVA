@@ -488,6 +488,34 @@ calculate thresholds $a_i$. We use an R package called BB \cite{Varadhan2009:BB}
 solve these non-linear equation systems. Before throw those equations to that
 package, we have to first decide $k$ and an initial guess of $\vec a$.
 
+We found a lemma that's very useful for deciding $k$:
+
+\begin{lemma}\label{lemma:thresholds}
+Two sets of optimal thresholds $\{a_1, a_2, \ldots, a_k\}, \{b_1, b_2, \ldots,
+b_m\}$ can't have $p_2 \leq q_2 < q_1 < p_1$ where $p_2, p_1$ and $q_2, q_1$
+are two consecutive thresholds, say $a_i, a_{i-1}, b_j, b_{j-1}$, for these two
+sets of thresholds.
+\end{lemma}
+
+\begin{proof}
+Denote $C(l)$ to be the optimal cost for finding the maximum value above low
+value $l$ (suppose $h, n, \rho$ and everything else are constants now). Note
+that thresholds $a_0, \ldots, a_i$ must be optimal thresholds for $l = a_i$,
+otherwise $a_1, a_2, \ldots, a_k$ can't be optimal for $l = a_k$.  Similarly,
+$b_0, b_1, \ldots, b_j$ must be optimal thresholds for $l = b_j$.  Then 
+%from optimality of $a_0, \ldots, a_i$ and $b_0, \ldots, b_j$ we have:
+\begin{align*}
+%  C(b_{j-1}) + b_{j-1}^n [\rho+n(b_{j-1}-b_j)] \leq C(a_{i-1}) + a_{i-1}^n [\rho + n(a_{i-1}-b_j)]\\
+%  C(a_{i-1}) + a_{i-1}^n [\rho+n(a_{i-1}-a_i)] \leq C(b_{j-1}) + b_{j-1}^n [\rho + n(b_{j-1}-a_i)]
+  C(q_1) + q_1^n [\rho+n(q_1-q_2)] \leq C(p_1) + p_1^n [\rho + n(p_1-q_2)]\\
+  C(p_1) + p_1^n [\rho+n(p_1-p_2)] \leq C(q_1) + q_1^n [\rho + n(q_1-p_2)]
+\end{align*}
+Adding these two inequations together and do some cancellations we get
+$p_1^n \leq q_1^n$, which contradicts $q_1 < p_1$.
+\end{proof}
+
+Then we can find an upper bound for $k$:
+
 \begin{lemma}\label{lemma:k_upper}
 $k_\alpha = \left\lceil \log_{\alpha} \left(h/l\right) \right\rceil$ is an
 upper bound for the optimal $k$. Here $\alpha$ is the optimal $\alpha$ for
@@ -501,32 +529,9 @@ $a_0 = \alpha^0, a_1 = \alpha^1, \ldots, a_{k_\alpha} = \alpha^{k_\alpha}$
 split interval $[l, h)$ into $k_\alpha$ subintervals $[a_i, a_{i-1})$, which
 together contain $k$ thresholds $b_1, \ldots, b_k$. Since $k > k_\alpha$, at
 least one subinterval $[a_i, a_{i-1})$ contain two thresholds $b_j, b_{j-1}$.
-Equivalently, there exists $a_i \leq b_j < b_{j-1} < a_{i-1}$.  For
-convenience, define $p_2 = a_i \leq q_2 = b_j < q_1 = b_{j-1} < p_1 = a_{i-1}$.
-
-Denote $C(l)$ to be the optimal cost for finding the maximum value above low
-value $l$ (suppose $h, n, \rho$ and everything else are constants now). Note
-that thresholds $a_0, \ldots, a_i$ must be optimal thresholds for $l = a_i$,
-otherwise $\alpha$-MVA can't be optimal.  Similarly, $b_0, b_1, \ldots, b_j$
-must be optimal thresholds for $l = b_j$.  Then 
-%from optimality of $a_0, \ldots, a_i$ and $b_0, \ldots, b_j$ we have:
-\begin{align*}
-%  C(b_{j-1}) + b_{j-1}^n [\rho+n(b_{j-1}-b_j)] \leq C(a_{i-1}) + a_{i-1}^n [\rho + n(a_{i-1}-b_j)]\\
-%  C(a_{i-1}) + a_{i-1}^n [\rho+n(a_{i-1}-a_i)] \leq C(b_{j-1}) + b_{j-1}^n [\rho + n(b_{j-1}-a_i)]
-  C(q_1) + q_1^n [\rho+n(q_1-q_2)] \leq C(p_1) + p_1^n [\rho + n(p_1-q_2)]\\
-  C(p_1) + p_1^n [\rho+n(p_1-p_2)] \leq C(q_1) + q_1^n [\rho + n(q_1-p_2)]
-\end{align*}
-Adding these two inequations together and do some cancellations we get
-$p_1^n \leq q_1^n$, which contradicts $q_1 < p_1$.
+Equivalently, there exists $a_i \leq b_j < b_{j-1} < a_{i-1}$.  This
+contradicts with Lemma~\ref{lemma:thresholds}.
 \end{proof}
-
-The essense of the above proof is the following proposition:
-
-\begin{proposition}\label{prop:thresholds}
-Two sets of optimal thresholds can't have $p_2 \leq q_2 < q_1 < p_1$ where
-$p_2, p_1$ and $q_2, q_1$ are two consecutive thresholds for these two sets of
-thresholds.
-\end{proposition}
 
 \begin{figure}
 \centering
@@ -566,10 +571,9 @@ and lower bounds for the optimal $k$.
 \end{theorem}
 
 \begin{proof}
-We have already proved the upper bound in lemma \ref{lemma:k_upper}. The
-essense of that proof is proposition \ref{prop:thresholds}. If the lower bound
+We have already proved the upper bound in lemma \ref{lemma:k_upper}. Similarly, if the lower bound
 does not hold, we can construct $b_j = p_2 \leq \alpha^i = q_2 < \alpha^{i-1} =
-q_1 < b_{j-1} = p_1$, which violates the proposition. 
+q_1 < b_{j-1} = p_1$, which violates the Lemma~\ref{lemma:thresholds}. 
 \end{proof}
 
 By these bounds, we only need to try at most two values to get the optimal $k$.
