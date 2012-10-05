@@ -237,43 +237,80 @@ diverge from that work in what follows.
 
 \subsection{Optimality of MVAs}
 
-Since the mechanism is required to be efficient, revenue equivalence theorem
-\cite{Myerson:1981} told us that the seller's gross revenue without substracting costs is
-fixed. Thus to maximize the profit is equivalent to minimize the cost. 
 
-By efficiency constraint, the mechanism should at least find out the bidder
-with highest valuation.  The best case is that every reply contains the exact
-and truthful valuation of the corresponding bidder since every reply (or
-bidding) has a cost $c$. By doing that, we never need someone to reply twice.
-The optimizing problem in this best case is defined as definition
-\ref{def:query}.  This best case minimum cost provides us a lower bound for
-minimum cost of our mechanisms. We will then prove that MVAs can achieve this
-lower bound so they are optimal.
+%vc: need to add no-gap assumption from revenue equivalence to model
+%(anything else?)
+Since the mechanism is required to be efficient and bidders' communications
+costs ($\beta_2$) are zero, any mechanism that gives utility zero to an
+agent with valuation zero results in the same revenue for the seller, by
+the revenue equivalence theorem~\cite{Myerson:1981}.\footnote{Moreover, by
+  individual rationality we cannot give an agent with valuation zero less
+  than zero utility; we could give such an agent more than zero utility (as
+  in redistribution mechanisms~\cite{}), but this would only hurt revenue.}
+Hence, maximizing profit is equivalent to minimizing the seller's query
+costs.
+
+By the revelation principle, we can restrict our attention to mechanisms in
+which agents always answer queries truthfully in equilibrium.\footnote{For
+  example, for MVAs, we can directly query the agents whether their
+  valuations are above the $a_i$ while still charging according to the
+  $r_i$.}  By Proposition~\ref{prop:sufficient}, we can assume that an
+agent reveals his entire valuation when not staying silent.  By the
+efficiency constraint, the mechanism must at least discover a bidder with
+the highest valuation.  This optimization problem corresponds to
+Definition~\ref{def:query}.  We will then prove that MVAs can achieve this
+lower bound and are hence optimal.
+
+%he best case is that every reply contains the exact
+%and truthful valuation of the corresponding bidder since every reply (or
+%bidding) has a cost $c$. By doing that, we never need someone to reply twice.
+%The optimizing problem in this best case is defined as definition
+%\ref{def:query}.  This best case minimum cost provides us a lower bound for
+%minimum cost of our mechanisms. We will then prove that MVAs can achieve this
+%lower bound so they are optimal.
 
 \begin{definition}\label{def:query}
-
-Assume there are $n$ values $v_i ~(1 \leq i \leq n)$ independently and
-identically distributed over $[0, 1)$ with PDF $f(x)$ and CDF $F(x)$.  A query
-strategy is to find the maximum value by asking queries $Q_1, Q_2, \ldots$
-sequentially where $Q_i \subset [0, 1)$ and $\forall i \neq j, ~Q_i \cap Q_j =
-\emptyset$.  After a query $Q_i$, all numbers within $Q_i$ will be reported.
-Note that $Q_i$ may depend on results of $Q_1$ to $Q_{i-1}$. Thus a
-strategy can be denoted as a function:
+  A {\em (direct-revelation) query} is given by a subset $Q \subseteq
+  [0,1)$, such that if the agent's valuation is in $Q$, he replies with his
+  exact valuation, and otherwise stays silent.  The cost of a query is $b+j
+  \cdot c$ where $j$ is the number of bidders who do not stay silent. 
+A strategy for asking queries can be represented by a function
 \begin{displaymath}
 	S\big(f, m, V, \mathcal Q = \{Q_1, Q_2, \ldots, Q_{i-1} \}\big) = Q_i
 \end{displaymath}
-which means, suppose there are still $m$ i.i.d. unknown values left whose PDF
-is $f(x)$, the reported values set is $V$ and the set of queries asked is
-$\mathcal Q$, the strategy $S$ will make $Q_i$ as the next query.
+which means: 
+suppose that the set of queries asked previously is
+$\mathcal Q$, the set of values already reported is $V$, and there are $m$
+bidders left who have not responded (whose valuations were drawn
+i.i.d.~from $f$); then the strategy $S$ will next ask $Q_i$.
+%suppose there are still $m$ i.i.d.unknown values left whose PDF
+%is $f(x)$, the reported values set is $V$ and the set of queries asked is
+%$\mathcal Q$, the strategy $S$ will make $Q_i$ as the next query.
 
-The cost of each query is equal to $b+j \cdot c$ where $j$ is the number of
-reported values from that query. The cost of a strategy for a given set of
-unknown values $v_i$ is equal to the sum of all queries' costs it has to make
-before identifying the maximum value. The optimal query strategy is the one
-that has minimum expected cost.  We will write such minimum expected cost as
-$C^*(f, n)$, a function of PDF $f(x)$ and number of unknown values in the
-beginning $n$.
+%Assume there are $n$ values $v_i ~(1 \leq i \leq n)$ independently and
+%identically distributed over $[0, 1)$ with PDF $f(x)$ and CDF $F(x)$.  A query
+%strategy is to find the maximum value by asking queries $Q_1, Q_2, \ldots$
+%sequentially where $Q_i \subset [0, 1)$ and $\forall i \neq j, ~Q_i \cap Q_j =
+%\emptyset$.  After a query $Q_i$, all numbers within $Q_i$ will be reported.
+%Note that $Q_i$ may depend on results of $Q_1$ to $Q_{i-1}$. Thus a
+%strategy can be denoted as a function:
+%\begin{displaymath}
+%	S\big(f, m, V, \mathcal Q = \{Q_1, Q_2, \ldots, Q_{i-1} \}\big) = Q_i
+%\end{displaymath}
+%which means, suppose there are still $m$ i.i.d. unknown values left whose PDF
+%is $f(x)$, the reported values set is $V$ and the set of queries asked is
+%$\mathcal Q$, the strategy $S$ will make $Q_i$ as the next query.
 
+%The cost of each query is equal to $b+j \cdot c$ where $j$ is the number of
+%reported values from that query. 
+$C_{f,n}(S)$ is the expected cost of strategy $S$, and we wish to find
+$C_{f,n}^* = \inf_S C_{f,n}(S)$.
+%The cost of a strategy for a given set of
+%unknown values $v_i$ is equal to the sum of all queries' costs it has to make
+%before identifying the maximum value. The optimal query strategy is the one
+%that has minimum expected cost.  We will write such minimum expected cost as
+%$C^*(f, n)$, a function of PDF $f(x)$ and number of unknown values in the
+%beginning $n$.
 \end{definition}
 
 To find out the optimal query strategy, we first introduce
