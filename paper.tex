@@ -16,7 +16,7 @@
 
 \begin{document}
 
-\title{Optimal Broadcast Auctions with a new Cost Model}
+\title{Optimal Internet Auctions with Costly Communication}
 
 \numberofauthors{2}
 
@@ -26,23 +26,26 @@
 \maketitle
 
 \begin{abstract}
-Auctions are favored to sell rare items in multiagent systems.  We propose a
-new cost model motivated by Internet auctions for second-hand items (e.g. those
-happened on craigslist, eBay and universities' mailing lists). In that
-model, each bid may incur a cost for both the seller and the corresponding
-bidder (e.g. communication cost). To lower total bid cost incurred, one can
-adopt an iterative or sequential auction which include multiple rounds of
-broadcast queries. A broadcast cost might be charged to the seller for the
-time, effort and money to prepare and post such query.  We call them broadcast
-auctions and investigate the optimal ones which maximze the seller's profit,
-which equals to revenue minus seller's cost. One particular class of
-mechanisms, Multi-round Vickrey auctions (MVAs), is proved to be optimal in our
-model. We also show how to compute an Optimal MVA and compare it
-with several other MVAs naturally used in real world. Some interesting
-observations are: (1) the expected total cost is bounded
-by constant for arbitrary many bidders. (2) the optimal proft and MVA remain
-the same as long as the total bid cost is fixed, regardless of what the
-seller's or bidder's portion is.
+Iterative auctions can reach an outcome before all bidders have 
+revealed all their preference information.  This can decrease costs
+associated with communication, deliberation, and loss of privacy.
+We propose an explicit cost model that is inspired by single-item
+Internet auctions, such as those taking place on auction sites (eBay)
+or via informal communication (craigslist, mailing lists). 
+A nonzero bid comes at a cost to both the seller and the bidder, and
+the seller can send broadcast queries at a cost.
+Under this model, we study auctions that maximize the seller's profit 
+(revenue minus seller cost).
+We consider multi-round Vickrey auctions (MVAs), in which the seller
+runs multiple Vickrey auctions, with decreasing reserve prices.
+We prove that restricting attention to this class is without loss of
+optimality, show how to compute an optimal MVA, and compare
+experimentally to some other natural MVAs.
+Among our findings are that (1) the expected total cost is bounded
+by a constant for arbitrarily many bidders, and (2) the optimal MVA
+and profit remain
+the same as long as the total bid cost is fixed, regardless of which
+portion of it belongs to the seller and which to the buyer.
 \end{abstract}
 
 \section{Introduction}
