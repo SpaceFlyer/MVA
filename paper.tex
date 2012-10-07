@@ -25,6 +25,26 @@
 
 \maketitle
 
+\begin{abstract}
+Auctions are favored to sell rare items in multiagent systems.  We propose a
+new cost model motivated by Internet auctions for second-hand items (e.g. those
+happened on craigslist, eBay and universities' mailing lists). In that
+model, each bid may incur a cost for both the seller and the corresponding
+bidder (e.g. communication cost). To lower total bid cost incurred, one can
+adopt an iterative or sequential auction which include multiple rounds of
+broadcast queries. A broadcast cost might be charged to the seller for the
+time, effort and money to prepare and post such query.  We call them broadcast
+auctions and investigate the optimal ones which maximze the seller's profit,
+which equals to revenue minus seller's cost. One particular class of
+mechanisms, Multi-round Vickrey auctions (MVAs), is proved to be optimal in our
+model. We also show how to compute an Optimal MVA and compare it
+with several other MVAs naturally used in real world. Some interesting
+observations are: (1) the expected total cost is bounded
+by constant for arbitrary many bidders. (2) the optimal proft and MVA remain
+the same as long as the total bid cost is fixed, regardless of what the
+seller's or bidder's portion is.
+\end{abstract}
+
 \section{Introduction}
 
 Auctions constitute a favored method for allocating scarce resources in
