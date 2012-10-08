@@ -5,7 +5,7 @@ In this section, we make two simplifying assumptions: (1) we restrict
 attention to mechanisms that allocate the item efficiently and (2) we
 assume that the bidder cost for replying ($\beta_2$) is zero.\footnote{Note
 that if (2) does not hold, then allocating efficiently may not be possible
-without the seller compensating the bidders for their bidding costs.}
+without the seller compensating the bidders for their bid costs.}
 %we consider a simplified optimizing problem with efficiency
 %constraint and only seller's cost.  Though these two constraints simplify our
 %problem a lot, they are reasonable in real cases such as craigslist or moving
@@ -19,7 +19,7 @@ social welfare but also maximizes the seller's revenue
 elicitation costs).
 % Besides, every bidder would at most be
 %charged for one bidding but the seller will be charged for all
-%biddings. Thus it also seems reasonable to ignore bidder's bidding cost
+%biddings. Thus it also seems reasonable to ignore bidder's bid cost
 %for simplicity.
 In Section~\ref{sec:general} we drop these assumptions.
 
@@ -34,16 +34,16 @@ In Section~\ref{sec:general} we drop these assumptions.
 %prevent re-sales between buyers. Under such circumstances, an efficient mechanism not only
 %maximzes the social welfare but also maximizes the seller's revenue \cite{Ausubel99:EfficientOptimality}.
 %
-%\item The bidding cost for each bidder sometimes seems \footnote{But actually
+%\item The bid cost for each bidder sometimes seems \footnote{But actually
 %it is not that negligible as our example seems to claim. In later section,
 %theorem \ref{theorem:equivalence} will show exactly how important it is.} to be
-%negligible compared to bidding cost charged to the seller. For example, if
+%negligible compared to bid cost charged to the seller. For example, if
 %$100$ bidders replied to the seller by a $1$-minue call, each bidder only has a
 %tiny $1$ minue cost.  But for the seller, it is a big $100$ minutes cost which
-%is very annoying. It is also necessary to remove bidder's bidding cost to
+%is very annoying. It is also necessary to remove bidder's bid cost to
 %achieve efficiency (without compensation).  Otherwise, the item may not be able
 %to allocate to the highest bidder when that highest valuation is below the
-%bidder's bidding cost.
+%bidder's bid cost.
 %
 %\end{enumerate}
 
@@ -202,10 +202,10 @@ bidding thresholds $a_1, a_2, \ldots$.
 
 \begin{proof}
 We show that the conditions of Lemma~\ref{lemma:sufficient} hold.  If $i$
-is the last round, then $a_i=0=r_i$.  Also, $\lim_i r_i \leq \lim_i
-\left( \int_{0}^{a_i} a_i \, p(x) dx \right) / P(a_i) = \lim_i a_i = 0$.  
-If $i$ is not the last round, then 
-by (\ref{eq:MVA_eq_relation}), we have $r_i P(a_i) = \int_{0}^{a_i}
+is the last round, then $a_i=0=r_i$.  Also, $$\lim_i r_i \leq \lim_i
+\left( \int_{0}^{a_i} a_i \, p(x) dx \right) / P(a_i) = \lim_i a_i = 0$$
+If $i$ is not the last round, 
+by (\ref{eq:MVA_eq_relation}) we have $r_i P(a_i) = \int_{0}^{a_i}
 x\,p(x)dx$ for all $i$ (this clearly also holds if
 $a_i = 0$). Thus the right-hand side of equation \ref{eq:MVA_eq} is:
 \begin{align*}
@@ -232,7 +232,7 @@ diverge from that work in what follows.
 %weekly dominant strategy) about the equilibrium of this kind of sequential
 %auctions.  That paper, however, aims on the optimal auctions for a
 %different cost model with time discount but without broadcast or bidding
-%cost. We will discuss this difference later when we introduces bidding cost
+%cost. We will discuss this difference later when we introduces bid cost
 %for bidders.
 
 \subsection{Optimality of MVAs}
@@ -449,7 +449,7 @@ And by revenue equivalence theorem, MVAs are optimal:
 
 \begin{corollary}
 
-If all broadcast costs and bidding costs are charged to sellers, MVAs are
+If all broadcast costs and bid costs are charged to sellers, MVAs are
 optimal if efficiency is required.  Such optimal MVA is the one that minimizes
 the overall cost.
 
@@ -459,11 +459,11 @@ the overall cost.
 
 Now let us try to calculate the parameters (thresholds $a_i$ or equivalently
 reserve prices $r_i$) of the optimal MVA for a given settings $F, n, b, c$
-(valuation CDF, number of bidders, broadcast cost, bidding cost). By lemma
+(valuation CDF, number of bidders, broadcast cost, bid cost). By lemma
 \ref{lemma:uniform}, the cost is indifferent with $F$ and we can always derive
 an optimal mechanism for any $F$ from a uniform distribution. Thus we will
 focus on uniform cases below. We will also introduce $\rho = \frac{b}{c}$ to
-simplify our analysis by normalize bidding cost $c$ to $1$ and thus broadcast
+simplify our analysis by normalize bid cost $c$ to $1$ and thus broadcast
 cost $b$ to $\rho$.
 
 An optimal MVA must be an $\alpha$-MVA where each round only $(1-\alpha) n$
@@ -471,7 +471,7 @@ bidders are expected to bid, i.e. $a_1 = \alpha, a_{i+1} = \alpha \cdot a_i$
 for uniform cases. Then the expected overall cost $C$ satisfies: $ C = \rho +
 (1-\alpha)n+\alpha^n C$. In the right hand side, the first term $\rho$ is the
 broadcast we have to use in the first round, the second term $(1-\alpha)n$ is
-the expected bidding cost for the first round, the third term $\alpha^n C$ is
+the expected bid cost for the first round, the third term $\alpha^n C$ is
 a recursive term, the probability that no one bids times if that
 happens the same cost $C$ should be expected in later rounds.  
 
@@ -492,7 +492,7 @@ C}{\partial \alpha} |_{\alpha = 0} < 0$.
 %\footnote{As a result of $\alpha \neq 0$, optimal $\alpha$-MVA always has
 %infinite many rounds which seems to refine the result in [cite Increasing
 %Threshold Search] which claims it's either one round or infinite many rounds.
-%However, in their work, the total bidding cost isn't necessarily linear with
+%However, in their work, the total bid cost isn't necessarily linear with
 %the number of biddings. Thus it's a more general proof than our linear case.}  
 When $\alpha = 1$, $\alpha$-MVA becomes Dutch Auction thus $\rho$ must be $0$
 (otherwise total broadcast cost would be infinity). And this is indeed a
@@ -662,7 +662,7 @@ The comparison results achieved from simulation experiments are shown in figure
         \includegraphics[trim=0 5mm 5mm 15mm, clip, width=.3\linewidth]{figures/analyze_cost_2_5_15.eps}
         \label{fig:cost_comparison_2}
     }
-    \caption{Cost comparison for different MVAs over $n$, number of bidders, and $\rho$, broadcast/bidding cost ratio.}
+    \caption{Cost comparison for different MVAs over $n$, number of bidders, and $\rho$, broadcast/bid cost ratio.}
     \label{fig:cost_comparisons}
 \end{figure*}
 

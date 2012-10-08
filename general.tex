@@ -6,7 +6,7 @@ general. We will also try to find the specific MVA to achieve such optimality,
 which turns out to be significantly more complex than previous
 simplified case.
 
-Let us first look at bidder's bidding cost.  Sending emails, making phone
+Let us first look at bidder's bid cost.  Sending emails, making phone
 calls, enterring credit card nubmers, depositing money and clicking buttons are
 all costly for bidders, though sometimes very tiny.  Bidders may not bid when
 this cost is greater than their expected utility. Note that even if the
@@ -15,7 +15,7 @@ competition, which is very common on the Internet as $n$, the number of
 potential bidders, is very large.
 
 %The first constraint we are going to remove is seller's cost only.  It is
-%exciting to introduce bidder's bidding cost since it occurs very often in real
+%exciting to introduce bidder's bid cost since it occurs very often in real
 %cases and it plays an important role.  Sending emails, making phone calls,
 %enterring credit card nubmers, depositing money and clicking buttons are all
 %costly for bidders, though sometimes very tiny.  Bidders may not bid when this
@@ -56,7 +56,7 @@ may be reluctant to bid because of competence, which can hurt seller's revenue.
 %infinity.  Thus almost all bidders cannot bare this competition when $n$ is
 %really large.
 %
-%So a mechanism (e.g. a Vickrey auction) with too much bidders' bidding cost
+%So a mechanism (e.g. a Vickrey auction) with too much bidders' bid cost
 %(competence) will have less participations and therefore may decreases seller's
 %profit significantly.  To see this, look at previous extrame case again.  The
 %revenue of Dutch auction will converge to $0.9$ (someone with valuation very
@@ -65,7 +65,7 @@ may be reluctant to bid because of competence, which can hurt seller's revenue.
 %1-x) \,{x}^{n-2} dx$ which converges to about $0.67$ when $n$ grows to
 %infinity.  
 
-The bidder's bidding cost will also make revenue equivalence theorem no longer
+The bidder's bid cost will also make revenue equivalence theorem no longer
 applicable.  That is not strange as the revenue equivalence theorem assumes
 that the utility of a bidder winning the item is equal to the valuation minus
 the payment. This assumption is no longer true as now the utility is also
@@ -79,7 +79,7 @@ theorem applicable to our model again.
 
 \begin{theorem}\label{theorem:equivalence}
 
-The expected overall spendings from bidders (including their bidding costs and
+The expected overall spendings from bidders (including their bid costs and
 payments to the seller) is completely determined by the expected utility of
 lowest type bidders and allocation probability function
 $$p: (v_1, v_2, \ldots, v_n) \rightarrow (p_1, p_2, \ldots, p_n)$$ 
@@ -89,7 +89,7 @@ where $p_i$ is the probability that bidder $i$ will get the item.
 
 \begin{proof}
 To prove it, let us construct another mechanism
-$M'$ without bidding cost from our mechanism $M$ with bidding cost so $M'$ fits
+$M'$ without bid cost from our mechanism $M$ with bid cost so $M'$ fits
 into the original revenue equivalence theorem's model. Suppose there is a
 virtual seller in $M'$, who collects valuations from all bidders at no cost (a
 direct revelation mechanism). Then this virtual seller will make $n$ virtual
@@ -97,7 +97,7 @@ bidders delegating bidders to communicate with the true seller in our mechanism
 $M$.  When our mechanism ends by allocating the item to virtual bidder $i$, the
 virtual seller also allocate the item to the real bidder $i$. The payment from
 each bidder $i$ to this virtual seller will be equal to the payment that
-virtual bidder $i$ pays to our real seller plus all the bidding costs charged
+virtual bidder $i$ pays to our real seller plus all the bid costs charged
 to virtual bidder $i$.
 $M'$ will satisfy revenue equivalence theorem and
 %Thus, from the real bidders' aspects, this mechanism
@@ -105,7 +105,7 @@ $M'$ will satisfy revenue equivalence theorem and
 %equivalence theorem. 
 the payment from real bidder
 $i$ to the virtual seller has two parts, one payed to the real
-seller, another consumed by bidding costs, which sum up to total spending.
+seller, another consumed by bid costs, which sum up to total spending.
 \end{proof}
 
 Thanks to theorem \ref{theorem:equivalence}, our profit maximization problem
@@ -143,7 +143,7 @@ analysis, but also helps us simplify the optimal mechanism:
   }
   \caption{In the first subfigure, we plot the best query length $x = \hat x / D$ over $h = \hat h / D$ (the highest
       undiscovered value) with discretized low value $\hat l = 500$,
-      broadcast bidding cost ratio $\rho = 2$,
+      broadcast bid cost ratio $\rho = 2$,
       number of bidders $n = 10$ and maximum discretized valuation
       $D = 1000$. In the second subfigure, we normalize $x$ to be $x = \hat x / \hat h$ and
       $l$ to be $l = \hat l / \hat h$, as if $h$ is always $1$.}
@@ -154,11 +154,11 @@ In original MVA, to make a set of thresholds $a_i$ works (the
 equilibrium holds), we may have to make $r_i$ negative. That says, we need to
 compensate bidders if only one bids at reserve price $r_i$ rather than charge
 him something, in order to maintain bidders incentive to bid in spite of
-bidding cost. That's not intuitive and sellers/bidders may
+bid cost. That's not intuitive and sellers/bidders may
 not be able to easily understand it. A better way to achieve $a_i$ might be
-compensating the bidder with the bidding cost immediately after the bidding.
-Equivalently, the seller buys the bidding cost for bidders and make it as a
-part of seller's bidding cost. This won't change his profit but this will make
+compensating the bidder with the bid cost immediately after the bidding.
+Equivalently, the seller buys the bid cost for bidders and make it as a
+part of seller's bid cost. This won't change his profit but this will make
 everything looks more intuitive ($r_i$ is non-negative again).
 \end{proposition}
 
@@ -348,7 +348,7 @@ To discover the specific MVA that is optimal, we first try to identify the
 optimal thresholds $a_i$ given a low value $l$  (recall that in $i$-th round,
 MVA will ask all bidders whose valuation is within $[a_i, a_{i-1})$ to bid).
 If we can write the minimum cost $C^*$ as a function of $n, \rho, l$ (recall
-that $\rho = b/c$ is the ratio between broadcast and bidding cost), we may then
+that $\rho = b/c$ is the ratio between broadcast and bid cost), we may then
 determine the optimal $l$ by that.
 
 %In the special case that we studied in previous section where $l = 0$
@@ -372,7 +372,7 @@ already queried $[\hat h, D)$ and no one replies.
 \begin{algorithm}
     \caption{Calculate discretized best query lengths}\label{algo:discrete}
     \begin{algorithmic}[1]
-        \Require{$\hat l$ is the discretized low value, $\rho$ is the ratio between broadcast and bidding cost,
+        \Require{$\hat l$ is the discretized low value, $\rho$ is the ratio between broadcast and bid cost,
         $n$ is the number of bidders, $D$ is the maximum discretized valuation}
         
         \Function{BestQueryLengths}{$\hat l$, $\rho$, $n$, $D$}
@@ -405,7 +405,7 @@ already queried $[\hat h, D)$ and no one replies.
       \label{fig:suboptimality}
     }
     \caption{Optimal MVA's cost, spending, profit over $l$, $n$ i.i.d. uniform distributed bidders,
-      broadcast $b$ and bidding cost $c$}
+      broadcast $b$ and bid cost $c$}
 \end{figure*}
 
 Algorithm \ref{algo:discrete} runs in time $O(D^2)$. Having $\hat x$, we can
@@ -441,25 +441,25 @@ the fact that there is a maximal number of rounds to exploit the whole
 reportable valuation range $[l, 1)$. Let us call that
 number $k$.\footnote{We have argued this before: if such $k$ does not exist, or equivalently
 the maximum number of rounds is unbounded, the cost will be infinite as the possibility that no
-values lie in $[l, h)$ is positive.}
+values lie in $[l, 1)$ is positive.}
 
-For convenience, define $\vec a = (a_0, a_1, a_2, \ldots, a_k)$, the vector of
-$k$ thresholds in such optimal MVA. We make $a_0 = h, a_k = l$ so in $i$-th
-round the query would be $[a_i, a_{i-1})$. Now define cost $C(\vec a, k, \rho,
-n)$ to be the expected cost for MVA defined by $k, \vec a$ when there are $n$
+For convenience, define $\boldsymbol a = (a_0, a_1, a_2, \ldots, a_k)$, the vector of
+thresholds in such optimal MVA. We make $a_0 = 1, a_k = l$ so in $i$-th
+round the query would be $[a_i, a_{i-1})$. Now define cost $C(\boldsymbol a, k, \rho,
+n)$ to be the expected cost for MVA defined by $k, \boldsymbol a$ when there are $n$
 i.i.d.  $[0, 1)$-uniform bidders (note that $l, h$ are implicitly defined by
 $a_k, a_0$). If we can get a neat form of $C$, we can use $\frac{\partial
-C}{\partial a_i} = 0 $ to characterize optimal MVA, as we did in section
+C}{\partial a_i} = 0 $ to characterize optimal MVA, as we did in 
 \ref{sec:alpha-MVA}.\footnote{It is easy to see that boundary cases $a_i = a_{i-1},
 a_{i+1}$ are not optimal too.}
 
 Thus the second key is to represent this $C$. Rather than
 considering one round after another recursively as we did before, we now consider all
 rounds together. Let $CR_i$ denote the cost that occur in round $i$ (the broadcast
-of that round and the bidding cost charged in that round) and $v^* = \max_i v_i$. Then expected cost
+of that round and the bid cost charged in that round) and $v^* = \max_i v_i$. Then expected cost
 would be sum of expected cost of each round:
 \begin{align}
-C(\vec a, k, \rho, n) &= \sum_{i=1}^k E[ CR_i ] \nonumber \\
+C(\boldsymbol a, k, \rho, n) &= \sum_{i=1}^k E[ CR_i ] \nonumber \\
   &= \sum_{i=1}^{k} \Pr\big( v^* < a_{i-1} \big) E[CR_i ~|~ v^* < a_{i-1}] \nonumber \\
   &= \sum_{i=1}^{k} \frac{a_{i-1}^n}{a_0^n} \left( \rho + \frac{a_{i-1}-a_{i}}{a_{i-1}} n \right)
   \label{eq:C_general_simplified}
@@ -475,34 +475,34 @@ Taking derivative we get
 Unfortunately, equation
 \ref{eq:diff_C_general} is not neat enough to get a piecewise linear query length.
 Recall that in previous subsection, the experiment seems to show that query length $x$ is
-piecewise linear over $h$, which means $a_1 = a_0-x = h-x$ must also be
-piecewise linear over $a_0 = h$.  One counter example is the simple case $k = 2, n =
-3$. We have: $a_1 =
+piecewise linear over $l$, which means $a_1 = a_2+x = l+x$ must also be
+piecewise linear over $a_2 = l$.  One counter example is the simple case $k =
+2, n = 3$. We have: $a_1 =
 (\sqrt{{a_0}^{2}\,\rho+{a_2}^{2}+3\,{a_0}^{2}}+a_2)/(\rho+3)$.  Anyway, by
-definition we have $a_1 \geq a_2$. And
-the former equation indeed looks very linear when $a_1 \geq a_2$.
+definition we have $a_1 \geq a_2$. And the former equation indeed looks very
+linear when $a_1 \geq a_2$.
 
 Though we failed characterizing the optimal MVA using piecewise linear
 functions, equation \ref{eq:C_general_simplified} gives us a better way to
 calculate thresholds $a_i$. We use an R package called BB \cite{Varadhan2009:BB} to
 solve these non-linear equation systems. Before throw those equations to that
-package, we have to first decide $k$ and an initial guess of $\vec a$.
+package, we have to first decide $k$ and an initial guess of $\boldsymbol a$.
 
 We found a lemma that's very useful for deciding $k$:
 
 \begin{lemma}\label{lemma:thresholds}
-Two sets of optimal thresholds $\{a_1, a_2, \ldots, a_k\}, \{b_1, b_2, \ldots,
-b_m\}$ can't have $p_2 \leq q_2 < q_1 < p_1$ where $p_2, p_1$ and $q_2, q_1$
-are two consecutive thresholds, say $a_i, a_{i-1}, b_j, b_{j-1}$, for these two
-sets of thresholds.
+Two vectors of optimal thresholds $\boldsymbol a = (a_0, \ldots, a_k)$ and
+$\boldsymbol a' = (a'_0, \ldots, a'_m)$ can't have $p_2 \leq q_2 < q_1 < p_1$
+where $p_2, p_1$ and $q_2, q_1$ are two consecutive thresholds $a_i, a_{i-1},
+a'_j, a'_{j-1}$.
 \end{lemma}
 
 \begin{proof}
 Denote $C(l)$ to be the optimal cost for finding the maximum value above low
 value $l$ (suppose $h, n, \rho$ and everything else are constants now). Note
 that thresholds $a_0, \ldots, a_i$ must be optimal thresholds for $l = a_i$,
-otherwise $a_1, a_2, \ldots, a_k$ can't be optimal for $l = a_k$.  Similarly,
-$b_0, b_1, \ldots, b_j$ must be optimal thresholds for $l = b_j$.  Then 
+otherwise $a_0, \ldots, a_k$ can't be optimal for $l = a_k$.  Similarly,
+$a'_0, \ldots, a'_j$ must be optimal thresholds for $l = a'_j$.  Then 
 %from optimality of $a_0, \ldots, a_i$ and $b_0, \ldots, b_j$ we have:
 \begin{align*}
 %  C(b_{j-1}) + b_{j-1}^n [\rho+n(b_{j-1}-b_j)] \leq C(a_{i-1}) + a_{i-1}^n [\rho + n(a_{i-1}-b_j)]\\
@@ -514,22 +514,23 @@ Adding these two inequations together and do some cancellations we get
 $p_1^n \leq q_1^n$, which contradicts $q_1 < p_1$.
 \end{proof}
 
-Then we can find an upper bound for $k$:
+From that we derive an upper bound for $k$. Intuitively, it says we will need
+less rounds if we have less reportable range (a greater $l$).
 
 \begin{lemma}\label{lemma:k_upper}
-$k_\alpha = \left\lceil \log_{\alpha} \left(h/l\right) \right\rceil$ is an
+$k_\alpha = \left\lceil \log_{\alpha} \left(1/l\right) \right\rceil$ is an
 upper bound for the optimal $k$. Here $\alpha$ is the optimal $\alpha$ for
 $\alpha$-MVA when $l = 0$. 
 \end{lemma}
 
 \begin{proof}
 We will prove by contradiction. Assume $k > k_\alpha$ for optimal thresholds
-$(b_0, b_1, b_2, \ldots, b_k)$ where $b_0 = h, b_k = l$ as defined.  Points
+$(a^*_0, a^*_1, a^*_2, \ldots, a^*_k)$ where $a^*_0 = 1, a^*_k = l$ as defined.  Points
 $a_0 = \alpha^0, a_1 = \alpha^1, \ldots, a_{k_\alpha} = \alpha^{k_\alpha}$
-split interval $[l, h)$ into $k_\alpha$ subintervals $[a_i, a_{i-1})$, which
-together contain $k$ thresholds $b_1, \ldots, b_k$. Since $k > k_\alpha$, at
-least one subinterval $[a_i, a_{i-1})$ contain two thresholds $b_j, b_{j-1}$.
-Equivalently, there exists $a_i \leq b_j < b_{j-1} < a_{i-1}$.  This
+split interval $[l, 1)$ into $k_\alpha$ subintervals $[a_i, a_{i-1})$, which
+together contain $k$ thresholds $a^*_1, \ldots, a^*_k$. Since $k > k_\alpha$, at
+least one subinterval $[a_i, a_{i-1})$ contain two thresholds $a^*_j, a^*_{j-1}$.
+Equivalently, there exists $a_i \leq a^*_j < a^*_{j-1} < a_{i-1}$.  This
 contradicts with Lemma~\ref{lemma:thresholds}.
 \end{proof}
 
@@ -565,28 +566,29 @@ prove that it is unimodal but experiments seems to support this property.}
 But in light of the proof above, we actually could have something much better:
 
 \begin{theorem}\label{theorem:k_bounds}
-$\left\lceil \log_{\alpha} \left(h/l\right) \right\rceil$ and 
-$\left\lfloor \log_{\alpha} \left(h/l\right) \right\rfloor$ are upper
+$\left\lceil \log_{\alpha} \left(1/l\right) \right\rceil$ and 
+$\left\lfloor \log_{\alpha} \left(1/l\right) \right\rfloor$ are upper
 and lower bounds for the optimal $k$. 
 \end{theorem}
 
 \begin{proof}
-We have already proved the upper bound in lemma \ref{lemma:k_upper}. Similarly, if the lower bound
-does not hold, we can construct $b_j = p_2 \leq \alpha^i = q_2 < \alpha^{i-1} =
-q_1 < b_{j-1} = p_1$, which violates the Lemma~\ref{lemma:thresholds}. 
+We have proved the upper bound in Lemma~\ref{lemma:k_upper}. Similarly, if the lower bound
+does not hold, we have $a^*_j = p_2 \leq \alpha^i = q_2 < \alpha^{i-1} =
+q_1 < a^*_{j-1} = p_1$ which violates Lemma~\ref{lemma:thresholds}. 
 \end{proof}
 
 By these bounds, we only need to try at most two values to get the optimal $k$.
-The next important thing is the initial thresholds $\vec a$. A bad choice may
-lead to much more computation and even non-convergence. For example, the
-trivial uniform $a_i = (1-i/k)a_0 - (i/k) a_k$ is a bad initial guess. We find
-the initial guess $a_i = \alpha^i$ (the same $\alpha$ of $k_\alpha$) to be very
-efficient.  Let us call this MVA with thresholds $\alpha, \alpha^1, \ldots,
-\alpha^{k-1}$ where $\alpha^{k-1} \geq l, \alpha^k < l$ an $\alpha$-cutoff-MVA,
-similar to what we did in previous section \ref{sec:eff_experiment}.  
-One explanation about its good performance is that these initial thresholds
-doesn't violate proposition \ref{prop:thresholds}. Thus it's more likely to be
-close to actual optimal thresholds.
+The next important thing is the initial thresholds $\boldsymbol a$. A bad
+choice may lead to much more computation and even non-convergence. For example,
+the trivial uniform $a_i = (1-i/k)a_0 - (i/k) a_k$ is a bad initial guess. We
+find the initial guess $a_i = \alpha^i$ (the same $\alpha$ of $k_\alpha$) to be
+very efficient.  Let us call this MVA with thresholds $\alpha, \alpha^1,
+\ldots, \alpha^{k-1}$ where $\alpha^{k-1} \geq l, \alpha^k < l$ an
+$\alpha$-cutoff-MVA, similar to what we did in previous section
+\ref{sec:eff_experiment}.  One explanation about its good performance is that
+these initial thresholds doesn't violate Lemma~\ref{lemma:thresholds} (while
+the uniform thresholds do). Thus it's more likely to be close to actual optimal
+thresholds.
 %It is
 %suggested by experiments showed in figure \ref{fig:x-l} where query length $x$
 %seems to be $1-\alpha$ for a lot of $l$. 
@@ -648,7 +650,7 @@ among all singleshot Vickrey auctions (i.e. we optimize $l$ for this particular
 singleshot mechanism).
 One may also suspect whether it is good enough to set low value $l$ to be $0.5$
 in such singleshot Vickrey auction, since it will bring us maximal total
-spending. The answer is no, because its bidding cost is $0.5 n \times c$, which
+spending. The answer is no, because its bid cost is $0.5 n \times c$, which
 grows way too large when $n$ is large.
 
 The experimental result is shown in figure \ref{fig:general}. As shown in
@@ -657,11 +659,11 @@ $l = 0$ and $l = 0.5$ become close very quickly when $n$ grows and they are
 almost identical for $n \geq 8$ in this experiment setting. Thus choosing $l$
 will not be a critical issue for large $n$. However, if we use singleshot
 mechanism (which is optimal if cost does not exist), the gap is significant.
-This is because the bidding cost will drive low value $l$ very
+This is because the bid cost will drive low value $l$ very
 close to $1$ thus lower the total spending significantly. For example, even if
 we set reserve price to $0$, when $n = 10$, $l$ will be between $0.6$ to $0.8$.
 The optimal reserve price $0.5$ becomes the worst as its $l$ is too high. 
 Even if we adapt our reserve price to optimal one, the singleshot mechanism is
-still not so good because it cannot balance the total spending and bidding cost,
+still not so good because it cannot balance the total spending and bid cost,
 i.e. it either makes $l$ close to $1$ to lose a lot total spending, or makes
-$l$ close to $0.5$ to cause a big bidding cost.
+$l$ close to $0.5$ to cause a big bid cost.
