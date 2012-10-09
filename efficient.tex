@@ -553,6 +553,21 @@ approximations for $\alpha$.
 
 \subsection{Approximation of $\alpha$}
 
+\begin{figure*}
+\centering
+  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho0.20.eps}}
+  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho1.00.eps}}
+  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho5.00.eps}}
+  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/C_when_rho0.20.eps}}
+  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/C_when_rho1.00.eps}}
+  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/C_when_rho5.00.eps}}
+  \caption{Comparisons for optimal  $\alpha$ and its approximations. The first
+  approximation is $\alpha = 1-1/n$, the second is $\alpha =
+  (-W(-1-\rho))^{-1/n}$. The second row is the corresponding cost for different
+  $\alpha$} 
+  \label{fig:alpha}
+\end{figure*}
+
 It is difficult to get an exact closed formula for optimal $\alpha$ by equation
 \ref{eq:alpha}. Thus we are going to use some simpler formulas to approximate
 $\alpha$. We will conduct experiments to compare our approximation with the
@@ -636,21 +651,6 @@ Then using the fact that $C^*_n$ is strictly increasing and bounded completes th
 Experiments in figure \ref{fig:alpha} compare the optimal $\alpha$, our first approximation
 of $\alpha = 1-1/n$ and our second approximation $\alpha = (-W(-1-\rho))^{-1/n}$
 together with their corresponding cost under settings $\rho = 0.2, 1, 5$.
-
-\begin{figure*}
-\centering
-  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho0.20.eps}}
-  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho1.00.eps}}
-  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho5.00.eps}}
-  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/C_when_rho0.20.eps}}
-  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/C_when_rho1.00.eps}}
-  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/C_when_rho5.00.eps}}
-  \caption{Comparisons for optimal  $\alpha$ and its approximations. The first
-  approximation is $\alpha = 1-1/n$, the second is $\alpha =
-  (-W(-1-\rho))^{-1/n}$. The second row is the corresponding cost for different
-  $\alpha$} 
-  \label{fig:alpha}
-\end{figure*}
 
 As figure \ref{fig:alpha} shows, the first approximation $1-1/n$ is bounded
 to be a constant time of optimal cost while the second approximation converges to optimal

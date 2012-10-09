@@ -131,23 +131,30 @@ The difference of them may make revenue different, but as long as their sum
 does not change, the profit will not change. This not only helps us simplify our
 analysis, but also helps us simplify the optimal mechanism: 
 
-\begin{figure*}
-\centering
-  \subfigure[Best query length $x$ over $h$ with fixed $l$]{
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=.4\linewidth]{figures/1000-500-2-1-10}
-    \label{fig:x-h}
-  }
-  \subfigure[Normalized best query length $x$ over low value $l$]{
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=.4\linewidth]{figures/10000-500-2-1-10}
+%\begin{figure*}
+%\centering
+%  \subfigure[Best query length $x$ over $h$ with fixed $l$]{
+%    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=.4\linewidth]{figures/1000-500-2-1-10}
+%    \label{fig:x-h}
+%  }
+%  \subfigure[Normalized best query length $x$ over low value $l$]{
+%    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=.4\linewidth]{figures/10000-500-2-1-10}
+%    \label{fig:x-l}
+%  }
+%  \caption{In the first subfigure, we plot the best query length $x = \hat x / D$ over $h = \hat h / D$ (the highest
+%      undiscovered value) with discretized low value $\hat l = 500$,
+%      broadcast bid cost ratio $\rho = 2$,
+%      number of bidders $n = 10$ and maximum discretized valuation
+%      $D = 1000$. In the second subfigure, we normalize $x$ to be $x = \hat x / \hat h$ and
+%      $l$ to be $l = \hat l / \hat h$, as if $h$ is always $1$.}
+%\end{figure*}
+
+\begin{figure}
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/10000-500-2-1-10}
+    \caption{Best first-query-length $x$ over low value $l$. In the experiment, 
+    we set $\rho=2$ and discretize $[0,1)$ into $1000$ grids.}
     \label{fig:x-l}
-  }
-  \caption{In the first subfigure, we plot the best query length $x = \hat x / D$ over $h = \hat h / D$ (the highest
-      undiscovered value) with discretized low value $\hat l = 500$,
-      broadcast bid cost ratio $\rho = 2$,
-      number of bidders $n = 10$ and maximum discretized valuation
-      $D = 1000$. In the second subfigure, we normalize $x$ to be $x = \hat x / \hat h$ and
-      $l$ to be $l = \hat l / \hat h$, as if $h$ is always $1$.}
-\end{figure*}
+\end{figure}
 
 \begin{proposition}
 In original MVA, to make a set of thresholds $a_i$ works (the
