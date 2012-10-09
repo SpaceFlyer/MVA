@@ -494,62 +494,136 @@ among mechanisms that allocate efficiently.
 %the overall cost.
 \end{corollary}
 
-\subsection{Cost Minimized $\alpha$-MVA}\label{sec:alpha-MVA}
+\subsection{MVAs with Minimum Cost}
+\label{sec:alpha-MVA}
 
-Now let us try to calculate the parameters (thresholds $a_i$ or equivalently
-reserve prices $r_i$) of the optimal MVA for a given settings $F, n, b, c$
-(valuation CDF, number of bidders, broadcast cost, bid cost). By lemma
-\ref{lemma:uniform}, the cost is indifferent with $F$ and we can always derive
-an optimal mechanism for any $F$ from a uniform distribution. Thus we will
-focus on uniform cases below. We will also introduce $\rho = \frac{b}{c}$ to
-simplify our analysis by normalize bid cost $c$ to $1$ and thus broadcast
-cost $b$ to $\rho$.
+The above analysis still leaves open what the optimal parameters
+(thresholds $a_i$, or equivalently, reserve prices $r_i$) of the optimal
+MVA are for a given setting $f, n, b, c$ (valuation PDF, number of bidders,
+broadcast cost, bid cost).  According to Lemma~\ref{lemma:uniform}, the
+cost does not depend on $f$ and it suffices to restrict our attention to
+the uniform distribution.
+Let $\rho = \frac{b}{c}$ (for cases where $c>0$).
 
-An optimal MVA must be an $\alpha$-MVA where each round only $(1-\alpha) n$
-bidders are expected to bid, i.e. $a_1 = \alpha, a_{i+1} = \alpha \cdot a_i$
-for uniform cases. Then the expected overall cost $C$ satisfies: $ C = \rho +
-(1-\alpha)n+\alpha^n C$. In the right hand side, the first term $\rho$ is the
-broadcast we have to use in the first round, the second term $(1-\alpha)n$ is
-the expected bid cost for the first round, the third term $\alpha^n C$ is
-a recursive term, the probability that no one bids times if that
-happens the same cost $C$ should be expected in later rounds.  
+%we can always derive an optimal mechanism for any
+%$F$ from a uniform distribution.
+% Thus we will focus on uniform cases
+%below. 
+%We will also introduce $\rho = \frac{b}{c}$ to simplify our analysis
+%by normalize bid cost $c$ to $1$ and thus broadcast cost $b$ to $\rho$.
 
-From that equation, we get $C = \frac{
-\rho+(1-a)n }{ 1-\alpha^n }$. To minimize cost $C$, we either choose boundary
-cases $\alpha = 0, 1$ or we have: 
+\begin{definition}
+Given $f$, we define the $\alpha$-MVA to be the MVA in which in each round, the expected
+number of nonsilent bids in that round (conditional on having reached that
+round) is $(1-\alpha)n$.  In the case where $f$ is uniform, the
+$\alpha$-MVA is characterized by $a_i = \alpha^i$.
+\end{definition}
 
+\begin{proposition}
+For the purpose of minimizing total cost when $\beta_2=0$ under the constraint of efficient allocation:
+If $c = 0$, the Vickrey auction (the $0$-MVA) is optimal.
+If $\rho = b = 0$, the Dutch auction (which is approximated by the
+$(1-\epsilon)$-MVA) is optimal.  
+Otherwise, it is optimal to use an $\alpha$-MVA where $\alpha$ satisfies
+$$\alpha^{n-1} (\rho + (1-\alpha)n) - (1-\alpha^n) = 0$$
+%vc: unique solution??
+\end{proposition}
+\begin{proof}
+If $c=0$, the Vickrey auction has cost $b$, which is optimal.
+If $\rho=b=0$, the expected total cost of the Dutch auction is $c$ (since
+with probability $1$ only one agent will reply), which is optimal.
+For the remaining case, we first argue that there must be some $\alpha$-MVA
+that is optimal.  
+By  Lemma~\ref{lemma:uniform}, we can assume $f$ is uniform.
+By Theorem~\ref{theorem:MVA_eq}, some MVA must be
+optimal.  For this MVA, consider $a_1$.  If $a_i=0$, this is the
+$0$-MVA. If $a_i>0$, then if at least one bidder is above $a_1$, we finish after
+the first query; otherwise, the resulting conditional distribution for each
+bidder is $f|_{[0,a_1)}$. According to Lemma~\ref{lemma:uniform}, we can
+rescale this conditional distribution to the uniform distribution over
+$[0,1)$ to arrive back at our original problem; and an optimal mechanism
+for that is the same MVA that starts with query $a_1$ (which translates to
+$a_1^2$ without rescaling).  Repeated application of this reasoning results
+in the $\alpha$-MVA with $\alpha=a_1$.
+
+All that remains to show is the characterization of this $\alpha$.
+If $C_\alpha$ is the expected overall cost for the $\alpha$-MVA, then we
+have $C_\alpha = b + (1-\alpha)nc + \alpha^n C_\alpha$, or equivalently 
+$C_\alpha = \frac{b+(1-\alpha)nc }{ 1-\alpha^n}$.
+If we optimize this with respect to $\alpha$, we must either have
 \begin{align}\label{eq:alpha}
 \frac{\partial C}{\partial \alpha} = \frac{{\alpha}^{n-1}\,n\,\left(
-\rho+\left( 1-\alpha\right) \,n\right) }{{\left( 1-{\alpha}^{n}\right)
-}^{2}}-\frac{n}{1-{\alpha}^{n}} &= 0 \nonumber\\
+b+\left( 1-\alpha\right) \,nc\right) }{{\left( 1-{\alpha}^{n}\right)
+}^{2}}-\frac{nc}{1-{\alpha}^{n}} &= 0 \nonumber\\
 &\Updownarrow\nonumber\\
 \alpha^{n-1} (\rho + (1-\alpha)n) - (1-\alpha^n) &= 0
 \end{align}
+%vc: double-check first equation (unnormalized)
+or have $\alpha$ at a boundary value ($0$ or $1$). However, $\alpha=1$ (or
+approaching $1$) is clearly suboptimal unless $b=0$, a case that we have
+already covered; $\alpha=0$ can be ruled out because $\frac{\partial
+  C}{\partial \alpha} |_{\alpha = 0} < 0$.
+\end{proof}
 
-The boundary case $\alpha = 0$ can be ruled out because $\frac{\partial
-C}{\partial \alpha} |_{\alpha = 0} < 0$.
-%\footnote{As a result of $\alpha \neq 0$, optimal $\alpha$-MVA always has
-%infinite many rounds which seems to refine the result in [cite Increasing
-%Threshold Search] which claims it's either one round or infinite many rounds.
-%However, in their work, the total bid cost isn't necessarily linear with
-%the number of biddings. Thus it's a more general proof than our linear case.}  
-When $\alpha = 1$, $\alpha$-MVA becomes Dutch Auction thus $\rho$ must be $0$
-(otherwise total broadcast cost would be infinity). And this is indeed a
-solution of equation \ref{eq:alpha} when $\rho = 0$. Thus equation
-$\ref{eq:alpha}$ characterize the optimal $\alpha$ in all cases.
-\cite{SarneSR2010:IncreasingSearch} has a proof for why $\alpha$-MVA is optimal
-among MVAs and how to determine $\alpha$ as well. Thus if they not
-intuitive please reference more details there.  Our simplified cost model
-(with efficiency constraint and no buyer's cost) is equivalent to their cost
-model where learning cost is linear to the number of replied agents.  That
-paper makes descending query as a contraint \footnote{In their model they want
-to find the minimum value so increasing threshold search is equivalent to
-descending query} and proves that $\alpha$-MVA is optimal among descending
-query mechanisms. Our focus in this section, however, is to have a preliminary
-introduction for MVA and proves optimality of descending queries and eventually
-MVAs. Thus we omit the proof about $\alpha$-MVA. Even for the $\alpha$, we will
-be more interested in its relation with larger $n$ so we will give
-approximations for $\alpha$.
+
+%An optimal MVA must be an $\alpha$-MVA where each round only $(1-\alpha) n$
+%bidders are expected to bid, i.e. $a_1 = \alpha, a_{i+1} = \alpha \cdot a_i$
+%for uniform cases. Then the expected overall cost $C$ satisfies: $ C = \rho +
+%(1-\alpha)n+\alpha^n C$. In the right hand side, the first term $\rho$ is the
+%broadcast we have to use in the first round, the second term $(1-\alpha)n$ is
+%the expected bid cost for the first round, the third term $\alpha^n C$ is
+%a recursive term, the probability that no one bids times if that
+%happens the same cost $C$ should be expected in later rounds.  
+
+%From that equation, we get $C = \frac{
+%\rho+(1-a)n }{ 1-\alpha^n }$. To minimize cost $C$, we either choose boundary
+%cases $\alpha = 0, 1$ or we have: 
+
+%\begin{align}\label{eq:alpha}
+%\frac{\partial C}{\partial \alpha} = \frac{{\alpha}^{n-1}\,n\,\left(
+%\rho+\left( 1-\alpha\right) \,n\right) }{{\left( 1-{\alpha}^{n}\right)
+%}^{2}}-\frac{n}{1-{\alpha}^{n}} &= 0 \nonumber\\
+%&\Updownarrow\nonumber\\
+%\alpha^{n-1} (\rho + (1-\alpha)n) - (1-\alpha^n) &= 0
+%\end{align}
+
+%The boundary case $\alpha = 0$ can be ruled out because $\frac{\partial
+%C}{\partial \alpha} |_{\alpha = 0} < 0$.
+%%\footnote{As a result of $\alpha \neq 0$, optimal $\alpha$-MVA always has
+%%infinite many rounds which seems to refine the result in [cite Increasing
+%%Threshold Search] which claims it's either one round or infinite many rounds.
+%%However, in their work, the total bid cost isn't necessarily linear with
+%%the number of biddings. Thus it's a more general proof than our linear case.}  
+%When $\alpha = 1$, $\alpha$-MVA becomes Dutch Auction thus $\rho$ must be $0$
+%(otherwise total broadcast cost would be infinity). And this is indeed a
+%solution of equation \ref{eq:alpha} when $\rho = 0$. Thus equation
+%$\ref{eq:alpha}$ characterize the optimal $\alpha$ in all cases.
+
+This result is analogous to a result by Sarne et
+al.~\cite{SarneSR2010:IncreasingSearch}; translating\footnote{Sarne et
+  al.~motivate their model as performing increasingly broad searches for an
+  optimal agent and thereby focus on increasing threshold search to find a
+  minimum, rather than decreasing queries to find a maximum.}
+ their result into our
+setting also gives a proof that $\alpha$-MVAs are optimal
+among MVAs and also characterizes the optimal value of $\alpha$.  However, they do
+not provide a proof that MVAs are optimal among all mechanisms; their setup
+implicitly restricts attention to MVAs (when translated to our setting).
+%vc: make sure last sentence is true. 
+
+
+%Thus if they not
+%intuitive please reference more details there.  Our simplified cost model
+%(with efficiency constraint and no buyer's cost) is equivalent to their cost
+%model where learning cost is linear to the number of replied agents.  That
+%paper makes descending query as a contraint \footnote{In their model they want
+%to find the minimum value so increasing threshold search is equivalent to
+%descending query} and proves that $\alpha$-MVA is optimal among descending
+%query mechanisms. Our focus in this section, however, is to have a preliminary
+%introduction for MVA and proves optimality of descending queries and eventually
+%MVAs. Thus we omit the proof about $\alpha$-MVA. Even for the $\alpha$, we will
+%be more interested in its relation with larger $n$ so we will give
+%approximations for $\alpha$.
 
 \subsection{Approximation of $\alpha$}
 

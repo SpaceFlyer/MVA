@@ -1,18 +1,21 @@
-\section{Optimal Mechanisms with Both Seller's and Bidder's Cost}
+\section{The General Case}
 \label{sec:general}
 
-In this section, we take out the constraints and prove that MVAs are optimal in
-general. We will also try to find the specific MVA to achieve such optimality,
-which turns out to be significantly more complex than previous
-simplified case.
+In this section, we drop the constraints that (1) the mechanism must
+allocate efficiently and (2) bidders have no cost for bidding ($\beta_2=0$), and prove that MVAs are optimal
+even without these constraints (i.e., in the fully general model).  We also
+study methods for finding the specific optimal MVA, though we do not manage
+to obtain a characterization that is as elegant as in the restricted case.
+%which turns out to be significantly more complex than previous
+%simplified case.
 
-Let us first look at bidder's bid cost.  Sending emails, making phone
-calls, enterring credit card nubmers, depositing money and clicking buttons are
-all costly for bidders, though sometimes very tiny.  Bidders may not bid when
-this cost is greater than their expected utility. Note that even if the
-valuation is very high, the expected utility can be very small because of tense
-competition, which is very common on the Internet as $n$, the number of
-potential bidders, is very large.
+%Let us first look at bidder's bid cost.  Sending emails, making phone
+%calls, entering credit card nubmers, depositing money and clicking buttons are
+%all costly for bidders, though sometimes very tiny.  Bidders may not bid when
+%this cost is greater than their expected utility. Note that even if the
+%valuation is very high, the expected utility can be very small because of tense
+%competition, which is very common on the Internet as $n$, the number of
+%potential bidders, is very large.
 
 %The first constraint we are going to remove is seller's cost only.  It is
 %exciting to introduce bidder's bid cost since it occurs very often in real
@@ -24,17 +27,27 @@ potential bidders, is very large.
 %which is very common on the Internet as $n$, the number of potential bidders,
 %is very large. 
 
-This behaviour (bidders will not bid because of competitions) is very different
-compared to that in previous model \cite{McAfee97:SequentialAuctions} of
-sequential auctions. In that model, there is a time discount which
-makes bidders eager to bid in early rounds with high reserve prices to avoid
-waiting lost. 
+An interesting effect of $\beta_2>0$ is that it gives bidders an incentive
+{\em not} to bid when they expect many others to bid, because if they do
+not win they still pay $\beta_2$ for bidding. (Also, we note that their
+probability of winning with a fixed value is exponentially small in the
+number of bidders, so that even small bidding costs, such as the effort
+needed to send an e-mail, can be significant.)  This effect is rather
+opposite to the effect observed in earlier parts of this paper that bidders
+are less inclined to wait for later rounds when there are many bidders.
+
+%This behaviour (bidders will not bid because of competitions) is very different
+%compared to that in previous model \cite{McAfee97:SequentialAuctions} of
+%sequential auctions. In that model, there is a time discount which
+%makes bidders eager to bid in early rounds with high reserve prices to avoid
+%waiting lost. 
 %That makes a lot sense in some cases but sometimes it may not.
 %For example, 
-Suppose that the seller posts an auction with a very low reserve price in
-the first round, most bidders with high valuation must be happy to bid
-according to that time discount cost model. But in our model, a lot bidders
-may be reluctant to bid because of competence, which can hurt seller's revenue.
+%Suppose that the seller posts an auction with a very low reserve price in
+%the first round, most bidders with high valuation must be happy to bid
+%according to that time discount cost model. But in our model, a lot bidders
+%may be reluctant to bid because of competence, which can hurt seller's revenue.
+
 %But this may not be true. For
 %example, when I encounter such an auction online \footnote{For example, when I
 %see a very good item in the Auction House of Diablo III with a very low current
@@ -65,48 +78,61 @@ may be reluctant to bid because of competence, which can hurt seller's revenue.
 %1-x) \,{x}^{n-2} dx$ which converges to about $0.67$ when $n$ grows to
 %infinity.  
 
-The bidder's bid cost will also make revenue equivalence theorem no longer
-applicable.  That is not strange as the revenue equivalence theorem assumes
-that the utility of a bidder winning the item is equal to the valuation minus
-the payment. This assumption is no longer true as now the utility is also
-influenced by the cost charged to this bidder. And even if the bidder doesn't
-win, the cost still exists so we can't simply revise the valuation.
-
-Therefore, the first issue we are going to solve is to make a very similar
-theorem applicable to our model again. 
 
 \subsection{Spending Equivalence Theorem and Revenue Optimization Strategy}
 
-\begin{theorem}\label{theorem:equivalence}
+Another effect of $\beta_2>0$ is that the revenue equivalence theorem
+(straightforwardly interpreted) no longer applicable, because this theorem 
+assumes
+that the utility is equal to valuation minus payment, which is no longer
+true because cost also plays a role.  Intuitively, we can fold this cost
+into the payment to make the theorem applicable again, though we have to
+keep in mind that this cost does not benefit the seller, unlike (true)
+payments.  This is how we proceed.
 
-The expected overall spendings from bidders (including their bid costs and
-payments to the seller) is completely determined by the expected utility of
-lowest type bidders and allocation probability function
+
+
+%This assumption is no longer true as now the utility is also
+%influenced by the cost charged to this bidder. And even if the bidder doesn't
+%win, the cost still exists so we can't simply revise the valuation.
+
+%Therefore, the first issue we are going to solve is to make a very similar
+%theorem applicable to our model again. 
+
+\begin{theorem}[Spending equivalence]\label{theorem:equivalence}
+The bidders' expected total spending (payment + bidding costs)
+is completely determined by (1) the expected utility of
+lowest-type bidders and (2) the allocation probability function
 $$p: (v_1, v_2, \ldots, v_n) \rightarrow (p_1, p_2, \ldots, p_n)$$ 
 where $p_i$ is the probability that bidder $i$ will get the item.
-
 \end{theorem}
-
+%vc: maybe define "sketch of proof" environment
 \begin{proof}
-To prove it, let us construct another mechanism
-$M'$ without bid cost from our mechanism $M$ with bid cost so $M'$ fits
-into the original revenue equivalence theorem's model. Suppose there is a
-virtual seller in $M'$, who collects valuations from all bidders at no cost (a
-direct revelation mechanism). Then this virtual seller will make $n$ virtual
-bidders delegating bidders to communicate with the true seller in our mechanism
-$M$.  When our mechanism ends by allocating the item to virtual bidder $i$, the
-virtual seller also allocate the item to the real bidder $i$. The payment from
-each bidder $i$ to this virtual seller will be equal to the payment that
-virtual bidder $i$ pays to our real seller plus all the bid costs charged
-to virtual bidder $i$.
-$M'$ will satisfy revenue equivalence theorem and
-%Thus, from the real bidders' aspects, this mechanism
-%$M'$ is just a direct revelation mechanism which will satisfy revenue
-%equivalence theorem. 
-the payment from real bidder
-$i$ to the virtual seller has two parts, one payed to the real
-seller, another consumed by bid costs, which sum up to total spending.
-\end{proof}
+  Any mechanism in our domain (with bidding costs) can also be used in a
+  domain without costs, letting the seller collect the bidding costs (as
+  well as the payments) instead.  The bidders' incentives will be identical
+  in this mechanism, and so the result follows from applying the
+  standard revenue equivalence theorem to these transformed mechanisms.
+%To prove it, let us construct another mechanism
+%$M'$ without bid cost from our mechanism $M$ with bid cost so $M'$ fits
+%into the original revenue equivalence theorem's model. Suppose there is a
+%virtual seller in $M'$, who collects valuations from all bidders at no cost (a
+%direct revelation mechanism). Then this virtual seller will make $n$ virtual
+%bidders delegating bidders to communicate with the true seller in our mechanism
+%$M$.  When our mechanism ends by allocating the item to virtual bidder $i$, the
+%virtual seller also allocate the item to the real bidder $i$. The payment from
+%each bidder $i$ to this virtual seller will be equal to the payment that
+%virtual bidder $i$ pays to our real seller plus all the bid costs charged
+%to virtual bidder $i$.
+%$M'$ will satisfy revenue equivalence theorem and
+%%Thus, from the real bidders' aspects, this mechanism
+%%$M'$ is just a direct revelation mechanism which will satisfy revenue
+%%equivalence theorem. 
+%the payment from real bidder
+%$i$ to the virtual seller has two parts, one payed to the real
+%seller, another consumed by bid costs, which sum up to total spending.
+\end{[proof}
+
 
 Thanks to theorem \ref{theorem:equivalence}, our profit maximization problem
 is now greatly simplified: 
