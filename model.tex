@@ -10,8 +10,9 @@ In this section, we formally define our cost model and explain its motivation.
 \begin{definition}[Setting]\label{def:model}
 One seller is selling one item to $n$ buyers (bidders)
 whose valuations $v_i~(1 \leq i \leq n)$ are independently and identically
-distributed (i.i.d.) over $[0, 1)$ with PDF $f(x)$ and CDF $F(x)$. (We
-assume that for all $\epsilon>0$, we have $F(\epsilon)>0$.)
+distributed (i.i.d.) over $[0, 1)$ with PDF $f(x)$ and CDF $F(x)$
+which are assumed to have no gaps ($F(x)$ is strictly increasing
+everywhere).
 The seller
 can broadcast a message to all bidders, at cost $b$ to
 the seller.  A bidder can reply to that broadcast, or remain silent.
@@ -62,7 +63,7 @@ course of the auction from then on.
 This leads to the following easy proposition:
 
 \begin{proposition}
-\label{prop:fullrevelation}
+\label{prop:sufficient}
   In the model defined in~\ref{def:model}, without loss of optimality, we
   can restrict our attention to (broadcast) queries that result in each
   bidder either staying silent, or immediately revealing his exact
@@ -81,7 +82,7 @@ motivated in the Internet domains we consider: the bidders are entirely
 anonymous until their first reply, so before this point querying such
 bidders individually is not feasible and they can only be reached by, say,
 posting on a public website; and after they have replied, we will know
-their valuation exactly (by Proposition~\ref{prop:fullrevelation}) and we no
+their valuation exactly (by Proposition~\ref{prop:sufficient}) and we no
 longer need to query them.  Of course, there are offline cases where the
 set of bidders is small and explicit (e.g., the government wants to sell
 land or spectrum to one of three known companies); in such settings, it can

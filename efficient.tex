@@ -286,7 +286,6 @@ i.i.d.~from $f$); then the strategy $S$ will next ask $Q_i$.
 %suppose there are still $m$ i.i.d.unknown values left whose PDF
 %is $f(x)$, the reported values set is $V$ and the set of queries asked is
 %$\mathcal Q$, the strategy $S$ will make $Q_i$ as the next query.
-
 %Assume there are $n$ values $v_i ~(1 \leq i \leq n)$ independently and
 %identically distributed over $[0, 1)$ with PDF $f(x)$ and CDF $F(x)$.  A query
 %strategy is to find the maximum value by asking queries $Q_1, Q_2, \ldots$
@@ -300,7 +299,6 @@ i.i.d.~from $f$); then the strategy $S$ will next ask $Q_i$.
 %which means, suppose there are still $m$ i.i.d. unknown values left whose PDF
 %is $f(x)$, the reported values set is $V$ and the set of queries asked is
 %$\mathcal Q$, the strategy $S$ will make $Q_i$ as the next query.
-
 %The cost of each query is equal to $b+j \cdot c$ where $j$ is the number of
 %reported values from that query. 
 $C_{f,n}(S)$ is the expected cost of strategy $S$, and we wish to find
@@ -313,83 +311,100 @@ $C_{f,n}^* = \inf_S C_{f,n}(S)$.
 %beginning $n$.
 \end{definition}
 
-To find out the optimal query strategy, we first introduce
-a lemma saying that the minimum cost is independent of PDF $f(x)$.
+To find out the optimal query strategy, we first show that the minimum cost
+is independent of the PDF $f(x)$.
 
 \begin{lemma}\label{lemma:uniform}
-
-Assume uniform PDF $u(x) = 1$ and define $C^*(n) = C^*(u, n)$.
-For any other PDF $f(x)$, we have 
-\[C^*(f, n) = C^*(u, n) = C^*(n)\]
-
+Consider the uniform PDF $f_u(x) = 1$ and let $C^*(n) = C^*(f_u, n)$.
+For any other PDF $f(x)$, we have $C^*(f, n) =  C^*(n)$.
 \end{lemma}
 
+%vc: inconsistency -- subscript or argument of the function?
+
 \begin{proof}
-
-Define $F^{-1}(x) = \sup\{y ~|~ F(y) = x\}$. For any strategy $S_f$ that works
-for PDF $f$, we can come up with a strategy $S_{u|f}$ for uniform PDF $u$:
-
-$
-S_{u|f}\big(u, m, V, \mathcal Q \big) = F\Big( S_f\big( f, m, F^{-1}(V), F^{-1} (\mathcal Q) \big) \Big)
-$
-
-Thus $C^*(u, n) \leq C^*(f, n)$ since we can adopt any strategy for $f$ to run
-under $u$ with the same cost.  Similarly, for any strategy $S_u$ that works for
-PDF $u$, we can make strategy $S_{f|u}$ for PDF $f$:
+%Let $F^{-1}(x) = \sup\{y ~|~ F(y) = x\}$. 
+For any strategy $S_{f_u}$ for the uniform distribution, we can transform
+it into a strategy $S_f$ for the distribution  with PDF $f$ 
+by querying at the equivalent percentiles. Specifically, 
 
 $
-S_{f|u}\big(f, m, V, \mathcal Q \big) = F^{-1}\Big( S_u\big( u, m, F(V), F (\mathcal Q) \big) \Big)
+S_f\big(f, m, V, \mathcal Q \big) = F^{-1}\Big( S_{f_u}\big( f_u, m, F(V), F (\mathcal Q) \big) \Big)
 $
 
-Therefore $C^*(f, n) \leq C^*(u, n)$. Combining with $C^*(u, n) \leq C^*(f, n)$
-we have $C^*(f, n) = C^*(u, n) = C^*(n)$. Figure \ref{fig:uniform} 
+The performance of $S_f$ on $f$ is the same as that of $S_{f_u}$ on $f_u$.
+Therefore,  $C^*(f, n) \leq C^*(f_u, n)$.
+Conversely and similarly, for any strategy $S_f$
+for PDF $f$, we can transform it into a strategy $S_{f_u}$ for uniform PDF
+$f_u$. Specifically,
+
+$
+S_{f_u}\big(f_u, m, V, \mathcal Q \big) = F\Big( S_f\big( f, m, F^{-1}(V), F^{-1} (\mathcal Q) \big) \Big)
+$
+
+Thus, $C^*(f_u, n) \leq C^*(f, n)$.  Hence,  we have $C^*(f, n) = C^*(u, n)
+= C^*(n)$. Figure \ref{fig:uniform} 
 illustrates those two constructions we used for this proof.
-
 \end{proof}
 
+%vc: update notation in figures below
 \begin{figure}
 \centering
-  \subfigure[Construct $S_{u|f}$ from $S_f$]{
-    \includegraphics[width=.45\linewidth]{figures/S-f-to-u}
-    \label{fig:S-t-to-u}
-  }
-  \subfigure[Construct $S_{f|u}$ from $S_u$]{
+  \subfigure[Construct $S_{f}$ from $S_{f_u}$]{
     \includegraphics[width=.45\linewidth]{figures/S-u-to-f}
     \label{fig:S-u-to-f}
   }
-  \caption{These two figures illustrates how to construct a strategy for
-  uniform PDF $u$ from another strategy for another arbitrary PDF $f$ and vice
-  versa. Here we depict a strategy as a box which takes four inputs $f, m, V,
-  \mathcal Q$ (PDF, number of unknown values, reported values set, set of asked
-  queries) and make an output $Q$ (the next query)} \label{fig:uniform}
+  \subfigure[Constructing $S_{f_u}$ from $S_f$.]{
+    \includegraphics[width=.45\linewidth]{figures/S-f-to-u}
+    \label{fig:S-t-to-u}
+  }
+  \caption{These two figures illustrate how to construct a strategy for an
+    arbitrary PDF $f$ from one for the uniform distribution $f_u$, and vice versa.
+Here, we depict a strategy as a box that takes four inputs $f, m, V,
+  \mathcal Q$ (PDF, number of unknown values, reported values set, and set of asked
+  queries) and returns $Q$ (the next query).} \label{fig:uniform}
 \end{figure}
 
-Then we prove that descending query strategies are optimal:
+We next prove that descending query strategies, in which all bidders are
+asked whether their valuations are above $a_i$ for a decreasing sequence of
+$a_i$, are optimal.  (For a descending query strategy, as soon as we get a
+positive reply, we are done, so the contingency plan does not need to branch.)
+
 \begin{lemma}\label{lemma:descending}
-
-There exists an optimal strategy with only descending queries
-$Q_1 = [a_1, 1], ~Q_2 = [a_2, a_1), ~Q_3 = [a_3, a_2)\ldots$
-
+Every optimal strategy 
+uses only 
+descending queries
+$Q_1 = [a_1, 1), ~Q_2 = [a_2, a_1), ~Q_3 = [a_3, a_2)\ldots$
+(with the possible exception of strategies that differ only on a measure
+zero set
+and are therefore equivalent to a descending-query strategy with
+probability $1$).
 \end{lemma}
 
 \begin{proof}
-
-If not, there must be an optimal strategy where none of its
-non-descending queries can be changed to descending queries without increasing
-the cost. In that strategy $S$, there must be a first non-descending query
-$Q_{i+1} = S\big(F, m, V, \mathcal Q = \{Q_1, Q_2, \ldots, Q_i\}\big)$ where
-$Q_1$ to $Q_i$ are all descending.  We can make another descending query
-$Q'_{i+1} = [a'_{i+1}, a_i)$ (or $Q'_{i+1} = [a'_{i+1}, 1]$ if $i = 0$) such
+Let us assume, for the sake of contradiction,
+that there exists  an optimal strategy  that uses a 
+non-descending query (meaning, one that differs from a descending query on
+a non-measure-zero set).
+In that strategy $S$, there must be a first non-descending query
+$Q_{i+1} = S\big(F, m, V, \mathcal Q = \{Q_1, Q_2, \ldots, Q_i\}\big)$
+% where
+%$Q_1$ to $Q_i$ are all descending.  
+Consider an alternative descending query
+$Q'_{i+1} = [a'_{i+1}, a_i)$ (or $Q'_{i+1} = [a'_{i+1}, 1)$ if $i = 0$) such
 that
 \[
 \Pr(v \in Q_{i+1}) = \int \limits_{Q_{i+1}} f(x) \mathrm d x = \int \limits_{Q'_{i+1}} f(x) \mathrm d x = \Pr(v \in Q'_{i+1})
 \]
-After $Q'_{i+1}$, we will use as optimal query as
-possible.
+%(After $Q'_{i+1}$, we query optimally.)
+%After $Q'_{i+1}$, we will use as optimal query as
+%possible.
 
-Since $Q_1$ to $Q_i$ are all descending, we have $m = n$ and $V = \emptyset$ (otherwise
-the strategy should terminate without asking $Q_{i+1}$).
-Define $C$ to be the expected cost of using $Q_{i+1}$ and later queries. Similarly we define $C'$ for $Q'_{i+1}$:\\
+Because $Q_1$ to $Q_i$ are all descending, we have $m = n$ and $V = \emptyset$ (otherwise
+an optimal strategy should terminate without asking $Q_{i+1}$).
+Let $C$ be the expected cost of using $S$ from this point on
+(starting with $Q_{i+1}$), and let $C'$ be the expected cost of 
+of using $Q'_{i+1}$ and querying
+optimally after that. We have\\
 $
 C = b + \sum_{j=0}^n p_j ( j \cdot c + C_j)
 $
@@ -397,62 +412,86 @@ and
 $
 C' = b + \sum_{j=0}^n p'_j ( j \cdot c + C'_j)
 $
-where:
+where
 %\begin{enumerate}
 %\item 
-$p_j$ (or $p'_j$) is the probability that there are $j$ reported values within $Q_{i+1}$ (or $Q'_{i+1}$);
+$p_j$ (or $p'_j$) is the probability that there are $j$ reported values
+within $Q_{i+1}$ (or $Q'_{i+1}$), and
 %\item 
 $C_j$ (or $C'_j$) is the expected cost of later queries given that $j$ values have been
 found in $Q_{i+1}$ (or $Q'_{i+1}$).
 %\end{enumerate}
 
-As $\Pr(v \in Q_{i+1}) = \Pr(v \in Q'_{i+1})$, we have $p'_j = p_j$. Since $Q'_{i+1}$ is a
-descending query, $\forall j > 0, ~C'_j = 0 \leq C_j$. And by lemma \ref{lemma:uniform},
-$C'_0 = C_0 = C^*(n)$ because knowing no value is in $Q_1, Q_2, \ldots, Q_{i+1}$ is equivalent
-to revise PDF $f(x)$ to a refined PDF 
+Because $\Pr(v \in Q_{i+1}) = \Pr(v \in Q'_{i+1})$, we have $p'_j = p_j$
+for all $j$.  We have $C_n = C'_n = 0$.
+By Lemma~\ref{lemma:uniform},
+$C_0 = C'_0 = C^*(n)$ 
+because if we know that no value lies in $Q_1, Q_2, \ldots, Q_{i+1}$, the
+remaining problem  is equivalent to that with the revised PDF
 \[
 f_{i+1}(x) = \begin{cases}
 	\lambda f(x), & x \notin Q_1 \cup Q_2 \cup \ldots \cup Q_{i+1} \\
 	0, & x \in Q_1 \cup Q_2 \cup \ldots \cup Q_{i+1}
 \end{cases}
 \]
-where $\lambda$ is a constant to make $\int_0^1 f_{i+1}(x) dx = 1$.
-
-Thus $C' \leq C$ which contradicts to that no non-descending query can be changed to
-descending query without increasing the cost.
-
+where $\lambda$ is a constant that makes $\int_0^1 f_{i+1}(x) dx = 1$.
+Finally, since $Q'_{i+1}$ is a descending query, for all $0 < j < n$,
+$C'_j = 0$ but $C_j > 0$ (because for these values of $j$, it is possible
+that all reported values in $Q_{i+1}$ lie below some value that has not
+been queried yet).  Moreover, there exists some $j$ with $0 < j < n$ and
+$p_j > 0$ unless (1) the probability of each agent's reply to $Q_{i+1}$ is
+$1$---but in this case it differs only on a measure zero set from the
+descending query that asks for all the remaining values, contradicting our
+assumption; (2) the probability of each agent's reply to $Q_{i+1}$ is
+$0$---but such a measure zero query is clearly suboptimal;
+or (3) $n=1$---but in this case any query that differs by more
+than a measure zero set from the query that asks for all the remaining
+values is clearly suboptimal.
+Hence, $C' < C$, contradicting our initial assumption.
 \end{proof}
 
-Finally we have
+It follows that:
+
+%vc: somewhere say something about having to query even when 1 bidder
+%remains.  move up no-blind-allocation def and maybe refer to it in theorems
 
 \begin{theorem}\label{theorem:MVA_eq}
-
-Among all mechanisms that can include multiple rounds of broadcasts and are
-required to be efficient (allocate the item to the bidder with highest
-valuation), Multi-round Vickrey Auctions (MVAs) are of minimum cost.
-
+Among all mechanisms
+that are
+required to allocate efficiently,
+%(allocate the item to the bidder with highest
+%valuation), 
+Multi-round Vickrey Auctions (MVAs) are of minimum cost.
 \end{theorem}
 
 \begin{proof}
-
-The best case optimizing problem defined in definition \ref{def:query} provides
-us a lower bound of minimum cost we can achieve by any mechanisms.  By lemma
-\ref{lemma:descending}, such lower bound minimum cost can be achieved by
-descending query strategy $Q_1 = [a_1, 1], Q_2 = [a_2, a_1), Q_3 = [a_3, a_2)
-\ldots$.  And by theorem \ref{theorem:MVA_eq} we are able to design such an MVA
-with reserve prices $r_1, r_2, \ldots$  whose Bayesian Nash Equilibrium
-achieves this best case descending query strategy.  Thus, MVAs are of minimum cost.
-
+%The best case optimizing problem defined in definition \ref{def:query} provides
+%us a lower bound of minimum cost we can achieve by any mechanisms.  
+By Lemma~\ref{lemma:descending}, we can restrict our attention to
+mechanisms with  descending query strategies
+%such lower bound minimum cost can be achieved by
+%descending query strategy 
+$Q_1 = [a_1, 1], Q_2 = [a_2, a_1), Q_3 = [a_3, a_2) \ldots$.
+For any such mechanism, Theorem~\ref{theorem:MVA_eq} tells us how to find reserve prices $r_1, r_2,
+\ldots$ such that the corresponding MVA has a Bayes-Nash equilibrium that
+is equivalent to this descending-query mechanism.
+% any such mechanism is equivalent to the
+%Bayes-Nash equilibrium of an MVA
+%we are able to design such an MVA
+%with reserve prices $r_1, r_2, \ldots$  whose Bayesian Nash Equilibrium
+%achieves this best case descending query strategy.  Thus, MVAs are of minimum cost.
 \end{proof}
 
-And by revenue equivalence theorem, MVAs are optimal:
+By the revenue equivalence theorem,  we obtain that MVAs are optimal:
 
 \begin{corollary}
-
-If all broadcast costs and bid costs are charged to sellers, MVAs are
-optimal if efficiency is required.  Such optimal MVA is the one that minimizes
-the overall cost.
-
+If the bidders have no cost for bidding ($\beta_2=0$), MVAs 
+that minimize cost for the seller
+are optimal
+among mechanisms that allocate efficiently.
+%If all broadcast costs and bid costs are charged to sellers, MVAs are
+%optimal if efficiency is required.  Such optimal MVA is the one that minimizes
+%the overall cost.
 \end{corollary}
 
 \subsection{Cost Minimized $\alpha$-MVA}\label{sec:alpha-MVA}
