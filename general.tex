@@ -342,53 +342,53 @@ also assume uniform distribution $F(x) = x$ in default because distribution will
 change this minimum cost and we can always adapt an optimal MVA for uniform distribution
 to an optimal MVA for any distribution easily.
 
-\subsection{Experiments to Discover Optimal MVA with a Given Low Value}
-
-To discover the specific MVA that is optimal, we first try to identify the
-optimal thresholds $a_i$ given a low value $l$  (recall that in $i$-th round,
-MVA will ask all bidders whose valuation is within $[a_i, a_{i-1})$ to bid).
-If we can write the minimum cost $C^*$ as a function of $n, \rho, l$ (recall
-that $\rho = b/c$ is the ratio between broadcast and bid cost), we may then
-determine the optimal $l$ by that.
-
-%In the special case that we studied in previous section where $l = 0$
-%(efficiency is enforced), the optimal thresholds can be easily described as a
-%single parameter $\alpha$. This strategy will not work when $l > 0$ (we assume uniform
-%distribution in default). Obviously that $a_i \geq l$,
-%thus we cannot let $a_i = \alpha a_{i-1}$ since $\lim_{i \rightarrow \infty} a_i
-%= 0 < l$.  Additionally, if we revise the equation by letting $a_i-l = \alpha
-%(a_{i-1}-l)$, we will get a positive possibility $F(l)$ that we would ask
-%infinite many broadcast queries, which is even worse.
-
-As it is not immediately clear what optimal thresholds should be like, we
-present a simple algorithm to calculate such thresholds numerically. We firstly
-discretize the continuous valuation $[0, 1)$ to $D$ discrete values $\{0, 1, \ldots,
-D-1\}$. That means, the original valuation $v$ will be transformed to integer
-value $\hat v = \lfloor v D \rfloor$. Then we use dynamic programming to
-inductively calculate $\hat x_{\hat h}$, the length of next optimal descending
-query $[\hat h-\hat x_{\hat h}, \hat h)$ to ask, conditional on that we have
-already queried $[\hat h, D)$ and no one replies.
-
-\begin{algorithm}
-    \caption{Calculate discretized best query lengths}\label{algo:discrete}
-    \begin{algorithmic}[1]
-        \Require{$\hat l$ is the discretized low value, $\rho$ is the ratio between broadcast and bid cost,
-        $n$ is the number of bidders, $D$ is the maximum discretized valuation}
-        
-        \Function{BestQueryLengths}{$\hat l$, $\rho$, $n$, $D$}
-            \State $\hat x_{\hat l} \gets 0$
-            \State $C_{\hat l} \gets 0$
-            \For{$\hat h={\hat l}+1 \mbox{ to } D$}
-                \State $\hat x_{\hat h} \gets \displaystyle
-                  \operatorname*{arg\,min}_{1 \leq \hat x \leq \hat h-l} \rho + n
-                  \frac{\hat x}{\hat h} + (\frac{\hat h-x}{\hat h})^n C_{\hat h-\hat x}$
-                \State $C_{\hat h} \gets \rho + n \frac{\hat x_{\hat h}}{\hat h} +
-                  (\frac{\hat h-\hat x_{\hat h}}{\hat h})^n C_{\hat h-\hat x_{\hat h}}$
-            \EndFor
-            \State \Return $\hat x$
-        \EndFunction
-    \end{algorithmic}
-\end{algorithm}
+%\subsection{Experiments to Discover Optimal MVA with a Given Low Value}
+%
+%To discover the specific MVA that is optimal, we first try to identify the
+%optimal thresholds $a_i$ given a low value $l$  (recall that in $i$-th round,
+%MVA will ask all bidders whose valuation is within $[a_i, a_{i-1})$ to bid).
+%If we can write the minimum cost $C^*$ as a function of $n, \rho, l$ (recall
+%that $\rho = b/c$ is the ratio between broadcast and bid cost), we may then
+%determine the optimal $l$ by that.
+%
+%%In the special case that we studied in previous section where $l = 0$
+%%(efficiency is enforced), the optimal thresholds can be easily described as a
+%%single parameter $\alpha$. This strategy will not work when $l > 0$ (we assume uniform
+%%distribution in default). Obviously that $a_i \geq l$,
+%%thus we cannot let $a_i = \alpha a_{i-1}$ since $\lim_{i \rightarrow \infty} a_i
+%%= 0 < l$.  Additionally, if we revise the equation by letting $a_i-l = \alpha
+%%(a_{i-1}-l)$, we will get a positive possibility $F(l)$ that we would ask
+%%infinite many broadcast queries, which is even worse.
+%
+%As it is not immediately clear what optimal thresholds should be like, we
+%present a simple algorithm to calculate such thresholds numerically. We firstly
+%discretize the continuous valuation $[0, 1)$ to $D$ discrete values $\{0, 1, \ldots,
+%D-1\}$. That means, the original valuation $v$ will be transformed to integer
+%value $\hat v = \lfloor v D \rfloor$. Then we use dynamic programming to
+%inductively calculate $\hat x_{\hat h}$, the length of next optimal descending
+%query $[\hat h-\hat x_{\hat h}, \hat h)$ to ask, conditional on that we have
+%already queried $[\hat h, D)$ and no one replies.
+%
+%\begin{algorithm}
+%    \caption{Calculate discretized best query lengths}\label{algo:discrete}
+%    \begin{algorithmic}[1]
+%        \Require{$\hat l$ is the discretized low value, $\rho$ is the ratio between broadcast and bid cost,
+%        $n$ is the number of bidders, $D$ is the maximum discretized valuation}
+%        
+%        \Function{BestQueryLengths}{$\hat l$, $\rho$, $n$, $D$}
+%            \State $\hat x_{\hat l} \gets 0$
+%            \State $C_{\hat l} \gets 0$
+%            \For{$\hat h={\hat l}+1 \mbox{ to } D$}
+%                \State $\hat x_{\hat h} \gets \displaystyle
+%                  \operatorname*{arg\,min}_{1 \leq \hat x \leq \hat h-l} \rho + n
+%                  \frac{\hat x}{\hat h} + (\frac{\hat h-x}{\hat h})^n C_{\hat h-\hat x}$
+%                \State $C_{\hat h} \gets \rho + n \frac{\hat x_{\hat h}}{\hat h} +
+%                  (\frac{\hat h-\hat x_{\hat h}}{\hat h})^n C_{\hat h-\hat x_{\hat h}}$
+%            \EndFor
+%            \State \Return $\hat x$
+%        \EndFunction
+%    \end{algorithmic}
+%\end{algorithm}
 
 \begin{figure*}
 \centering
@@ -408,33 +408,45 @@ already queried $[\hat h, D)$ and no one replies.
       broadcast $b$ and bid cost $c$}
 \end{figure*}
 
-Algorithm \ref{algo:discrete} runs in time $O(D^2)$. Having $\hat x$, we can
-then infer the best strategy $x$ for original continuous problem by converting
-$\hat h, \hat x$ back to $h, x$ and using them to interpolate continuous
-strategy.  The larger $D$ is the more accurate it will be. But it will also
-require more running time.  Running this for case $l = .5, \rho = 2, n = 10, D
-= 1000$ we get $x$ showed in figure \ref{fig:x-h}. It seems that $x$ is a
-piecewise linear function over $h$.  For those $h$ which is close to
-$l$, obviously that the optimal strategy should be $x = h - l$,
-which means using only one query to explore all potential bidders. But it is
-unclear why $x$ is linear when the best strategy is using multiple queries to
-explore the valuation range.
-
-Another way to plot the graph is to normalize $x$ and $l$ so that $h$ becomes
-$1$ since our model is $v_i \in [0, 1)$. It is showed in figure \ref{fig:x-l}.
-This again looks like a piecewise linear function.  A more interesting
-observation is that the left-most piece is quite a long straight line $x =
-1-\alpha$. Thus it seems that $x = 1-\alpha$ is optimal for quite a lot $l$ which is not
-far from $0$. Here the $\alpha$ is the the optimal $\alpha$ of $\alpha$-MVA if
-we set $l = 0$.
+%Algorithm \ref{algo:discrete} runs in time $O(D^2)$. Having $\hat x$, we can
+%then infer the best strategy $x$ for original continuous problem by converting
+%$\hat h, \hat x$ back to $h, x$ and using them to interpolate continuous
+%strategy.  The larger $D$ is the more accurate it will be. But it will also
+%require more running time.  Running this for case $l = .5, \rho = 2, n = 10, D
+%= 1000$ we get $x$ showed in figure \ref{fig:x-h}. It seems that $x$ is a
+%piecewise linear function over $h$.  For those $h$ which is close to
+%$l$, obviously that the optimal strategy should be $x = h - l$,
+%which means using only one query to explore all potential bidders. But it is
+%unclear why $x$ is linear when the best strategy is using multiple queries to
+%explore the valuation range.
+%
+%Another way to plot the graph is to normalize $x$ and $l$ so that $h$ becomes
+%$1$ since our model is $v_i \in [0, 1)$. It is showed in figure \ref{fig:x-l}.
+%This again looks like a piecewise linear function.  A more interesting
+%observation is that the left-most piece is quite a long straight line $x =
+%1-\alpha$. Thus it seems that $x = 1-\alpha$ is optimal for quite a lot $l$ which is not
+%far from $0$. Here the $\alpha$ is the the optimal $\alpha$ of $\alpha$-MVA if
+%we set $l = 0$.
 
 \subsection{Analysis of Optimal MVA with a Positive Low Value}\label{sec:general_analysis}
 
-Figure \ref{fig:x-h} shows that the optimal MVA with a low value $l > 0$ is
-much more complicated but there might still be hope to get a nice analytical
-result: piecewise linear function. That is, we cannot use a single $\alpha$ to
-describe such optimal MVA, but perhaps we can use a sequence of $\alpha$ to
-describe it. Now let us take an analytical treatment.
+Before an analytical treatment, we first conduct an experiment to compute the
+optimal MVA approximately for getting some insights. In that experiment, we
+discretize the value into fine grids and then use dynamic programming to
+compute the optimal first-query-length over different $l$ (this is sufficient to derive the whole
+optimal MVA because a failed query is equivalent to increase the $l$ after
+renormalizing). The result is plotted in Figure~\ref{fig:x-l}
+and it seems to be much more complicated than $\alpha$-MVA but there might
+still be hope to get a nice analytical result: it seems like a piecewise linear
+function. Specifically, we cannot use a single $\alpha$ to describe such
+optimal MVA, but perhaps we can use a sequence of $\alpha$ to describe it. Now
+let us take an analytical treatment.
+
+%Figure \ref{fig:x-h} shows that the optimal MVA with a low value $l > 0$ is
+%much more complicated but there might still be hope to get a nice analytical
+%result: piecewise linear function. That is, we cannot use a single $\alpha$ to
+%describe such optimal MVA, but perhaps we can use a sequence of $\alpha$ to
+%describe it. Now let us take an analytical treatment.
 
 The first key to analyze the optimal MVA with $l > 0$ is to utilize
 the fact that there is a maximal number of rounds to exploit the whole
