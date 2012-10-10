@@ -134,7 +134,7 @@ where $p_i$ is the probability that bidder $i$ will get the item.
 \end{proof}
 
 
-Thanks to theorem \ref{theorem:equivalence}, our profit maximization problem
+Thanks to Theorem~\ref{theorem:equivalence}, our profit maximization problem
 is now greatly simplified: 
 
 \begin{corollary}
@@ -200,7 +200,7 @@ decided by allocation rule which is studied in Myerson's work, our optimizing
 problem is greately related to Myerson's if we were able to minimize the
 overall cost. However, the optimal allocation rule here is not as simple as the
 one that is discovered by Myerson \cite{Myerson:1981}: allocate the item to the
-bidder with highest positive virtural value.  Theorem \ref{theorem:equivalence}
+bidder with highest positive virtural value.  Theorem~\ref{theorem:equivalence}
 tells us that this rule will maximize the total spending.  But we must
 substract the cost from the spending to get the profit.  Therefore, there might
 be another weird allocation rule that has less total spending but even much
@@ -279,7 +279,7 @@ optimal among all mechanisms that won't allocate blindly.
 
 \begin{proof}
 Suppose that there's an arbitrary optimal mechanism. We can describe it by a
-query strategy $S(f, m, V, \mathcal Q)$ (see definition \ref{def:query}) and an
+query strategy $S(f, m, V, \mathcal Q)$ (see Definition~\ref{def:query}) and an
 allocation function based on $V$, the set of reported values set, since we can
 only allocate item to reported bidders. We then construct another mechanism
 with query strategy $S'(f, m, V', \mathcal Q')$ where $\mathcal Q'$ are decsending
@@ -326,7 +326,7 @@ values.
 \subsection{MVAs' Optimality in General}
 
 We have already narrowed down optimal mechanism to
-relaxed efficient mechanisms and by theorem \ref{theorem:equivalence},
+relaxed efficient mechanisms and by Theorem~\ref{theorem:equivalence},
 it is straightforward to see
 
 \begin{corollary}
@@ -338,7 +338,7 @@ achieved when the mechanism minizes the cost.
 
 Our next question is naturally: what is the cost minimized mechanism
 given a low value $l$. 
-A similar lemma can be proved using almost identical technique to lemma \ref{lemma:uniform}.
+A similar lemma can be proved using almost identical technique to Lemma~\ref{lemma:uniform}.
 Thus for space limit, we will not elaborate it again. 
 
 \begin{lemma}\label{lemma:lowest_type}
@@ -359,12 +359,12 @@ they are optimal.
 \end{theorem}
 
 \begin{proof}
-A special case of this theorem when $l = 0$ is theorem \ref{theorem:MVA_eq}.
-We proved that special case by introducing lemma \ref{lemma:uniform} and
+A special case of this theorem when $l = 0$ is Theorem~\ref{theorem:MVA_eq}.
+We proved that special case by introducing Lemma~\ref{lemma:uniform} and
 \ref{lemma:descending}. To prove the general cases with arbitrary $l$, we just
-need to revise lemma \ref{lemma:uniform} a little to lemma
-\ref{lemma:lowest_type}. All other part of the proof remains similar. For space
-limit, the detailed proof is omitted.
+need to revise Lemma~\ref{lemma:uniform} a little to
+Lemma~\ref{lemma:lowest_type}. All other part of the proof remains similar. For
+space limit, the detailed proof is omitted.
 \end{proof}
 
 Then the only parameters we are going to determine for the
@@ -647,8 +647,7 @@ much closer to $1$ than $l$.
 
 Having $k$ and $a_i$, we are still one step away from optimal MVA: choosing the low
 value $l$. It is obvious to see that optimal cost $C$ is non-increasing as $l$
-increases. By Myerson's optimal auction theory and theorem
-\ref{theorem:equivalence}, setting virtual value of $l$ to be $0$ will yield
+increases. By Myerson's optimal auction theory and Theorem~\ref{theorem:equivalence}, setting virtual value of $l$ to be $0$ will yield
 the maximum total spending. Name such $l$ as $l_0$. We then conclude that
 optimal $l$ must satisfy $l \geq l_0$. The
 question is, how to search or determine optimal $l$. Let us first check the simple
@@ -674,7 +673,7 @@ with a search increment of $0.01$.
 
 Finally we are going to compare profit of different mechanisms in general settings.
 To keep it simple, we still use a uniform valuation distribution for all
-experiments.  As theorem \ref{theorem:equivalence} shows, the profit is simply
+experiments.  As Theorem~\ref{theorem:equivalence} shows, the profit is simply
 spending minus cost where spending is solely determined by $l$. In fact, the
 total spending will not be very sensitive to this $l$ when $n$ is large (except
 that $l$ is very close to $1$) and we will see this in later comparisons. Thus
