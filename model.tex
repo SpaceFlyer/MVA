@@ -121,6 +121,17 @@ message.
 %profit since when facing many different auction mechanisms, a rational seller
 %will choose the one that gives him maximum profit.
 
+%The following restriction is natural in our context:
+
+\begin{definition}[No blind allocation]\label{def:allocation_cost}
+An item cannot be awarded to a bidder who has remained silent to all queries.
+%A mechanism with allocation rule $$p: (v_1, v_2, \ldots, v_n) \rightarrow
+%(p_1, p_2, \ldots, p_n)$$ does not allocate blindly if it satisfies: if $p_i >
+%0$ for some valuation profile $(v_1, v_2, \ldots, v_n)$, there must be a
+%broadcast query that the $i$-th bidder ($v_i$) reply to the seller
+%under that profile setting.
+\end{definition}
+
 
 
 \begin{definition}
@@ -131,7 +142,7 @@ message.
   A {\em mechanism} in our setting consists of (1) a full contingency plan
   for which query to broadcast at each point, depending on answers given so
   far, and a termination condition; and (2) an allocation and pricing rule
-  that is defined on each terminal state.  A mechanism is {\em individually
+  that is defined on each terminal state, satisfying no blind allocation.  A mechanism is {\em individually
     rational} if losing bidders never pay and winning bidders never pay
   more than their valuations.  We say an individually rational mechanism is
   {\em optimal} if it has a Bayes-Nash equilibrium for the bidders that maximizes the
