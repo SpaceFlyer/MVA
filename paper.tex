@@ -69,10 +69,10 @@ function, can be prohibitive.  All of this is well understood (for further
 discussion, see, e.g.,~\cite{Conitzer04:Computational}), and a significant amount of research has been
 devoted to the design of {\em iterative} auction mechanisms (e.g.,~\cite{Parkes06:Iterative}) and (roughly
 equivalently) auctions with explicit {\em elicitation} of agents'
-valuations (e.g.,~\cite{Sandholm06:Preference}).  Such auctions aim to avoid the communication of
-unnecessary information.  For example, in a Vickrey auction, if it is
-known that bidders 1 and 2 have valuations above \$100 and bidder 3 has one
-below \$100, then there is no need to query bidder 3 any further.
+valuations (e.g.,~\cite{Sandholm06:Preference}).  Such auctions aim to avoid
+unnecessary communication.  For example, in a Vickrey auction, if it is known
+that bidders 1 and 2 have valuations above \$100 and bidder 3 has one below
+\$100, then there is no need to query bidder 3 any further.
 
 How do we evaluate how effective a particular iterative auction mechanism
 is in reducing communication?  Perhaps the simplest measure is the number
@@ -91,8 +91,8 @@ end refuse to pay.  Alternatively, in other settings (such as an item
 having been posted for sale on craigslist or a similar list), at this point
 the bidder may wish to set up an appointment with the seller to check the
 item.  In both cases, these actions come at costs for both the potential
-buyer and the seller, in terms of effort and time, loss of privacy, and 
-various risks.
+buyer and the seller, in terms of effort, time, loss of privacy, and 
+so on.
 %The bidding costs $c$ may be caused by communication and other verification
 %required to bid. For example, the bidder may have to input his credit card
 %number and prepay an amount of money. Without such verification, a bidder may
@@ -108,7 +108,7 @@ While participation costs have been studied before in
 auctions~\cite{Stegeman95:ParticipationCost,
   Tan2006:EquilibriaParticipationCost}, a distinguishing feature of our
 model is that a bidder can observe the proceedings of the auction at no
-cost, until the bidder decides to actively participate by at some  indicating a
+cost, until the bidder decides to actively participate by indicating a
 nonzero valuation and thereby changing the course of the auction.   This
 appears to us to be a more natural model of Internet (or other highly
 anonymous) auctions of the type discussed above.
@@ -118,15 +118,15 @@ anonymous) auctions of the type discussed above.
 %ticket to walk in and observe.
 
 The rest of this paper is organized as follows.  In
-Section~\ref{sec:model}, we provide a formal model of elicitation cost
+Section~\ref{sec:model}, we provide a formal model of communication cost
 motivated by the observations just discussed.  In
 Section~\ref{sec:efficient}, we study the special case in which efficient
 allocation is a constraint and bidders experience no cost from bidding.
 The characterization of the optimal mechanism in this special case turns
 out to be closely related to earlier work on finding an optimal agent by
-iteratively relaxing the parameters of the search~\cite{}.  In
+iteratively relaxing the parameters of the search~\cite{SarneSR2010:IncreasingSearch}.  In
 Section~\ref{sec:general}, we drop the assumptions of efficiency and no
-bidder cost for elicitation.
+bidder cost for communication.
 
 
 
