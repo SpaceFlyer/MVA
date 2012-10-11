@@ -8,17 +8,12 @@ L.~M. Ausubel and P.~Cramton.
 \bibitem{Conitzer04:Computational}
 V.~Conitzer and T.~Sandholm.
 \newblock Computational criticisms of the revelation principle.
-\newblock In {\em The Conference on Logic and the Foundations of Game and
-  Decision Theory (LOFT-04)}, Leipzig, Germany, 2004.
-\newblock Earlier versions appeared as a short paper at ACM-EC-04, and in the
-  workshop on Agent-Mediated Electronic Commerce (AMEC-03).
+\newblock In {\em LOFT-04}, 2004.
 
 \bibitem{DBLP:conf/iwdc/HassanJ04}
 J.~Hassan and S.~Jha.
 \newblock On the optimization trade-offs of expanding ring search.
-\newblock In N.~Das, A.~Sen, S.~K. Das, and B.~P. Sinha, editors, {\em IWDC},
-  volume 3326 of {\em Lecture Notes in Computer Science}, pages 489--494.
-  Springer, 2004.
+\newblock In {\em IWDC}, 2004.
 
 \bibitem{Herings2009:BisectionAuction}
 P.~J.-J. Herings, R.~M\"{u}ller, and D.~Vermeulen.
@@ -43,28 +38,25 @@ R.~B. Myerson.
 \bibitem{Parkes06:Iterative}
 D.~Parkes.
 \newblock Iterative combinatorial auctions.
-\newblock In P.~Cramton, Y.~Shoham, and R.~Steinberg, editors, {\em
-  Combinatorial Auctions}, chapter~2, pages 41--77. MIT Press, 2006.
+\newblock In {\em Combinatorial Auctions}, chapter~2, pages 41--77. MIT Press,
+  2006.
 
 \bibitem{Sandholm06:Preference}
 T.~Sandholm and C.~Boutilier.
 \newblock Preference elicitation in combinatorial auctions.
-\newblock In P.~Cramton, Y.~Shoham, and R.~Steinberg, editors, {\em
-  Combinatorial Auctions}, chapter~10, pages 233--263. MIT Press, 2006.
+\newblock In {\em Combinatorial Auctions}, chapter~10, pages 233--263. MIT
+  Press, 2006.
 
 \bibitem{Sandholm06:Sequences}
 T.~Sandholm and A.~Gilpin.
 \newblock Sequences of take-it-or-leave-it offers: Near-optimal auctions
   without full valuation revelation.
-\newblock In {\em Proceedings of the International Conference on Autonomous
-  Agents and Multi-Agent Systems (AAMAS)}, pages 1127--1134, Hakodate, Japan,
-  2006.
+\newblock In {\em AAMAS}, pages 1127--1134, 2006.
 
 \bibitem{SarneSR2010:IncreasingSearch}
 D.~Sarne, S.~Shamoun, and E.~Rata.
 \newblock Increasing threshold search for best-valued agents.
-\newblock In {\em Proceedings of the National Conference on Artificial
-  Intelligence (AAAI)}, Atlanta, GA, USA, 2010.
+\newblock In {\em AAAI}, 2010.
 
 \bibitem{Stegeman95:ParticipationCost}
 M.~Stegeman.
@@ -74,7 +66,7 @@ M.~Stegeman.
 \bibitem{Tan2006:EquilibriaParticipationCost}
 G.~Tan and O.~Yilankaya.
 \newblock Equilibria in second price auctions with participation costs.
-\newblock {\em Journal of Economic Theory}, 130(1):205 -- 219, 2006.
+\newblock {\em Journal of Economic Theory}, 2006.
 
 \bibitem{Varadhan2009:BB}
 R.~Varadhan and P.~Gilbert.

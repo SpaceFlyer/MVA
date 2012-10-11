@@ -5,43 +5,43 @@ Database file #1: references.bib
 Warning--empty note in Ausubel99:EfficientOptimality
 You've used 14 entries,
             2118 wiz_defined-function locations,
-            1123 strings with 18921 characters,
-and the built_in function-call counts, 5103 in all, are:
-= -- 510
-> -- 210
-< -- 7
-+ -- 79
-- -- 64
-* -- 361
-:= -- 823
-add.period$ -- 46
+            1112 strings with 18384 characters,
+and the built_in function-call counts, 4605 in all, are:
+= -- 458
+> -- 174
+< -- 5
++ -- 69
+- -- 54
+* -- 299
+:= -- 743
+add.period$ -- 44
 call.type$ -- 14
 change.case$ -- 69
 chr.to.int$ -- 0
 cite$ -- 15
-duplicate$ -- 208
-empty$ -- 422
-format.name$ -- 64
-if$ -- 1104
+duplicate$ -- 197
+empty$ -- 399
+format.name$ -- 54
+if$ -- 991
 int.to.chr$ -- 0
 int.to.str$ -- 14
 missing$ -- 13
-newline$ -- 74
-num.names$ -- 34
-pop$ -- 70
+newline$ -- 73
+num.names$ -- 28
+pop$ -- 76
 preamble$ -- 1
 purify$ -- 55
 quote$ -- 0
-skip$ -- 145
+skip$ -- 139
 stack$ -- 0
-substring$ -- 354
-swap$ -- 54
-text.length$ -- 7
+substring$ -- 299
+swap$ -- 46
+text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 56
 warning$ -- 1
-while$ -- 52
+while$ -- 46
 width$ -- 16
-write$ -- 161
+write$ -- 152
 (There was 1 warning)

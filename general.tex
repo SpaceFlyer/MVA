@@ -343,8 +343,7 @@ and
 |S'(f, m, \emptyset, \{Q'_1, \ldots, Q'_{i-1}\})|_f %= |Q'_i| = |Q_i|\\
   = |S(f, m, \emptyset, \{Q_1, \ldots, Q_{i-1}\})|_f
 \end{align*}
-where for any query $Q$, $|Q|_f$ denotes the probability under $f$ of the
-region queried by $Q$.  If $S(f, m, \emptyset, \{Q_1, \ldots,
+If $S(f, m, \emptyset, \{Q_1, \ldots,
 Q_{i-1}\})=\emptyset$ (termination), then $S'(f, m, \emptyset, \{Q'_1, \ldots,
 Q'_{i-1}\})=\emptyset$ as well and the item is not allocated in this case.
 %vc: maybe move this earlier?
@@ -551,6 +550,37 @@ interval from Myerson's reserve value to $1$.
 
 \subsection{Optimal MVAs Given a Positive Low Value}\label{sec:general_analysis}
 
+\begin{figure}
+\centering
+    \includegraphics[width=\linewidth]{figures/cutoff_.2_.1_15.eps}
+    \caption{The profit of the optimal MVA and the $\alpha$-cutoff-MVA are plotted as
+    solid lines.  (The optimal value of $l$ is determined by brute-force
+    search.)  $\alpha$ and $l$ are plotted in dashed lines, to illustrate
+    that the the only cases where the $\alpha$-cutoff-MVA performs
+    significantly more poorly are when $\alpha$ (or $\alpha^2$) are slightly
+    above $l$, because in this case the $\alpha$-cutoff-MVA is often forced to
+    ask another query to get below $l$.}\label{fig:cutoff}
+\end{figure}
+
+\begin{figure*}
+\centering
+  \subfigure[profit]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/profit_.1.eps}
+    \label{fig:general_profit}
+  }
+  \subfigure[low value]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/l_.1.eps}
+    \label{fig:general_l}
+  }
+  \caption{The expected profit, as well as the value of $l$ (the lowest
+    valuation that may bid), for various mechanisms as a function of $n$.
+    We have
+  broadcast cost $b = 0.1$ and  seller and bidder bid costs $\beta_1 =
+  \beta_2 = 0.05$ (thus $c = \beta_1+\beta_2 = 0.1$).}\label{fig:general}
+\end{figure*}
+%vc: on left hand side add ``MVA'', on right hand side don't mention l
+%(just optimal)
+
 
 We now consider how to minimize cost for a given low value $l>0$ of the
 MVA, restricting our attention to uniform distributions without loss of
@@ -751,37 +781,6 @@ The proof that $k_\alpha^-$ constitutes a lower bound is similar.
 %contradicts with Lemma~\ref{lemma:thresholds}.
 %The proof that 
 %\end{proof}
-
-\begin{figure}
-\centering
-    \includegraphics[width=\linewidth]{figures/cutoff_.2_.1_15.eps}
-    \caption{The profit of the optimal MVA and the $\alpha$-cutoff-MVA are plotted as
-    solid lines.  (The optimal value of $l$ is determined by brute-force
-    search.)  $\alpha$ and $l$ are plotted in dashed lines, to illustrate
-    that the the only cases where the $\alpha$-cutoff-MVA performs
-    significantly more poorly are when $\alpha$ (or $\alpha^2$) are slightly
-    above $l$, because in this case the $\alpha$-cutoff-MVA is often forced to
-    ask another query to get below $l$.}\label{fig:cutoff}
-\end{figure}
-
-\begin{figure*}
-\centering
-  \subfigure[profit]{
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/profit_.1.eps}
-    \label{fig:general_profit}
-  }
-  \subfigure[low value]{
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/l_.1.eps}
-    \label{fig:general_l}
-  }
-  \caption{The expected profit, as well as the value of $l$ (the lowest
-    valuation that may bid), for various mechanisms as a function of $n$.
-    We have
-  broadcast cost $b = 0.1$ and  seller and bidder bid costs $\beta_1 =
-  \beta_2 = 0.05$ (thus $c = \beta_1+\beta_2 = 0.1$).}\label{fig:general}
-\end{figure*}
-%vc: on left hand side add ``MVA'', on right hand side don't mention l
-%(just optimal)
 
 
 

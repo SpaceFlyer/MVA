@@ -207,13 +207,14 @@ is the last round, then $a_i=0=r_i$.  Also, $$\lim_i r_i \leq \lim_i
 If $i$ is not the last round, 
 by (\ref{eq:MVA_eq_relation}) we have $r_i P(a_i) = \int_{0}^{a_i}
 x\,p(x)dx$ for all $i$ (this clearly also holds if
-$a_i = 0$). Thus the right-hand side of equation \ref{eq:MVA_eq} is:
+$a_i = 0$). Thus the right-hand side of Equation (\ref{eq:MVA_eq}) is:
 \begin{align*}
 	& \int_{a_{i+1}}^{a_i} a_i p(x) dx - \int_{a_{i+1}}^{a_i} x \, p(x) dx + P(a_{i+1})(a_i-r_{i+1}) \\
 	&= a_i P(a_i) - \cancel{a_i P(a_{i+1})} - r_i P(a_i) + \cancel{r_{i+1} P(a_{i+1})} \\
-		& ~~~ + \cancel{P(a_{i+1}) a_i} - \cancel{P(a_{i+1}) r_{i+1}}\\
-	&= \mbox{left hand side of (\ref{eq:MVA_eq})}
+		& ~~~ + \cancel{P(a_{i+1}) a_i} - \cancel{P(a_{i+1}) r_{i+1}}
+%	&= \mbox{left hand side of (\ref{eq:MVA_eq})}
 \end{align*}
+which equals to left-hand side.
 \end{proof}
 %vc: think about the inefficient allocation case?
 
@@ -347,7 +348,7 @@ Thus, $C^*(f_u, n) \leq C^*(f, n)$.  Hence,  we have $C^*(f, n) = C^*(u, n)
 illustrates those two constructions we used for this proof.
 \end{proof}
 
-%vc: update notation in figures below
+%Done vc: update notation in figures below
 \begin{figure}
 \centering
   \subfigure[Construct $S_{f}$ from $S_{f_u}$]{
@@ -391,11 +392,13 @@ $Q_{i+1} = S\big(F, m, V, \mathcal Q = \{Q_1, Q_2, \ldots, Q_i\}\big)$
 % where
 %$Q_1$ to $Q_i$ are all descending.  
 Consider an alternative descending query
-$Q'_{i+1} = [a'_{i+1}, a_i)$ (or $Q'_{i+1} = [a'_{i+1}, 1)$ if $i = 0$) such
-that
-\[
-\Pr(v \in Q_{i+1}) = \int \limits_{Q_{i+1}} f(x) \mathrm d x = \int \limits_{Q'_{i+1}} f(x) \mathrm d x = \Pr(v \in Q'_{i+1})
-\]
+$Q'_{i+1} = [a'_{i+1}, a_i)$ (presumably $a_0 = 1$) such
+that $|Q'_{i+1}|_f = |Q_{i+1}|_f$
+where for any query $Q$, $|Q|_f$ denotes the probability under $f$ of the
+region queried by $Q$.
+%\[
+%\Pr(v \in Q_{i+1}) = \int \limits_{Q_{i+1}} f(x) \mathrm d x = \int \limits_{Q'_{i+1}} f(x) \mathrm d x = \Pr(v \in Q'_{i+1})
+%\]
 %(After $Q'_{i+1}$, we query optimally.)
 %After $Q'_{i+1}$, we will use as optimal query as
 %possible.
@@ -423,7 +426,10 @@ $C_j$ (or $C'_j$) is the expected cost of later queries given that $j$ values ha
 found in $Q_{i+1}$ (or $Q'_{i+1}$).
 %\end{enumerate}
 
-Because $\Pr(v \in Q_{i+1}) = \Pr(v \in Q'_{i+1})$, we have $p'_j = p_j$
+% yuqian: we have, we have?
+Because $|Q'_{i+1}|_f = |Q_{i+1}|_f$,
+%\Pr(v \in Q_{i+1}) = \Pr(v \in Q'_{i+1})$
+we have $p'_j = p_j$
 for all $j$.  We have $C_n = C'_n = 0$.
 By Lemma~\ref{lemma:uniform},
 $C_0 = C'_0 = C^*(n)$ 
@@ -497,6 +503,22 @@ among mechanisms that allocate efficiently.
 
 \subsection{MVAs with Minimum Cost}
 \label{sec:alpha-MVA}
+
+\begin{figure*}
+\centering
+%  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho0.20.eps}}
+%  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho1.00.eps}}
+%  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho5.00.eps}}
+  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/C_when_rho0.20.eps}}
+  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/C_when_rho1.00.eps}}
+  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/C_when_rho5.00.eps}}
+  \caption{Comparisons for the optimal $\alpha$ and its approximations. The first
+  approximation is $\alpha = 1-1/n$, the second is $\alpha =
+  (-W(-1-\rho))^{-1/n}$.}
+%The second row is the corresponding cost for different
+%  $\alpha$} 
+  \label{fig:alpha}
+\end{figure*}
 
 The above analysis still leaves open what the optimal parameters
 (thresholds $a_i$, or equivalently, reserve prices $r_i$) of the optimal
@@ -627,22 +649,6 @@ implicitly restricts attention to MVAs (when translated to our setting).
 %approximations for $\alpha$.
 
 \subsection{Approximating the Optimal $\alpha$}
-
-\begin{figure*}
-\centering
-%  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho0.20.eps}}
-%  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho1.00.eps}}
-%  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho5.00.eps}}
-  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/C_when_rho0.20.eps}}
-  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/C_when_rho1.00.eps}}
-  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/C_when_rho5.00.eps}}
-  \caption{Comparisons for the optimal $\alpha$ and its approximations. The first
-  approximation is $\alpha = 1-1/n$, the second is $\alpha =
-  (-W(-1-\rho))^{-1/n}$.}
-%The second row is the corresponding cost for different
-%  $\alpha$} 
-  \label{fig:alpha}
-\end{figure*}
 
 
 
@@ -814,19 +820,19 @@ They are:
 %all the left in last round. We call this mechanism as $\alpha$-cutoff-$k$-MVA.
 
 The results of our experiments are shown in Figure~\ref{fig:cost_comparisons}.
-\begin{figure*}
+\begin{figure}
 \centering
-    \subfigure[$\rho = 0.5$]{
-        \includegraphics[trim=0 5mm 5mm 15mm, clip, width=.3\linewidth]{figures/analyze_cost_.5_5_15.eps}
-        \label{fig:cost_comparison_.5}
-    }
+%    \subfigure[$\rho = 0.5$]{
+%        \includegraphics[trim=0 5mm 5mm 15mm, clip, width=.3\linewidth]{figures/analyze_cost_.5_5_15.eps}
+%        \label{fig:cost_comparison_.5}
+%    }
     \subfigure[$\rho = 2$]{
-        \includegraphics[trim=0 5mm 5mm 15mm, clip, width=.3\linewidth]{figures/analyze_cost_2_5_15.eps}
+        \includegraphics[trim=0 5mm 5mm 15mm, clip, width=.65\linewidth]{figures/analyze_cost_2_5_15.eps}
         \label{fig:cost_comparison_2}
     }
-    \caption{Comparing the costs of different MVAs over $n$ and $\rho = b$ ($c=1$).}
+    \caption{Comparing the costs of different MVAs over the number of bidders $n$. ($b = \rho$, $c=1$)}
     \label{fig:cost_comparisons}
-\end{figure*}
+\end{figure}
 \begin{itemize}
 \item 
 The optimal uniform-MVA's cost is very close to that of the optimal $\alpha$-MVA,
@@ -849,8 +855,7 @@ as $k$ grows.
 \item When $k$ is fixed to a small value, 
 the uniform $k$-MVA  has significant higher cost than both the optimal
 $k$-MVA and the $\alpha$-cutoff-$k$-MVA.
-\item The $\alpha$-cutoff-$3$-MVA works well especially when
-$\rho$ is large,
+\item The $\alpha$-cutoff-$3$-MVA works well (close to optimal $3$-MVA).
 %as shown in figure \ref{fig:cost_comparison_.5}. 
 but it is not
 as good as  the optimal $2$-MVA when $\rho$ is small and $n$ is large. 
