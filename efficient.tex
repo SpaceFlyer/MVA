@@ -626,146 +626,194 @@ implicitly restricts attention to MVAs (when translated to our setting).
 %be more interested in its relation with larger $n$ so we will give
 %approximations for $\alpha$.
 
-\subsection{Approximation of $\alpha$}
+\subsection{Approximating the Optimal $\alpha$}
 
 \begin{figure*}
 \centering
-  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho0.20.eps}}
-  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho1.00.eps}}
-  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho5.00.eps}}
+%  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho0.20.eps}}
+%  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho1.00.eps}}
+%  \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/alpha_when_rho5.00.eps}}
   \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/C_when_rho0.20.eps}}
   \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/C_when_rho1.00.eps}}
   \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/C_when_rho5.00.eps}}
-  \caption{Comparisons for optimal  $\alpha$ and its approximations. The first
+  \caption{Comparisons for the optimal $\alpha$ and its approximations. The first
   approximation is $\alpha = 1-1/n$, the second is $\alpha =
-  (-W(-1-\rho))^{-1/n}$. The second row is the corresponding cost for different
-  $\alpha$} 
+  (-W(-1-\rho))^{-1/n}$.}
+%The second row is the corresponding cost for different
+%  $\alpha$} 
   \label{fig:alpha}
 \end{figure*}
 
-It is difficult to get an exact closed formula for optimal $\alpha$ by equation
-\ref{eq:alpha}. Thus we are going to use some simpler formulas to approximate
-$\alpha$. We will conduct experiments to compare our approximation with the
-optimal $\alpha$ that is computed numerically. 
 
-Firstly, $\alpha = 1-1/n$ is a natural guess which means each round the
-expected number of biddings is equal to $1$. It turns out to be quite good:
+
+%It is difficult to get an exact closed formula for optimal $\alpha$ by equation
+As we are not able to obtain a closed form for the optimal $\alpha$ from
+Equation (\ref{eq:alpha}), we here give some formulas to approximate it.
+
+
+% Thus we are going to use some simpler formulas to approximate
+%$\alpha$. We will conduct experiments to compare our approximation with the
+%optimal $\alpha$ that is computed numerically. 
+
+%Firstly, $\alpha = 1-1/n$ is a natural guess which means each round the
+%expected number of biddings is equal to $1$. It turns out to be quite good:
 
 \begin{theorem}
-$\alpha = 1-1/n$ is a $1/(1-e^{-1})$ approximation of optimal $\alpha$-MVA.
-That means, by simply choosing $\alpha = 1-1/n$, we would at most get about
-$1.582$ times of optimal cost. Another obersavation of this approximation is
-that no matter how large $n$ is, the cost of this simple approximation is at
-most $(\rho+1) / (1-e^{-1}) = O(1)$. Thus the optimal cost is bounded by
-constant $O(1)$ no matter how large $n$ is.
+Setting $\alpha = 1-1/n$ results in a $1/(1-e^{-1}) \approx 1.582$ approximation of the
+cost of the optimal $\alpha$-MVA.  Also, the total expected cost of this
+mechanism is at most $(b+c) / (1-e^{-1})$ (and hence constant in the
+number of agents).
+ %That means, by simply choosing $\alpha = 1-1/n$, we would at most get about
+%$1.582$ times of optimal cost. Another obersavation of this approximation is
+%that no matter how large $n$ is, the cost of this simple approximation is at
+%most $(\rho+1) / (1-e^{-1}) = O(1)$. Thus the optimal cost is bounded by
+%constant $O(1)$ no matter how large $n$ is.
 \end{theorem}
 
+%vc: make $C_\alpha$ and $C(\alpha)$ consistent
 \begin{proof}
-$C(\alpha = 1-1/n) = (\rho+1)/(1-(1-1/n)^n)$. Because $(1-1/n)^n \leq e^{-1}$,
-we have $C(\alpha = 1-1/n) \leq (\rho+1)/(1-e^{-1})$.  It is obvious that at
-least one broadcast and one bidding is required to terminate so $C \geq
-\rho+1$. This completes the proof.
+  We have $C(\alpha = 1-1/n) = (b+c)/(1-(1-1/n)^n)$. Because $(1-1/n)^n
+  \leq e^{-1}$, we have $C(\alpha = 1-1/n) \leq (b+c)/(1-e^{-1})$.
+On the other hand, any mechanism requires at
+least one broadcast and one bid to terminate and hence $C^* \geq
+b+c$. %This completes the proof.
 \end{proof}
 
-A better approximation when $n$ is large is to observe that $\alpha \rightarrow
-1$ when $n$ grows large.  Thus we guess 
-%\footnote{We tried several guesses and
-%this is the one that finally turns out to work. Note that $(1-\alpha)n$ must be
-%bounded (otherwise optimal cost won't be bounded by $O(1)$ as well) thus it's
-%either a constant or a weird perturbation. It's natural to try constant first}
-that $(1-a)n \approx A$ (for some constant $A$) and $\alpha^n \approx
-\alpha^{n-1}$. Then we have: 
-$$ n (\rho+A) \cdot \alpha^n - n(1-\alpha^n) = 0 $$ 
-which gives us $\alpha = (1+\rho+A)^{-1/n}$. Put this back to $\lim_{n
-\rightarrow \infty} (1-a)n = A$ we have $\ln (1+\rho+A) = A$ which gives us
-\begin{align}\label{eq:approx2}
-A = -1-\rho-W(-1-\rho)\nonumber\\
-\alpha = (-W(-1-\rho))^{-1/n} 
-\end{align}
-where $W(x)$ is the Lambert W function [cite wikipedia?] defined by $W(x)
-e^{W(x)} = x$. Actually, $w\,e^w = x$ has two solutions for $w$ when $-1 < x <
-0$. Here our $W(x)$ refers to the lower\footnote{The upper branch is
-$W_0(x) > -1$ when $-1 < x < 0$} branch $W_{-1}(x) < -1$. This
-second approximation that converges to the optimal one when $n$ is large:
+%A better approximation when $n$ is large is to observe that $\alpha \rightarrow
+%1$ when $n$ grows large.  Thus we guess 
+%%\footnote{We tried several guesses and
+%%this is the one that finally turns out to work. Note that $(1-\alpha)n$ must be
+%%bounded (otherwise optimal cost won't be bounded by $O(1)$ as well) thus it's
+%%either a constant or a weird perturbation. It's natural to try constant first}
+%that $(1-a)n \approx A$ (for some constant $A$) and $\alpha^n \approx
+%\alpha^{n-1}$. Then we have: 
+%$$ n (\rho+A) \cdot \alpha^n - n(1-\alpha^n) = 0 $$ 
+%which gives us $\alpha = (1+\rho+A)^{-1/n}$. Put this back to $\lim_{n
+%\rightarrow \infty} (1-a)n = A$ we have $\ln (1+\rho+A) = A$ which gives us
+%\begin{align}\label{eq:approx2}
+%A = -1-\rho-W(-1-\rho)\nonumber\\
+%\alpha = (-W(-1-\rho))^{-1/n} 
+%\end{align}
+%where $W(x)$ is the Lambert W function [cite wikipedia?] defined by $W(x)
+%e^{W(x)} = x$. Actually, $w\,e^w = x$ has two solutions for $w$ when $-1 < x <
+%0$. Here our $W(x)$ refers to the lower\footnote{The upper branch is
+%$W_0(x) > -1$ when $-1 < x < 0$} branch $W_{-1}(x) < -1$. This
+%second approximation that converges to the optimal one when $n$ is large:
+
+We now present a different approximation whose expected cost is guaranteed
+to converge to the optimal one as $n$ grows.  The proof is omitted due to
+the space constraint.
 
 \begin{theorem}\label{theorem:approx1}
-Suppose that the optimal $\alpha$ is $\alpha^*$ which
-satisfies equation \ref{eq:alpha}. Then $\alpha = (-W(-1-\rho))^{-1/n}$ satisfies
-$$\lim_{n \rightarrow \infty} C(\alpha^*) = \lim_{n \rightarrow \infty} C(\alpha = (-W(-1-\rho))^{-1/n})$$
-That is, our approximation's cost will converge to optimal cost when $n$ grows to
-infinity.
+Let $W$ denote the Lambert W function defined by the lower branch of $W(x) e^{W(x)} = x$.
+Let $\alpha = (-W(-1-\rho))^{-1/n}$.  Then 
+%Suppose that the optimal $\alpha$ is $\alpha^*$ which
+%satisfies equation \ref{eq:alpha}. Then $\alpha = (-W(-1-\rho))^{-1/n}$ satisfies
+$$\lim_{n \rightarrow \infty} C^*(n) = \lim_{n \rightarrow \infty} C_{\alpha = (-W(-1-\rho))^{-1/n}}(n)$$
+%That is, our approximation's cost will converge to optimal cost when $n$ grows to
+%infinity.
 \end{theorem}
 
-\begin{proof}
-Define sequence $\alpha^*_n, C^*_n$ where $n = 1, 2, 3, \ldots$ to be sequences of
-optimal $\alpha^*$ and corresponding optimal cost $C^*$ when there are $n$
-bidders. We first show that $C^*_n$ is increasing: if we make
-$(\alpha_{n-1})^{n-1} = (\alpha^*_n)^n$, then we have 1) The expected broadcast
-cost of $\alpha_{n-1}$-MVA with $n-1$ bidders is equal to that of
-$\alpha^*_n$-MVA with $n$ bidders as the probability that one round will
-terminate is the same; 2) $\alpha_{n-1} < \alpha^*_n$ thus the expected bidding
-cost of $\alpha_{n-1}$-MVA with $n-1$ bidders should be less than that of
-$\alpha^*_n$-MVA with $n$ bidders. Therefore, $C^*_{n-1} \leq C_{n-1}(\alpha_{n-1}) < C^*_n$.
-Thus sequence $C^*$ is indeed strictly increasing.
+%\begin{proof}
+%Define sequence $\alpha^*_n, C^*_n$ where $n = 1, 2, 3, \ldots$ to be sequences of
+%optimal $\alpha^*$ and corresponding optimal cost $C^*$ when there are $n$
+%bidders. We first show that $C^*_n$ is increasing: if we make
+%$(\alpha_{n-1})^{n-1} = (\alpha^*_n)^n$, then we have 1) The expected broadcast
+%cost of $\alpha_{n-1}$-MVA with $n-1$ bidders is equal to that of
+%$\alpha^*_n$-MVA with $n$ bidders as the probability that one round will
+%terminate is the same; 2) $\alpha_{n-1} < \alpha^*_n$ thus the expected bidding
+%cost of $\alpha_{n-1}$-MVA with $n-1$ bidders should be less than that of
+%$\alpha^*_n$-MVA with $n$ bidders. Therefore, $C^*_{n-1} \leq C_{n-1}(\alpha_{n-1}) < C^*_n$.
+%Thus sequence $C^*$ is indeed strictly increasing.
 
-Secondly, theorem \ref{theorem:approx1} says $C^*_n$ is bounded. Therefore
-$(1-\alpha^*)n$ must also be bounded otherwise $C = \frac{\rho+(1-\alpha)n}{1-\alpha^n}$ cannot be bounded.
-Thus according to Bolzano-Weierstrass theorem [cite wikipedia?], there must be
-a subsequence $\alpha^*_{n_i}$ such that $(1-\alpha^*_{n_i})n$ converges to some constant $A$.
-Recall that $\alpha^*$ satisfies equation \ref{eq:alpha} and obviously $\lim_{n \rightarrow \infty} \alpha^* = 1$, 
-we could use calculations similar to what we used for equation \ref{eq:approx2} to derive
-\begin{align*}
-&\lim_{n_i \rightarrow \infty} (1-\alpha^*_{n_i})n_i = A = -1-\rho-W(-1-\rho)\\
-&\lim_{n_i \rightarrow \infty} (\alpha^*_{n_i})^{n_i} = \lim_{n_i \rightarrow \infty} (\alpha^*_{n_i})^{n_i-1} = (-W(-1-\rho))^{-1}
-\end{align*}
-This proves that
-$$\lim_{n_i \rightarrow \infty} C(\alpha^*) = \lim_{n_i \rightarrow \infty} C(\alpha = (-W(-1-\rho))^{-1/n_i})$$
-Then using the fact that $C^*_n$ is strictly increasing and bounded completes the proof.
-\end{proof}
+%Secondly, theorem \ref{theorem:approx1} says $C^*_n$ is bounded. Therefore
+%$(1-\alpha^*)n$ must also be bounded otherwise $C = \frac{\rho+(1-\alpha)n}{1-\alpha^n}$ cannot be bounded.
+%Thus according to Bolzano-Weierstrass theorem [cite wikipedia?], there must be
+%a subsequence $\alpha^*_{n_i}$ such that $(1-\alpha^*_{n_i})n$ converges to some constant $A$.
+%Recall that $\alpha^*$ satisfies equation \ref{eq:alpha} and obviously $\lim_{n \rightarrow \infty} \alpha^* = 1$, 
+%we could use calculations similar to what we used for equation \ref{eq:approx2} to derive
+%\begin{align*}
+%&\lim_{n_i \rightarrow \infty} (1-\alpha^*_{n_i})n_i = A = -1-\rho-W(-1-\rho)\\
+%&\lim_{n_i \rightarrow \infty} (\alpha^*_{n_i})^{n_i} = \lim_{n_i \rightarrow \infty} (\alpha^*_{n_i})^{n_i-1} = (-W(-1-\rho))^{-1}
+%\end{align*}
+%This proves that
+%$$\lim_{n_i \rightarrow \infty} C(\alpha^*) = \lim_{n_i \rightarrow \infty} C(\alpha = (-W(-1-\rho))^{-1/n_i})$$
+%Then using the fact that $C^*_n$ is strictly increasing and bounded completes the proof.
+%\end{proof}
 
-Experiments in figure \ref{fig:alpha} compare the optimal $\alpha$, our first approximation
-of $\alpha = 1-1/n$ and our second approximation $\alpha = (-W(-1-\rho))^{-1/n}$
-together with their corresponding cost under settings $\rho = 0.2, 1, 5$.
 
-As figure \ref{fig:alpha} shows, the first approximation $1-1/n$ is bounded
-to be a constant time of optimal cost while the second approximation converges to optimal
-cost when $n$ grows large. When $\rho$ is close to $1$, both two
-approximations are very close to the optimal one. But the second approximation is much better
-when $\rho$ is much smaller or greater than $1$. Anyway, the second approximation is not always
-better than the first approximation, as the case $\rho = 1, n = 2$ shows.
 
 \subsection{Experiments}\label{sec:eff_experiment}
-Now let us compare optimal $\alpha$-MVA with other kinds of MVA. In all
-following experiments, the valuation distribution is always uniform over $[0,
-1]$. According to lemma \ref{lemma:uniform}, other distributions can always be
-adapted to uniform distribution so this will not be a problem.  Also recall that
-under this simpler model, the revenue is fixed thus the profit is
-completely determined by cost. Thus we will only compare cost.
 
-$\alpha$-MVA can potentially have infinite many rounds. But in reality, it is
-more naturaly to come up with an MVA that has finite many, say $k$ rounds at
-most. Let us call them $k$-MVA where $k$ is some positive integers. One
-particualr $k$- MVA is uniform $k$-MVA where the $k$ thresholds is uniformly
-distributed over $[0, 1]$.  It is also known as fixed-step search strategy in
-\cite{SarneSR2010:IncreasingSearch, DBLP:conf/iwdc/HassanJ04}. An optimal uniform MVA is the uniform
-$k$-MVA that minimize the cost by choosing the best $k$.
+Without loss of generality, all our experiments concern the uniform distribution of valuations over $[0,1)$.
+The experiments in Figure~\ref{fig:alpha} compare the MVAs with (1) the
+optimal $\alpha$ (solved numerically), (2) the approximation
+ $\alpha = 1-1/n$, and (3) the approximation 
+$\alpha = (-W(-1-\rho))^{-1/n}$, all for $c=1$ and
+$\rho = b = 0.2, 1, 5$.
+%vc: maybe change costs so the seller doesn't suffer a loss
+Both approximations perform well for $\rho=1$, but the second performs much
+better for other values.
+%(though the results are not inconsistent with the
+%approximation ratio for the first approximation)
 
-In practice, such $k$ might also be very limited. For example, if someone need
-to sell something in $3$ days before moving out, the $k$ might be limited to
-$3$ since it is too annoying to send out two broadcast messages per day (e.g. it
-might be labeled as spam by selling platform).  With this limitation, one can
-still use uniform thresholds as a baseline. Or we may formulate this as another
-optimzing problem and solve the best $k$ thresholds under this constraint (this
-problem is defined and solved in section \ref{sec:general_analysis} and
-equation \ref{eq:diff_C_general}).  Between the baseline $k$ uniform thresholds
-and the optimal $k$ thresholds, another heurestic way to get $k$ thresholds is
-to use $\alpha, \alpha^2, \ldots, \alpha^{k-1}$ as thresholds. That means, in
-first $k-1$ rounds, we query as if we have infinite many rounds, and we query
-all the left in last round. We call this mechanism as $\alpha$-cutoff-$k$-MVA.
 
-The comparison results achieved from simulation experiments are shown in figure
-\ref{fig:cost_comparisons}. Here are some observations:
+%As figure \ref{fig:alpha} shows, the first approximation $1-1/n$ is bounded
+%to be a constant time of optimal cost while the second approximation
+%converges to optimal cost when $n$ grows large. When $\rho$ is close to
+%$1$, both two approximations are very close to the optimal one. But the
+%second approximation is much better when $\rho$ is much smaller or greater
+%than $1$. Anyway, the second approximation is not always better than the
+%first approximation, as the case $\rho = 1, n = 2$ shows.
 
+
+%Now let us compare optimal $\alpha$-MVA with other kinds of MVA. In all
+%following experiments, the valuation distribution is always uniform over $[0,
+%1]$. According to lemma \ref{lemma:uniform}, other distributions can always be
+%adapted to uniform distribution so this will not be a problem.  Also recall that
+%under this simpler model, the revenue is fixed thus the profit is
+%completely determined by cost. Thus we will only compare cost.
+
+We now compare the $\alpha$-MVA (with the optimal $\alpha$ calculated
+numerically) to some other MVAs, each of which uses at most $k$ rounds.
+An advantage of such MVAs is that they can be used when there is a hard
+deadline (such as in a moving sale).
+They are:
+
+\begin{itemize}
+\item {\em uniform $k$-MVA}:  the uniform $k$-MVA has its $k$
+  thresholds at $0, 1/k, 2/k, \ldots, (k-1)/k$, and the {\em optimal} uniform MVA
+  corresponds to the optimal $k$.  (Compare the fixed-step search strategy in~\cite{SarneSR2010:IncreasingSearch,DBLP:conf/iwdc/HassanJ04}.)
+\item {\em optimal $k$-MVA}: the optimal MVA using at most $k$ rounds.
+  (These are computed using techniques that we will discuss in Section~\ref{sec:general_analysis}.)
+\item {\em $\alpha$-cutoff-$k$-MVA}: proceeds as the $\alpha$-MVA, except
+  its $k$th (and final) query is at $0$.
+\end{itemize}
+
+
+
+%$\alpha$-MVA can potentially have infinite many rounds. But in reality, it is
+%more naturaly to come up with an MVA that has finite many, say $k$ rounds at
+%most. Let us call them $k$-MVA where $k$ is some positive integers. One
+%particualr $k$- MVA is uniform $k$-MVA where the $k$ thresholds is uniformly
+%distributed over $[0, 1]$.  It is also known as fixed-step search strategy in
+%\cite{SarneSR2010:IncreasingSearch, DBLP:conf/iwdc/HassanJ04}. An optimal uniform MVA is the uniform
+%$k$-MVA that minimize the cost by choosing the best $k$.
+
+%In practice, such $k$ might also be very limited. For example, if someone need
+%to sell something in $3$ days before moving out, the $k$ might be limited to
+%$3$ since it is too annoying to send out two broadcast messages per day (e.g. it
+%might be labeled as spam by selling platform).  With this limitation, one can
+%still use uniform thresholds as a baseline. Or we may formulate this as another
+%optimzing problem and solve the best $k$ thresholds under this constraint (this
+%problem is defined and solved in section \ref{sec:general_analysis} and
+%equation \ref{eq:diff_C_general}).  Between the baseline $k$ uniform thresholds
+%and the optimal $k$ thresholds, another heurestic way to get $k$ thresholds is
+%to use $\alpha, \alpha^2, \ldots, \alpha^{k-1}$ as thresholds. That means, in
+%first $k-1$ rounds, we query as if we have infinite many rounds, and we query
+%all the left in last round. We call this mechanism as $\alpha$-cutoff-$k$-MVA.
+
+The results of our experiments are shown in Figure~\ref{fig:cost_comparisons}.
 \begin{figure*}
 \centering
     \subfigure[$\rho = 0.5$]{
@@ -776,33 +824,37 @@ The comparison results achieved from simulation experiments are shown in figure
         \includegraphics[trim=0 5mm 5mm 15mm, clip, width=.3\linewidth]{figures/analyze_cost_2_5_15.eps}
         \label{fig:cost_comparison_2}
     }
-    \caption{Cost comparison for different MVAs over $n$, number of bidders, and $\rho$, broadcast/bid cost ratio.}
+    \caption{Comparing the costs of different MVAs over $n$ and $\rho = b$ ($c=1$).}
     \label{fig:cost_comparisons}
 \end{figure*}
-
 \begin{itemize}
-\item The optimal uniform-MVA's cost is very close to optimal $\alpha$-MVA's,
-especially when $n$ is large. That is probably because
-    \begin{enumerate}
-        \item $\alpha$ approaching $1$ when $n$ grows large, which makes the
-        first $k$ thresholds $\alpha, \alpha^2, \alpha^3, \ldots, \alpha^k$
-        close to uniform thresholds $1-(1-\alpha), 1-2(1-\alpha), \ldots,
-        1-k(1-\alpha)$; 
-
-        \item the probability that the highest value falls out of first $k$
-        thresholds, $\alpha^{nk}$, becomes negligible for large $n$.
-    \end{enumerate}
-
-\item The optimal $k$-MVA's cost decreases and approaches to optimal cost quickly
-when $k$ grows (check optimal $2$-MVA and $3$-MVA).
-
-\item When $k$ is small, uniform thresholds has significant higher cost than optimal
-$k$-MVA, and the heuristic $\alpha$-cutoff-$k$-MVA.
-
-\item The heuristic $\alpha$-cutoff-$k$-MVA works pretty well especially when
-$\rho$ is large as shown in figure \ref{fig:cost_comparison_.5}. But it is not
-as good as optimal $2$-MVA when $\rho$ is small and $n$ is large as shown in
-figure \ref{fig:cost_comparison_2}. Thus find the right thresholds is even more
-important than adding one more round in those cases.
-
+\item 
+The optimal uniform-MVA's cost is very close to that of the optimal $\alpha$-MVA,
+especially when $n$ is large. This makes sense because when $n$ grows
+large, the optimal $\alpha$ approaches $1$, so the first few queries of
+the optimal $\alpha$-MVA are at similar distances from each other.
+%That is probably because
+%    \begin{enumerate}
+%        \item $\alpha$ approaching $1$ when $n$ grows large, which makes the
+%        first $k$ thresholds $\alpha, \alpha^2, \alpha^3, \ldots, \alpha^k$
+%        close to uniform thresholds $1-(1-\alpha), 1-2(1-\alpha), \ldots,
+%        1-k(1-\alpha)$; 
+%
+%        \item the probability that the highest value falls out of first $k$
+%        thresholds, $\alpha^{nk}$, becomes negligible for large $n$.
+%    \end{enumerate}
+\item The optimal $k$-MVA's cost decreases and approaches the optimal cost quickly
+as $k$ grows.
+% (check optimal $2$-MVA and $3$-MVA).
+\item When $k$ is fixed to a small value, 
+the uniform $k$-MVA  has significant higher cost than both the optimal
+$k$-MVA and the $\alpha$-cutoff-$k$-MVA.
+\item The $\alpha$-cutoff-$3$-MVA works well especially when
+$\rho$ is large,
+%as shown in figure \ref{fig:cost_comparison_.5}. 
+but it is not
+as good as  the optimal $2$-MVA when $\rho$ is small and $n$ is large. 
+%as shown in
+%figure \ref{fig:cost_comparison_2}. Thus find the right thresholds is even more
+%important than adding one more round in those cases.
 \end{itemize}
