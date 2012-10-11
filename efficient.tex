@@ -239,7 +239,7 @@ diverge from that work in what follows.
 \subsection{Optimality of MVAs}
 
 
-%vc: need to add no-gap assumption from revenue equivalence to model
+%Done vc: need to add no-gap assumption from revenue equivalence to model
 %(anything else?)
 Since the mechanism is required to be efficient and bidders' communications
 costs ($\beta_2$) are zero, any mechanism that gives utility zero to an
@@ -254,7 +254,7 @@ costs.
 By the revelation principle, we can restrict our attention to mechanisms in
 which agents always answer queries truthfully in equilibrium.\footnote{For
   example, for MVAs, we can directly query the agents whether their
-  valuations are above the $a_i$ while still charging according to the
+  valuations are above $a_i$ while still charging according to 
   $r_i$.}  By Proposition~\ref{prop:sufficient}, we can assume that an
 agent reveals his entire valuation when not staying silent.  By the
 efficiency constraint, the mechanism must at least discover a bidder with
@@ -317,11 +317,11 @@ To find out the optimal query strategy, we first show that the minimum cost
 is independent of the PDF $f(x)$.
 
 \begin{lemma}\label{lemma:uniform}
-Consider the uniform PDF $f_u(x) = 1$ and let $C^*(n) = C^*(f_u, n)$.
-For any other PDF $f(x)$, we have $C^*(f, n) =  C^*(n)$.
+Consider the uniform PDF $f_u(x) = 1$ and let $C^*_n = C^*_{f_u, n}$.
+For any other PDF $f(x)$, we have $C^*_{f, n} =  C^*_n$.
 \end{lemma}
 
-%vc: inconsistency -- subscript or argument of the function?
+%Done vc: inconsistency -- subscript or argument of the function?
 
 \begin{proof}
 %Let $F^{-1}(x) = \sup\{y ~|~ F(y) = x\}$. 
@@ -334,7 +334,7 @@ S_f\big(f, m, V, \mathcal Q \big) = F^{-1}\Big( S_{f_u}\big( f_u, m, F(V), F (\m
 $
 
 The performance of $S_f$ on $f$ is the same as that of $S_{f_u}$ on $f_u$.
-Therefore,  $C^*(f, n) \leq C^*(f_u, n)$.
+Therefore,  $C^*_{f, n} \leq C^*_{f_u, n}$.
 Conversely and similarly, for any strategy $S_f$
 for PDF $f$, we can transform it into a strategy $S_{f_u}$ for uniform PDF
 $f_u$. Specifically,
@@ -343,8 +343,8 @@ $
 S_{f_u}\big(f_u, m, V, \mathcal Q \big) = F\Big( S_f\big( f, m, F^{-1}(V), F^{-1} (\mathcal Q) \big) \Big)
 $
 
-Thus, $C^*(f_u, n) \leq C^*(f, n)$.  Hence,  we have $C^*(f, n) = C^*(u, n)
-= C^*(n)$. Figure \ref{fig:uniform} 
+Thus, $C^*_{f_u, n} \leq C^*_{f, n}$.  Hence,  we have $C^*_{f, n} = C^*_{f_u, n}
+= C^*_n$. Figure \ref{fig:uniform} 
 illustrates those two constructions we used for this proof.
 \end{proof}
 
@@ -410,11 +410,11 @@ Let $C$ be the expected cost of using $S$ from this point on
 of using $Q'_{i+1}$ and querying
 optimally after that. We have\\
 $
-C = b + \sum_{j=0}^n p_j ( j \cdot c + C_j)
+C = b + \sum_{j=0}^n p_j ( j \cdot c + L_j)
 $
 and
 $
-C' = b + \sum_{j=0}^n p'_j ( j \cdot c + C'_j)
+C' = b + \sum_{j=0}^n p'_j ( j \cdot c + L'_j)
 $
 where
 %\begin{enumerate}
@@ -422,7 +422,7 @@ where
 $p_j$ (or $p'_j$) is the probability that there are $j$ reported values
 within $Q_{i+1}$ (or $Q'_{i+1}$), and
 %\item 
-$C_j$ (or $C'_j$) is the expected cost of later queries given that $j$ values have been
+$L_j$ (or $L'_j$) is the expected cost of later queries given that $j$ values have been
 found in $Q_{i+1}$ (or $Q'_{i+1}$).
 %\end{enumerate}
 
@@ -430,9 +430,9 @@ found in $Q_{i+1}$ (or $Q'_{i+1}$).
 Because $|Q'_{i+1}|_f = |Q_{i+1}|_f$,
 %\Pr(v \in Q_{i+1}) = \Pr(v \in Q'_{i+1})$
 we have $p'_j = p_j$
-for all $j$.  We have $C_n = C'_n = 0$.
+for all $j$.  We have $L_n = L'_n = 0$.
 By Lemma~\ref{lemma:uniform},
-$C_0 = C'_0 = C^*(n)$ 
+$L_0 = L'_0 = C^*_n$ 
 because if we know that no value lies in $Q_1, Q_2, \ldots, Q_{i+1}$, the
 remaining problem  is equivalent to that with the revised PDF
 \[
@@ -443,7 +443,7 @@ f_{i+1}(x) = \begin{cases}
 \]
 where $\lambda$ is a constant that makes $\int_0^1 f_{i+1}(x) dx = 1$.
 Finally, since $Q'_{i+1}$ is a descending query, for all $0 < j < n$,
-$C'_j = 0$ but $C_j > 0$ (because for these values of $j$, it is possible
+$L'_j = 0$ but $L_j > 0$ (because for these values of $j$, it is possible
 that all reported values in $Q_{i+1}$ lie below some value that has not
 been queried yet).  Moreover, there exists some $j$ with $0 < j < n$ and
 $p_j > 0$ unless (1) the probability of each agent's reply to $Q_{i+1}$ is
@@ -459,7 +459,7 @@ Hence, $C' < C$, contradicting our initial assumption.
 
 It follows that:
 
-%vc: somewhere say something about having to query even when 1 bidder
+%Done vc: somewhere say something about having to query even when 1 bidder
 %remains.  move up no-blind-allocation def and maybe refer to it in theorems
 
 \begin{theorem}\label{theorem:MVA_eq}
@@ -478,7 +478,7 @@ By Lemma~\ref{lemma:descending}, we can restrict our attention to
 mechanisms with  descending query strategies
 %such lower bound minimum cost can be achieved by
 %descending query strategy 
-$Q_1 = [a_1, 1], Q_2 = [a_2, a_1), Q_3 = [a_3, a_2) \ldots$.
+$Q_1 = [a_1, 1], Q_2 = [a_2, a_1)$, $Q_3 = [a_3, a_2) \ldots$.
 For any such mechanism, Theorem~\ref{theorem:MVA_eq} tells us how to find reserve prices $r_1, r_2,
 \ldots$ such that the corresponding MVA has a Bayes-Nash equilibrium that
 is equivalent to this descending-query mechanism.
@@ -514,7 +514,7 @@ among mechanisms that allocate efficiently.
   \subfigure{\includegraphics[trim=0 5mm 5mm 5mm, clip, width=.3\linewidth]{figures/C_when_rho5.00.eps}}
   \caption{Comparisons for the optimal $\alpha$ and its approximations. The first
   approximation is $\alpha = 1-1/n$, the second is $\alpha =
-  (-W(-1-\rho))^{-1/n}$.}
+  (-W(-1-\rho))^{-1/n}$. (Recall that $\rho = b/c$ for cases where $c > 0$.)}
 %The second row is the corresponding cost for different
 %  $\alpha$} 
   \label{fig:alpha}
@@ -526,7 +526,7 @@ MVA are for a given setting $f, n, b, c$ (valuation PDF, number of bidders,
 broadcast cost, bid cost).  According to Lemma~\ref{lemma:uniform}, the
 cost does not depend on $f$ and it suffices to restrict our attention to
 the uniform distribution.
-Let $\rho = \frac{b}{c}$ (for cases where $c>0$).
+Let $\rho = b/c$ (for cases where $c>0$).
 
 %we can always derive an optimal mechanism for any
 %$F$ from a uniform distribution.
@@ -536,8 +536,8 @@ Let $\rho = \frac{b}{c}$ (for cases where $c>0$).
 %by normalize bid cost $c$ to $1$ and thus broadcast cost $b$ to $\rho$.
 
 \begin{definition}
-Given $f$, we define the $\alpha$-MVA to be the MVA in which in each round, the expected
-number of nonsilent bids in that round (conditional on having reached that
+Given $f$, we define the $\alpha$-MVA to be the MVA in which, the expected
+number of nonsilent bids in each round (conditional on having reached that
 round) is $(1-\alpha)n$.  In the case where $f$ is uniform, the
 $\alpha$-MVA is characterized by $a_i = \alpha^i$.
 \end{definition}
@@ -548,7 +548,9 @@ If $c = 0$, the Vickrey auction (the $0$-MVA) is optimal.
 If $\rho = b = 0$, the Dutch auction (which is approximated by the
 $(1-\epsilon)$-MVA) is optimal.  
 Otherwise, it is optimal to use an $\alpha$-MVA where $\alpha$ satisfies
-$$\alpha^{n-1} (\rho + (1-\alpha)n) - (1-\alpha^n) = 0$$
+\begin{align}\label{eq:alpha}
+\alpha^{n-1} (\rho + (1-\alpha)n) - (1-\alpha^n) = 0
+\end{align}
 %vc: unique solution??
 \end{proposition}
 \begin{proof}
@@ -574,18 +576,18 @@ If $C_\alpha$ is the expected overall cost for the $\alpha$-MVA, then we
 have $C_\alpha = b + (1-\alpha)nc + \alpha^n C_\alpha$, or equivalently 
 $C_\alpha = \frac{b+(1-\alpha)nc }{ 1-\alpha^n}$.
 If we optimize this with respect to $\alpha$, we must either have
-\begin{align}\label{eq:alpha}
-\frac{\partial C}{\partial \alpha} = \frac{{\alpha}^{n-1}\,n\,\left(
+\begin{align*}
+\frac{\partial C_\alpha}{\partial \alpha} = \frac{{\alpha}^{n-1}\,n\,\left(
 b+\left( 1-\alpha\right) \,nc\right) }{{\left( 1-{\alpha}^{n}\right)
 }^{2}}-\frac{nc}{1-{\alpha}^{n}} &= 0 \nonumber\\
 &\Updownarrow\nonumber\\
 \alpha^{n-1} (\rho + (1-\alpha)n) - (1-\alpha^n) &= 0
-\end{align}
-%vc: double-check first equation (unnormalized)
+\end{align*}
+%Done vc: double-check first equation (unnormalized)
 or have $\alpha$ at a boundary value ($0$ or $1$). However, $\alpha=1$ (or
 approaching $1$) is clearly suboptimal unless $b=0$, a case that we have
-already covered; $\alpha=0$ can be ruled out because $\frac{\partial
-  C}{\partial \alpha} |_{\alpha = 0} < 0$.
+already covered; $\alpha=0$ can be ruled out as $\frac{\partial
+  C_\alpha}{\partial \alpha} |_{\alpha = 0} < 0$.
 \end{proof}
 
 
@@ -632,7 +634,7 @@ setting also gives a proof that $\alpha$-MVAs are optimal
 among MVAs and also characterizes the optimal value of $\alpha$.  However, they do
 not provide a proof that MVAs are optimal among all mechanisms; their setup
 implicitly restricts attention to MVAs (when translated to our setting).
-%vc: make sure last sentence is true. 
+%Done vc: make sure last sentence is true. 
 
 
 %Thus if they not
@@ -676,12 +678,12 @@ number of agents).
 %constant $O(1)$ no matter how large $n$ is.
 \end{theorem}
 
-%vc: make $C_\alpha$ and $C(\alpha)$ consistent
+%Done vc: make $C_\alpha$ and $C(\alpha)$ consistent
 \begin{proof}
-  We have $C(\alpha = 1-1/n) = (b+c)/(1-(1-1/n)^n)$. Because $(1-1/n)^n
-  \leq e^{-1}$, we have $C(\alpha = 1-1/n) \leq (b+c)/(1-e^{-1})$.
+  We have $C_{\alpha = 1-1/n} = (b+c)/(1-(1-1/n)^n)$. Because $(1-1/n)^n
+  \leq e^{-1}$, we have $C_{\alpha = 1-1/n} \leq (b+c)/(1-e^{-1})$.
 On the other hand, any mechanism requires at
-least one broadcast and one bid to terminate and hence $C^* \geq
+least one broadcast and one bid to terminate and hence $C^*_n \geq
 b+c$. %This completes the proof.
 \end{proof}
 
@@ -715,7 +717,7 @@ Let $W$ denote the Lambert W function defined by the lower branch of $W(x) e^{W(
 Let $\alpha = (-W(-1-\rho))^{-1/n}$.  Then 
 %Suppose that the optimal $\alpha$ is $\alpha^*$ which
 %satisfies equation \ref{eq:alpha}. Then $\alpha = (-W(-1-\rho))^{-1/n}$ satisfies
-$$\lim_{n \rightarrow \infty} C^*(n) = \lim_{n \rightarrow \infty} C_{\alpha = (-W(-1-\rho))^{-1/n}}(n)$$
+$\lim_{n \rightarrow \infty} C^*_n = \lim_{n \rightarrow \infty} C_{\alpha = (-W(-1-\rho))^{-1/n}}$
 %That is, our approximation's cost will converge to optimal cost when $n$ grows to
 %infinity.
 \end{theorem}
@@ -826,11 +828,13 @@ The results of our experiments are shown in Figure~\ref{fig:cost_comparisons}.
 %        \includegraphics[trim=0 5mm 5mm 15mm, clip, width=.3\linewidth]{figures/analyze_cost_.5_5_15.eps}
 %        \label{fig:cost_comparison_.5}
 %    }
-    \subfigure[$\rho = 2$]{
-        \includegraphics[trim=0 5mm 5mm 15mm, clip, width=.65\linewidth]{figures/analyze_cost_2_5_15.eps}
-        \label{fig:cost_comparison_2}
-    }
-    \caption{Comparing the costs of different MVAs over the number of bidders $n$. ($b = \rho$, $c=1$)}
+%    \subfigure[$\rho = 2$]{
+%        \includegraphics[trim=0 5mm 5mm 15mm, clip, width=.65\linewidth]{figures/analyze_cost_2_5_15.eps}
+%        \label{fig:cost_comparison_2}
+%    }
+    \includegraphics[trim=0 5mm 5mm 15mm, clip, width=.65\linewidth]{figures/analyze_cost_2_5_15.eps}
+    \label{fig:cost_comparison_2}
+    \caption{Comparing the costs of different MVAs over the number of bidders $n$. ($b = 2$, $c=1$)}
     \label{fig:cost_comparisons}
 \end{figure}
 \begin{itemize}

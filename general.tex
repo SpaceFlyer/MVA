@@ -344,9 +344,10 @@ and
   = |S(f, m, \emptyset, \{Q_1, \ldots, Q_{i-1}\})|_f
 \end{align*}
 If $S(f, m, \emptyset, \{Q_1, \ldots,
-Q_{i-1}\})=\emptyset$ (termination), then $S'(f, m, \emptyset, \{Q'_1, \ldots,
-Q'_{i-1}\})=\emptyset$ as well and the item is not allocated in this case.
-%vc: maybe move this earlier?
+Q_{i-1}\})=\emptyset$ (termination), then it also has
+$S'(f, m, \emptyset, \{Q'_1, \ldots, Q'_{i-1}\})=\emptyset$ 
+and the item is not allocated in this case.
+%Done vc: maybe move this earlier? |Q|_f
 Under $S'$, once at least one bidder bids, we allocate to the highest
 bidder (and payments are set to incentivize truthful reporting, as
 discussed earlier).  The querying costs of $S'$ are at most those of $S$
