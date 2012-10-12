@@ -180,13 +180,6 @@ fixed by Theorem~\ref{theorem:equivalence}.
 %      $l$ to be $l = \hat l / \hat h$, as if $h$ is always $1$.}
 %\end{figure*}
 
-\begin{figure}
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/10000-500-2-1-10}
-    \caption{Optimal first-query-length $x$ ($=1-a_1$) as a function of
-      $l$. ($\rho=2$, $n=10$, and $[0,1)$ is discretized into $1000$ pieces.)}
-    \label{fig:x-l}
-\end{figure}
-
 
 \subsection{MVAs' Optimality in General}
 
@@ -553,24 +546,12 @@ above Myerson's reserve value.
 
 \subsection{Optimal MVAs Given a Positive Low Value}\label{sec:general_analysis}
 
-\begin{figure*}
-\centering
-  \subfigure[profit]{
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/profit_.1.eps}
-    \label{fig:general_profit}
-  }
-  \subfigure[low value]{
-    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/l_.1.eps}
-    \label{fig:general_l}
-  }
-  \caption{The expected profit, as well as the value of $l$ (the lowest
-    valuation that may bid), for various mechanisms as a function of $n$.
-    We have
-  broadcast cost $b = 0.1$ and  seller and bidder bid costs $\beta_1 =
-  \beta_2 = 0.05$ (thus $c = \beta_1+\beta_2 = 0.1$).}\label{fig:general}
-\end{figure*}
-%Done vc: on left hand side add ``MVA'', on right hand side don't mention l
-%(just optimal)
+\begin{figure}
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, width=\linewidth]{figures/10000-500-2-1-10}
+    \caption{Optimal first-query-length $x$ ($=1-a_1$) as a function of
+      $l$. ($\rho=2$, $n=10$, and $[0,1)$ is discretized into $1000$ pieces.)}
+    \label{fig:x-l}
+\end{figure}
 
 
 We now consider how to minimize cost for a given low value $l>0$ of the
@@ -723,11 +704,11 @@ $p_1^n \leq q_1^n$, which contradicts $q_1 < p_1$.
 \end{proof}
 
 
-
+%yuqian: l is confusing
 \begin{theorem}\label{theorem:k_bounds}
 $k_\alpha^+ = \left\lceil \log_{\alpha} \left(1/l\right) \right\rceil$ and 
 $k_\alpha^- \left\lfloor \log_{\alpha} \left(1/l\right) \right\rfloor$ are upper
-and lower bounds for the optimal $k$. Here, $\alpha$ is the optimal $\alpha$ for
+and lower bounds for the optimal $k$. Here, $\alpha$ is the optimal $\alpha$
 from the
 $\alpha$-MVA (when $l = 0$). 
 \end{theorem}
@@ -735,11 +716,11 @@ $\alpha$-MVA (when $l = 0$).
 For the sake of contradiction, assume $k > k_\alpha^+$ for optimal thresholds
 $(a^*_0, a^*_1, a^*_2, \ldots, a^*_k)$ (where $a^*_0 = 1, a^*_k = l$).  
 Points $a_0 = \alpha^0, a_1 = \alpha^1, \ldots, a_{k_\alpha^+} = \alpha^{k_\alpha^+}$
-constitute an optimal sequence for $l=\alpha^{k_\alpha^+}$ (if there were a
-better sequence, we could improve on the $\alpha$-MVA for $l=0$ by starting
+constitute an optimal sequence for low value $l'=\alpha^{k_\alpha^+}$ (if there were a
+better sequence, we could improve on the $\alpha$-MVA by starting
 with that sequence instead).
 This sequence also
-splits interval $[l, 1)$ into $k_\alpha^+$ subintervals $[a_i, a_{i-1})$, which
+splits interval $[l', 1)$ into $k_\alpha^+$ subintervals $[a_i, a_{i-1})$, which
 together contain $k$ thresholds $a^*_1, \ldots, a^*_k$. Since $k > k_\alpha^+$, at
 least one subinterval $[a_i, a_{i-1})$ contains two thresholds $a^*_j,
 a^*_{j-1}$, so we have $a_i \leq a^*_j < a^*_{j-1} < a_{i-1}$.  This
@@ -848,7 +829,7 @@ The proof that $k_\alpha^-$ constitutes a lower bound is similar.
 
 \begin{figure}
 \centering
-    \includegraphics[width=\linewidth]{figures/cutoff_.2_.1_15.eps}
+    \includegraphics[trim=0mm 0mm 5mm 7mm, clip, width=\linewidth]{figures/cutoff_.2_.1_15.eps}
     \caption{The profit of the optimal MVA and the $\alpha$-cutoff-MVA are plotted as
     solid lines.  (The optimal value of $l$ is determined by brute-force
     search.)  $\alpha$ and $l$ are plotted in dashed lines, to illustrate
@@ -857,6 +838,25 @@ The proof that $k_\alpha^-$ constitutes a lower bound is similar.
     above $l$, because in this case the $\alpha$-cutoff-MVA is often forced to
     ask another query to get below $l$.}\label{fig:cutoff}
 \end{figure}
+
+\begin{figure*}
+\centering
+  \subfigure[profit]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/profit_.1.eps}
+    \label{fig:general_profit}
+  }
+  \subfigure[low value]{
+    \includegraphics[trim=0mm 5mm 5mm 15mm, clip, height=.3\linewidth, width=.4\linewidth]{figures/l_.1.eps}
+    \label{fig:general_l}
+  }
+  \caption{The expected profit, as well as the value of $l$ (the lowest
+    valuation that may bid), for various mechanisms as a function of $n$.
+    We have
+  broadcast cost $b = 0.1$ and  seller and bidder bid costs $\beta_1 =
+  \beta_2 = 0.05$ (thus $c = \beta_1+\beta_2 = 0.1$).}\label{fig:general}
+\end{figure*}
+%Done vc: on left hand side add ``MVA'', on right hand side don't mention l
+%(just optimal)
 
 We continue to evaluate on a uniform distribution over valuations.
 By Theorem~\ref{theorem:k_bounds}, we only need to try two values of $k$.
