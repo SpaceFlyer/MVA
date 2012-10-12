@@ -83,7 +83,7 @@ which the seller is repeatedly lowering the reserve price.
   An MVA is defined by a sequence of reserve prices $r_1, r_2, \ldots$
   (which may be finite or infinite) where $r_i > r_{i+1}$. In round $i$, a
   Vickrey auction with reserve price $r_i$ is run (if the item has not been
-  sold yet).
+  sold).
 %The seller creates a Vickrey
 %auction with a reserve price $r_i$ at time $i$ (or round $i$). In each
 %Vickrey auction, if only one buyer bids, he/she gets the item and pays reserve
@@ -202,8 +202,8 @@ bidding thresholds $a_1, a_2, \ldots$.
 
 \begin{proof}
 We show that the conditions of Lemma~\ref{lemma:sufficient} hold.  If $i$
-is the last round, then $a_i=0=r_i$.  Also, $$\lim_i r_i \leq \lim_i
-\left( \int_{0}^{a_i} a_i \, p(x) dx \right) / P(a_i) = \lim_i a_i = 0$$
+is the last round, then $a_i=0=r_i$.  Also, $$\lim_{i\rightarrow\infty} r_i \leq \lim_{i\rightarrow\infty}
+\left( \int_{0}^{a_i} a_i \, p(x) dx \right) / P(a_i) = \lim_{i\rightarrow\infty} a_i = 0$$
 If $i$ is not the last round, 
 by (\ref{eq:MVA_eq_relation}) we have $r_i P(a_i) = \int_{0}^{a_i}
 x\,p(x)dx$ for all $i$ (this clearly also holds if
@@ -221,7 +221,7 @@ which equals to left-hand side.
 This tells us that a bidder will bid in a round of an MVA if and only if
 the expected second-highest bid conditional on this bidder's valuation
 being the highest is greater than the reserve price of that round. For
-example, if the distribution is uniform, we have $r_i = \frac{n-1}{n}
+example, if the distribution is uniform, $r_i = \frac{n-1}{n}
 a_i$. 
 
 A similar analysis to the one in this subsection (in a model that
@@ -252,15 +252,14 @@ Hence, maximizing profit is equivalent to minimizing the seller's query
 costs.
 
 By the revelation principle, we can restrict our attention to mechanisms in
-which agents always answer queries truthfully in equilibrium.\footnote{For
+which agents always answer truthfully in equilibrium.\footnote{For
   example, for MVAs, we can directly query the agents whether their
   valuations are above $a_i$ while still charging according to 
   $r_i$.}  By Proposition~\ref{prop:sufficient}, we can assume that an
 agent reveals his entire valuation when not staying silent.  By the
 efficiency constraint, the mechanism must at least discover a bidder with
 the highest valuation.  This optimization problem corresponds to
-Definition~\ref{def:query}.  We will then prove that MVAs can achieve this
-lower bound and are hence optimal.
+Definition~\ref{def:query}. 
 
 %he best case is that every reply contains the exact
 %and truthful valuation of the corresponding bidder since every reply (or
@@ -273,8 +272,9 @@ lower bound and are hence optimal.
 \begin{definition}\label{def:query}
   A {\em (direct-revelation) query} is given by a subset $Q \subseteq
   [0,1)$, such that if the agent's valuation is in $Q$, he replies with his
-  exact valuation, and otherwise stays silent.  The cost of a query is $b+j
-  \cdot c$ where $j$ is the number of bidders who do not stay silent. 
+  exact valuation, and otherwise stays silent.  
+  %The cost of a query is $b+j
+%  \cdot c$ where $j$ is the number of bidders who do not stay silent. 
 A strategy for asking queries can be represented by a function
 \begin{displaymath}
 	S\big(f, m, V, \mathcal Q = \{Q_1, Q_2, \ldots, Q_{i-1} \}\big) = Q_i
@@ -489,7 +489,7 @@ is equivalent to this descending-query mechanism.
 %achieves this best case descending query strategy.  Thus, MVAs are of minimum cost.
 \end{proof}
 
-By the revenue equivalence theorem,  we obtain that MVAs are optimal:
+By the revenue equivalence theorem,  we obtain% that MVAs are optimal:
 
 \begin{corollary}
 If the bidders have no cost for bidding ($\beta_2=0$), MVAs 
@@ -561,8 +561,8 @@ For the remaining case, we first argue that there must be some $\alpha$-MVA
 that is optimal.  
 By  Lemma~\ref{lemma:uniform}, we can assume $f$ is uniform.
 By Theorem~\ref{theorem:MVA_eq}, some MVA must be
-optimal.  For this MVA, consider $a_1$.  If $a_i=0$, this is the
-$0$-MVA. If $a_i>0$, then if at least one bidder is above $a_1$, we finish after
+optimal.  For this MVA, consider $a_1$.  If $a_1=0$, this is the
+$0$-MVA. If $a_1>0$, then if at least one bidder is above $a_1$, we finish after
 the first query; otherwise, the resulting conditional distribution for each
 bidder is $f|_{[0,a_1)}$. According to Lemma~\ref{lemma:uniform}, we can
 rescale this conditional distribution to the uniform distribution over
@@ -713,7 +713,7 @@ to converge to the optimal one as $n$ grows.  The proof is omitted due to
 the space constraint.
 
 \begin{theorem}\label{theorem:approx1}
-Let $W$ denote the Lambert W function defined by the lower branch of $W(x) e^{W(x)} = x$.
+Let $W$ denote the lower branch of Lambert W function defined by $W(x) e^{W(x)} = x$.
 Let $\alpha = (-W(-1-\rho))^{-1/n}$.  Then 
 %Suppose that the optimal $\alpha$ is $\alpha^*$ which
 %satisfies equation \ref{eq:alpha}. Then $\alpha = (-W(-1-\rho))^{-1/n}$ satisfies
@@ -861,8 +861,8 @@ the uniform $k$-MVA  has significant higher cost than both the optimal
 $k$-MVA and the $\alpha$-cutoff-$k$-MVA.
 \item The $\alpha$-cutoff-$3$-MVA works well (close to optimal $3$-MVA).
 %as shown in figure \ref{fig:cost_comparison_.5}. 
-but it is not
-as good as  the optimal $2$-MVA when $\rho$ is small and $n$ is large. 
+%but it is not
+%as good as  the optimal $2$-MVA when $\rho$ is small and $n$ is large. 
 %as shown in
 %figure \ref{fig:cost_comparison_2}. Thus find the right thresholds is even more
 %important than adding one more round in those cases.
