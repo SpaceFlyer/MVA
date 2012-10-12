@@ -76,9 +76,9 @@ that bidders 1 and 2 have valuations above \$100 and bidder 3 has one below
 
 How do we evaluate how effective a particular iterative auction mechanism
 is in reducing communication?  Perhaps the simplest measure is the number
-of bits communicated (see, e.g.,~\cite{}).  Within a particular query
+of bits communicated (see, e.g.,~\cite{Nisan05:Communication}).  Within a particular query
 model, it may also make sense to minimize the total number of queries (see,
-e.g.,~\cite{}). However, in this paper, we argue that such existing models
+e.g.,~\cite{Lahaie04:Applying}). However, in this paper, we argue that such existing models
 fail to capture important aspects of the cost of communication in certain
 types of Internet auctions.  In particular, in such auctions often the most
 costly communication that takes place is the {\em first} time that a bidder
@@ -144,27 +144,28 @@ bidder cost for communication.
 \input{general}
 
 \section{Conclusion}
+In this paper, we modeled Internet auctions in which the seller communicates to
+the bidders with costly broadcast queries, and if a bidder actively
+participates there is potentially a communication cost to both that bidder and
+the seller.  We focused primarily on multi-round Vickrey auctions (MVAs).  We
+first assumed that (1) efficient allocation is required and (2) the bidders'
+cost for bidding is zero ($\beta_2 = 0$). We proved that there is an MVA, which
+we call an $\alpha$-MVA, that has optimal profit for the seller among all
+mechanisms.  We gave two ways to compute an approximately optimal $\alpha$.
+The first obtains a 1.582-approximation and its expected communication cost is
+bounded by a value that is constant in the number of bidders. The expected cost
+of the second is guaranteed to converge to the optimal expected cost as the
+number of bidders grows.
 
-In this paper, we model an Internet auction as broadcast queries with
-communication cost charged to both the seller and bidders. Motivated by
-realworld applications such as eBay, one class of mechanisms called multi-round
-Vickrey auctions (MVAs) is firstly studied in one simpler case with two
-constraints (1) efficient allocation is required and (2) bidders' bid cost is
-zero ($\beta_2 = 0$).  We prove that one MVA has optimal profit for the seller
-among all mechanisms and show how to compute such optimal MVA, namely
-$\alpha$-MVA.  We also give two approximations of $\alpha$. The first simple
-one gets a $1.582$ approximation ratio and proves that the expected
-communication cost is a constant in the number of bidders.  The second one is
-guaranteed to have expected cost converged to optimal one. For general cases
-where those two constraints are dropped, we show that bidders' expected total
-spending is fixed by allocation rule. Thus given a fixed allocation rule, the
-profit is maximized when expected total cost is minimized. Hence it's no harm
-for the seller to pay bidder's bid cost to make bidders act as if there's no
-cost for bidders. We then prove that MVA is also optimal in general cases and
-show how to compute optimal MVA in general. The optimal MVA in general turns
-out to be not as elegant and simple as $\alpha$-MVA. However, by using
-$\alpha$-cutoff-MVA (which is derived from $\alpha$-MVA) as an initial guess,
-we can compute that optimal MVA easily.
+We then dropped the two constraints and considered the general case.  We showed
+that bidders' expected total spending is fixed by the allocation rule (and the
+expected utility of bidders with value $0$). Thus, for a fixed allocation rule,
+the profit is maximized when expected total cost is minimized.  We then proved
+that MVAs are also optimal in the general case and focused on computing an
+optimal MVA.  The optimal MVA in the general case turns out to be not as
+elegant and simple as an $\alpha$-MVA.  Nevertheless, we show that by using a
+modification that we call an $\alpha$-cutoff-MVA as an initial guess, we can
+compute the optimal MVA easily.
 %\section{Acknowledgement}
 
 \bibliographystyle{abbrv}

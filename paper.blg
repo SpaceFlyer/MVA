@@ -3,45 +3,45 @@ The top-level auxiliary file: paper.aux
 The style file: abbrv.bst
 Database file #1: references.bib
 Warning--empty note in Ausubel99:EfficientOptimality
-You've used 14 entries,
+You've used 16 entries,
             2118 wiz_defined-function locations,
-            1112 strings with 18384 characters,
-and the built_in function-call counts, 4605 in all, are:
-= -- 458
-> -- 174
+            1123 strings with 18670 characters,
+and the built_in function-call counts, 5212 in all, are:
+= -- 516
+> -- 200
 < -- 5
-+ -- 69
-- -- 54
-* -- 299
-:= -- 743
-add.period$ -- 44
-call.type$ -- 14
-change.case$ -- 69
++ -- 80
+- -- 62
+* -- 338
+:= -- 843
+add.period$ -- 50
+call.type$ -- 16
+change.case$ -- 79
 chr.to.int$ -- 0
-cite$ -- 15
-duplicate$ -- 197
-empty$ -- 399
-format.name$ -- 54
-if$ -- 991
+cite$ -- 17
+duplicate$ -- 222
+empty$ -- 454
+format.name$ -- 62
+if$ -- 1118
 int.to.chr$ -- 0
-int.to.str$ -- 14
-missing$ -- 13
-newline$ -- 73
-num.names$ -- 28
-pop$ -- 76
+int.to.str$ -- 16
+missing$ -- 15
+newline$ -- 83
+num.names$ -- 32
+pop$ -- 88
 preamble$ -- 1
-purify$ -- 55
+purify$ -- 63
 quote$ -- 0
-skip$ -- 139
+skip$ -- 155
 stack$ -- 0
-substring$ -- 299
-swap$ -- 46
+substring$ -- 335
+swap$ -- 49
 text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 56
+type$ -- 64
 warning$ -- 1
-while$ -- 46
-width$ -- 16
-write$ -- 152
+while$ -- 52
+width$ -- 18
+write$ -- 173
 (There was 1 warning)

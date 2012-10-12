@@ -20,6 +20,11 @@ P.~J.-J. Herings, R.~M\"{u}ller, and D.~Vermeulen.
 \newblock Bisection auctions.
 \newblock {\em SIGecom Exch.}, 8(1):6:1--6:5, July 2009.
 
+\bibitem{Lahaie04:Applying}
+S.~Lahaie and D.~Parkes.
+\newblock Applying learning algorithms to preference elicitation.
+\newblock In {\em ACM EC}, 2004.
+
 \bibitem{McAfee97:SequentialAuctions}
 R.~McAfee and D.~Vincent.
 \newblock Sequentially optimal auctions.
@@ -34,6 +39,12 @@ R.~P. McAfee and J.~McMillan.
 R.~B. Myerson.
 \newblock {Optimal Auction Design}.
 \newblock {\em Mathematics of Operations Research}, 6:58--73, 1981.
+
+\bibitem{Nisan05:Communication}
+N.~Nisan and I.~Segal.
+\newblock The communication requirements of efficient allocations and
+  supporting prices.
+\newblock {\em Journal of Economic Theory}, 129(1):192--224, 2006.
 
 \bibitem{Parkes06:Iterative}
 D.~Parkes.
