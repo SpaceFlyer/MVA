@@ -20,7 +20,18 @@
 
 \numberofauthors{2}
 
-\author{ Paper \#192 }
+\author{ 
+\alignauthor
+Yuqian Li\\
+	\affaddr{Department of Computer Science, Duke University}\\
+	\affaddr{Durham, NC 27708 USA}\\
+	\email{yuqian@cs.duke.edu}
+\alignauthor
+Vincent Conitzer\\
+	\affaddr{Department of Computer Science, Duke University}\\
+	\affaddr{Durham, NC 27708 USA}\\
+	\email{conitzer@cs.duke.edu}
+}
 
 
 \maketitle
@@ -117,17 +128,19 @@ anonymous) auctions of the type discussed above.
 %close to most Internet platforms. In another word, bidders do not have to buy a
 %ticket to walk in and observe.
 
-The rest of this paper is organized as follows.  In
-Section~\ref{sec:model}, we provide a formal model of communication cost
-motivated by the observations just discussed.  In
-Section~\ref{sec:efficient}, we study the special case in which efficient
-allocation is a constraint and bidders experience no cost from bidding.
-The characterization of the optimal mechanism in this special case turns
-out to be closely related to earlier work on finding an optimal agent by
-iteratively relaxing the parameters of the search~\cite{SarneSR2010:IncreasingSearch}.  In
-Section~\ref{sec:general}, we drop the assumptions of efficiency and no
-bidder cost for communication.
-
+The rest of this paper is organized as follows.  In Section~\ref{sec:model}, we
+provide a formal model of communication cost motivated by the observations just
+discussed.  In Section~\ref{sec:efficient}, we study the special case in which
+efficient allocation is a constraint and bidders experience no cost from
+bidding.  The characterization of the optimal mechanism in this special case
+turns out to be closely related to earlier work on finding an optimal agent by
+iteratively relaxing the parameters of the search
+~\cite{SarneSR2010:IncreasingSearch} (see more detailed discussion at
+the end of Section \ref{sec:alpha-MVA}).  In Section~\ref{sec:general}, we drop
+the assumptions of efficiency and no bidder cost for communication. In both
+cases, the optimal auctions are proved to be multi-round Vickrey auctions (MVAs),
+which were previously studied by \cite{McAfee97:SequentialAuctions}, but with a
+different motivation, time discount, rather than communication cost. 
 
 
 %\subsection{Related research}
@@ -166,7 +179,8 @@ optimal MVA.  The optimal MVA in the general case turns out to be not as
 elegant and simple as an $\alpha$-MVA.  Nevertheless, we show that by using a
 modification that we call an $\alpha$-cutoff-MVA as an initial guess, we can
 compute the optimal MVA easily.
-%\section{Acknowledgement}
+
+\section{Acknowledgement}
 
 \bibliographystyle{abbrv}
 \bibliography{references}
